@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dados Dorados — Análisis en vivo para Bac Bo</title>
+<meta name="description" content="Dados Dorados: análisis de patrones en tiempo real para mesas de Bac Bo en vivo, con gestión de gales incluida. Donde cada dado es una oportunidad de oro.">
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'none';
+  script-src 'self' 'unsafe-inline';
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src https://fonts.gstatic.com;
+  img-src 'self' data:;
+  connect-src 'self' https://nqkdaxsdopeuclrwriav.supabase.co https://t.me;
+  base-uri 'none';
+  form-action 'none';
+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0908;
+    --bg-alt:#131110;
+    --card:#18150f;
+    --card-border:#2c2413;
+    --gold:#d4af37;
+    --gold-light:#f3d47b;
+    --gold-dim:#8a7128;
+    --text:#f2ede1;
+    --text-dim:#b7ad98;
+    --text-faint:#7d7462;
+    --green:#4caf7d;
+    --radius:16px;
+    --max:1140px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:
+      radial-gradient(ellipse 900px 520px at 18% -8%, rgba(212,175,55,0.16), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 92% 12%, rgba(212,175,55,0.09), transparent 55%),
+      radial-gradient(ellipse 900px 620px at 50% 105%, rgba(212,175,55,0.06), transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, #0d0b08 50%, var(--bg) 100%);
+    color:var(--text);
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3, .headline{
+    font-family:'Cormorant Garamond', Georgia, serif;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *, *::before, *::after{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  .gold-text{
+    background:linear-gradient(120deg, var(--gold-dim), var(--gold-light) 45%, var(--gold));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 24px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,9,8,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(212,175,55,0.12);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:var(--max); margin:0 auto; padding:16px 24px;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.4rem;}
+  .brand .dice{font-size:1.5rem;}
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:8px;
+    background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-dim) 100%);
+    color:#141008; font-weight:700; font-size:0.9rem;
+    padding:10px 20px; border-radius:999px; text-decoration:none;
+    box-shadow:0 4px 18px rgba(212,175,55,0.25), inset 0 1px 0 rgba(255,255,255,0.35);
+    transition:transform .15s ease, box-shadow .15s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{transform:translateY(-1px); box-shadow:0 6px 22px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.35);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:96px 24px 80px;
+    text-align:center;
+    position:relative;
+  }
+  .hero .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--gold);
+    background:rgba(212,175,55,0.08);
+    border:1px solid rgba(212,175,55,0.25);
+    padding:6px 16px; border-radius:999px;
+    font-size:0.8rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+    margin-bottom:28px;
+  }
+  .hero h1{
+    font-size:clamp(3rem, 8.5vw, 5.4rem);
+    line-height:1.03;
+    letter-spacing:-0.02em;
+    margin-bottom:20px;
+  }
+  .hero .slogan{
+    font-size:clamp(1.05rem, 2.4vw, 1.35rem);
+    color:var(--text-dim);
+    max-width:640px;
+    margin:0 auto 40px;
+    font-style:italic;
+  }
+  .hero-ctas{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:56px;}
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:10px;
+    background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-dim) 100%);
+    color:#141008; font-weight:800; font-size:1.05rem;
+    padding:16px 34px; border-radius:999px; text-decoration:none;
+    box-shadow:0 8px 30px rgba(212,175,55,0.3), inset 0 1px 0 rgba(255,255,255,0.35);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 14px 40px rgba(212,175,55,0.5), inset 0 1px 0 rgba(255,255,255,0.4);}
+  .btn-secondary{
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--text); font-weight:600; font-size:1rem;
+    padding:16px 28px; border-radius:999px; text-decoration:none;
+    border:1px solid rgba(242,237,225,0.18);
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .btn-secondary:hover{border-color:rgba(212,175,55,0.5); background:rgba(212,175,55,0.06);}
+
+  .dice-row{font-size:1.8rem; letter-spacing:0.5em; opacity:0.65;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:88px 24px;}
+  .section-head{text-align:center; max-width:620px; margin:0 auto 56px;}
+  .section-head .tag{
+    color:var(--gold); font-size:0.8rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; display:block; margin-bottom:14px;
+  }
+  .section-head h2{font-size:clamp(2.1rem, 4.6vw, 3rem); letter-spacing:-0.015em; margin-bottom:16px;}
+  .section-head p{color:var(--text-dim); font-size:1.08rem;}
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);}
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
+
+  /* ---------- ELEGANT CARD HOVER (shared) ---------- */
+  .feature-card, .price-card, .dash-card{position:relative; isolation:isolate;}
+  .feature-card::before, .price-card::before, .dash-card::before{
+    content:""; position:absolute; inset:0; border-radius:inherit; padding:1px;
+    background:linear-gradient(135deg, rgba(212,175,55,0), rgba(212,175,55,0.65) 45%, rgba(212,175,55,0));
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+    opacity:0; transition:opacity .35s ease; pointer-events:none; z-index:1;
+  }
+  .feature-card:hover::before, .price-card:hover::before, .dash-card:hover::before{opacity:1;}
+
+  /* ---------- FEATURES ---------- */
+  .features{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;
+    max-width:var(--max); margin:0 auto;
+  }
+  .feature-card{
+    background:linear-gradient(180deg, var(--card), var(--bg-alt));
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:32px 26px;
+    transition:transform .3s cubic-bezier(.16,.8,.24,1), box-shadow .3s ease, border-color .3s ease;
+  }
+  .feature-card:hover{
+    transform:translateY(-8px) scale(1.015);
+    border-color:rgba(212,175,55,0.4);
+    box-shadow:0 20px 45px rgba(0,0,0,0.35), 0 0 30px rgba(212,175,55,0.1);
+  }
+  .feature-icon{
+    width:52px; height:52px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.25);
+    font-size:1.5rem; margin-bottom:20px;
+    transition:transform .3s ease;
+  }
+  .feature-card:hover .feature-icon{transform:scale(1.1) rotate(-4deg);}
+  .feature-card h3{font-family:'Inter',sans-serif; font-weight:700; font-size:1.15rem; margin-bottom:10px; color:var(--text);}
+  .feature-card p{color:var(--text-dim); font-size:0.92rem; line-height:1.6;}
+
+  /* ---------- STATS ---------- */
+  .stats-section{background:var(--bg-alt); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);}
+  .stats-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:24px;
+    max-width:var(--max); margin:0 auto;
+  }
+  .stat-card{text-align:center; padding:20px 10px;}
+  .stat-number{
+    font-family:'Cormorant Garamond', serif; font-weight:700;
+    font-size:clamp(2.4rem, 5vw, 3.2rem);
+    line-height:1;
+  }
+  .stat-label{color:var(--text-faint); font-size:0.85rem; margin-top:10px; letter-spacing:0.03em;}
+  .stats-note{
+    text-align:center; color:var(--text-faint); font-size:0.78rem; margin-top:36px;
+    max-width:520px; margin-left:auto; margin-right:auto;
+  }
+
+  /* ---------- DASHBOARD ---------- */
+  .dashboard-section .tag{display:inline-flex; align-items:center; gap:8px;}
+  .live-dot{
+    width:8px; height:8px; border-radius:50%; background:#ff4d4d; display:inline-block;
+    animation:pulse 1.8s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(255,77,77,0.5);}
+    70%{box-shadow:0 0 0 8px rgba(255,77,77,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,77,77,0);}
+  }
+  .dash-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;
+    max-width:var(--max); margin:0 auto;
+  }
+  .dash-card{
+    background:linear-gradient(180deg, var(--card), var(--bg-alt));
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:26px 22px;
+    text-align:center;
+    transition:transform .3s cubic-bezier(.16,.8,.24,1), box-shadow .3s ease, border-color .3s ease;
+  }
+  .dash-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(212,175,55,0.35);
+    box-shadow:0 16px 36px rgba(0,0,0,0.3), 0 0 24px rgba(212,175,55,0.08);
+  }
+  .dash-label{color:var(--text-faint); font-size:0.78rem; letter-spacing:0.03em; margin-bottom:10px; text-transform:uppercase;}
+  .dash-value{font-family:'Cormorant Garamond', serif; font-weight:700; font-size:clamp(1.15rem, 2.4vw, 1.55rem); line-height:1.25;}
+  .dash-sub{color:var(--text-dim); font-size:0.78rem; margin-top:8px;}
+
+  /* ---------- PRICING ---------- */
+  .pricing-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:24px;
+    max-width:820px; margin:0 auto;
+  }
+  .price-card{
+    background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius);
+    padding:38px 32px; position:relative; overflow:hidden;
+    display:flex; flex-direction:column;
+    transition:transform .3s cubic-bezier(.16,.8,.24,1), box-shadow .3s ease;
+  }
+  .price-card:hover{transform:translateY(-6px); box-shadow:0 20px 45px rgba(0,0,0,0.35);}
+  .price-card.featured{border-color:rgba(212,175,55,0.55); box-shadow:0 0 0 1px rgba(212,175,55,0.15), 0 20px 50px rgba(212,175,55,0.08);}
+  .price-card.featured:hover{box-shadow:0 0 0 1px rgba(212,175,55,0.25), 0 26px 60px rgba(212,175,55,0.16);}
+  .price-badge{
+    position:absolute; top:18px; right:18px;
+    background:linear-gradient(135deg, rgba(212,175,55,0.28), rgba(212,175,55,0.12)); color:var(--gold-light);
+    font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    padding:5px 12px; border-radius:999px; border:1px solid rgba(212,175,55,0.3);
+  }
+  .price-badge.soon{background:rgba(242,237,225,0.06); color:var(--text-faint); border-color:rgba(242,237,225,0.15);}
+  .price-card h3{font-family:'Inter',sans-serif; font-size:1.1rem; font-weight:700; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;}
+  .price-amount{font-family:'Cormorant Garamond', serif; font-size:3.2rem; font-weight:700; letter-spacing:-0.02em; margin:12px 0 24px;}
+  .price-amount span{font-size:1rem; color:var(--text-faint); font-family:'Inter',sans-serif; font-weight:500;}
+  .price-list{list-style:none; margin-bottom:28px; flex:1;}
+  .price-list li{
+    display:flex; align-items:flex-start; gap:10px;
+    color:var(--text-dim); font-size:0.92rem; margin-bottom:12px;
+  }
+  .price-list li::before{content:"✦"; color:var(--gold); flex-shrink:0;}
+  .price-cta{
+    display:block; text-align:center; width:100%;
+    padding:14px; border-radius:999px; text-decoration:none; font-weight:700; font-size:0.95rem;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .price-cta.gold{
+    background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-dim) 100%);
+    color:#141008; box-shadow:inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .price-cta.gold:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(212,175,55,0.35), inset 0 1px 0 rgba(255,255,255,0.4);}
+
+  /* ---------- FINAL CTA ---------- */
+  .final-cta{
+    text-align:center;
+    background:linear-gradient(180deg, transparent, rgba(212,175,55,0.06));
+  }
+  .final-cta h2{font-size:clamp(2rem, 4.5vw, 2.8rem); margin-bottom:16px;}
+  .final-cta p{color:var(--text-dim); margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto;}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--card-border); padding:40px 24px 32px;}
+  .footer-inner{
+    max-width:var(--max); margin:0 auto;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
+  }
+  .footer-brand{display:flex; align-items:center; gap:8px; font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.15rem;}
+  footer .links{display:flex; gap:22px;}
+  footer a{color:var(--text-dim); text-decoration:none; font-size:0.9rem;}
+  footer a:hover{color:var(--gold);}
+  .disclaimer{
+    max-width:var(--max); margin:24px auto 0; padding-top:20px; border-top:1px solid rgba(242,237,225,0.06);
+    color:var(--text-faint); font-size:0.78rem; line-height:1.6;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .features{grid-template-columns:repeat(2, 1fr);}
+    .stats-grid{grid-template-columns:repeat(2, 1fr);}
+    .dash-grid{grid-template-columns:repeat(2, 1fr);}
+  }
+  @media (max-width:620px){
+    .features{grid-template-columns:1fr;}
+    .dash-grid{grid-template-columns:1fr;}
+    .pricing-grid{grid-template-columns:1fr;}
+    .hero{padding:64px 20px 56px;}
+    section{padding:64px 20px;}
+    .nav-cta span.long{display:none;}
+    .footer-inner{flex-direction:column; text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand"><span class="dice">🎲</span> <span class="gold-text">Dados Dorados</span></div>
+    <a class="nav-cta" href="https://t.me/DadosDorados" target="_blank" rel="noopener">
+      <span>✈️</span><span class="long">Unirme al canal</span><span style="display:none" class="short">Unirme</span>
+    </a>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">🔴 Análisis en vivo — mesas de Bac Bo</span>
+      <h1><span class="gold-text">Dados Dorados</span></h1>
+      <p class="slogan">"Donde cada dado es una oportunidad de oro"</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="https://t.me/DadosDorados" target="_blank" rel="noopener">✈️ Unirme al canal gratis</a>
+        <a class="btn-secondary" href="#caracteristicas">Ver cómo funciona ↓</a>
+      </div>
+      <div class="dice-row">⚀ ⚁ ⚂ ⚃ ⚄ ⚅</div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="caracteristicas">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="tag">Qué ofrecemos</span>
+        <h2>Todo lo que necesitas para decidir con criterio</h2>
+        <p>Un sistema construido para leer la mesa en tiempo real y avisarte en el momento justo.</p>
+      </div>
+      <div class="features">
+        <div class="feature-card reveal">
+          <div class="feature-icon">⚡</div>
+          <h3>Alertas en tiempo real</h3>
+          <p>Conexión directa a la mesa de Bac Bo en vivo. Cada ronda se procesa al instante, sin retrasos.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">📊</div>
+          <h3>Análisis de patrones</h3>
+          <p>Detectamos rachas y tendencias históricas antes de sugerir una entrada, con confirmación previa.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🎯</div>
+          <h3>Gestión de gales</h3>
+          <p>Cada alerta incluye su plan de gales — sabes exactamente cuánto arriesgar y hasta dónde llegar.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🛡️</div>
+          <h3>Modo pausa automático</h3>
+          <p>Tras pérdidas seguidas, el sistema entra en modo pausa y analiza en silencio hasta recuperar precisión.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="tag">Números del canal</span>
+        <h2>Resultados que hablan por sí solos</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card reveal">
+          <div class="stat-number gold-text" data-count-to="73" data-suffix="%">0%</div>
+          <div class="stat-label">Efectividad histórica</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="stat-number gold-text" data-count-to="1240" data-suffix="+">0+</div>
+          <div class="stat-label">Alertas cerradas</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="stat-number gold-text" data-count-to="2800" data-suffix="+">0+</div>
+          <div class="stat-label">Miembros en el canal</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="stat-number gold-text">24/7</div>
+          <div class="stat-label">Monitoreo de la mesa</div>
+        </div>
+      </div>
+      <p class="stats-note">Resultados actualizados al cierre de cada señal.</p>
+      <p class="stats-note" style="margin-top:8px;">* Datos de ejemplo mientras se recopilan estadísticas reales del canal — se actualizarán con cifras verificadas.</p>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="dashboard-section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="tag"><span class="live-dot"></span> En vivo</span>
+        <h2>Dashboard del día</h2>
+        <p>Datos reales de las señales ya cerradas de hoy — se actualiza solo.</p>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-card reveal">
+          <div class="dash-label">Última señal cerrada</div>
+          <div class="dash-value" id="dashUltima">—</div>
+          <div class="dash-sub" id="dashUltimaSub">Cargando…</div>
+        </div>
+        <div class="dash-card reveal">
+          <div class="dash-label">Efectividad del día</div>
+          <div class="dash-value gold-text" id="dashEfectividad">—</div>
+        </div>
+        <div class="dash-card reveal">
+          <div class="dash-label">Racha actual</div>
+          <div class="dash-value" id="dashRacha">—</div>
+        </div>
+        <div class="dash-card reveal">
+          <div class="dash-label">Señales del día</div>
+          <div class="dash-value gold-text" id="dashTotal">—</div>
+        </div>
+      </div>
+      <p class="stats-note" id="dashUpdated">Conectando con el panel en vivo…</p>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="precios">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="tag">Acceso</span>
+        <h2>Planes simples, sin letra chica</h2>
+        <p>Empieza gratis y sube a Premium cuando quieras el análisis completo, en tiempo real.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card reveal">
+          <span class="price-badge soon">Gratuito</span>
+          <h3>Plan Gratis</h3>
+          <div class="price-amount">$0 <span>/ para siempre</span></div>
+          <ul class="price-list">
+            <li>1 de cada 5 alertas completas (con todos los gales)</li>
+            <li>Reporte diario a las 10pm con resultados del día</li>
+            <li>Alerta cuando hay racha de 3+ alertas ganadas seguidas</li>
+            <li>Alerta cuando el bot entra en modo pausa</li>
+            <li>Acceso al canal @DadosDorados</li>
+          </ul>
+          <a class="price-cta gold" href="https://t.me/DadosDorados" target="_blank" rel="noopener">Unirme gratis</a>
+        </div>
+        <div class="price-card featured reveal">
+          <span class="price-badge">Recomendado</span>
+          <h3>Plan Premium</h3>
+          <div class="price-amount">$40.000 <span>COP / mes</span></div>
+          <ul class="price-list">
+            <li>Todas las alertas en tiempo real</li>
+            <li>Aviso de sospecha de patrón antes de la entrada</li>
+            <li>Alerta cuando hay racha de 3+ alertas ganadas seguidas</li>
+            <li>Alerta al entrar en modo pausa</li>
+            <li>Alerta del día cada mañana a las 8am</li>
+            <li>Resumen semanal los domingos</li>
+            <li>Grupo VIP exclusivo (@DadosDoradosVIP)</li>
+            <li>Estadísticas diarias detalladas</li>
+            <li>Soporte directo por Telegram</li>
+          </ul>
+          <a class="price-cta gold" href="https://t.me/DadosDorados" target="_blank" rel="noopener">Quiero Premium</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="wrap">
+      <h2><span class="gold-text">¿Listo para decidir con ventaja?</span></h2>
+      <p>Únete a Dados Dorados y recibe el próximo análisis directo en tu Telegram.</p>
+      <a class="btn-primary" href="https://t.me/DadosDorados" target="_blank" rel="noopener">✈️ Unirme al canal — @DadosDorados</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><span>🎲</span> <span class="gold-text">Dados Dorados</span></div>
+    <div class="links">
+      <a href="https://t.me/DadosDorados" target="_blank" rel="noopener">Telegram</a>
+      <a href="#caracteristicas">Características</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#precios">Precios</a>
+    </div>
+  </div>
+  <p class="disclaimer">
+    Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados; implica riesgo real de dinero, así que participa con responsabilidad.
+    Servicio para mayores de edad, no afiliado a Evolution Gaming ni a los operadores mencionados.
+  </p>
+</footer>
+
+<script>
+(function () {
+  var SUPABASE_URL = "https://nqkdaxsdopeuclrwriav.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xa2RheHNkb3BldWNscndyaWF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NjA3OTEsImV4cCI6MjA5NzAzNjc5MX0.SVdlI3R5K0rSYxSDpHRMHHw-3CDbSXTdgyZeA768j8s";
+  var headers = { apikey: SUPABASE_ANON_KEY, Authorization: "Bearer " + SUPABASE_ANON_KEY };
+
+  function emojiResultado(r) {
+    return r === "Player" ? "🔵" : r === "Banker" ? "🔴" : "🟡";
+  }
+
+  function esGanada(s) {
+    return s.gano === 1 || s.gano === true;
+  }
+
+  function hoyISO() {
+    var d = new Date();
+    var pad = function (n) { return String(n).padStart(2, "0"); };
+    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  }
+
+  function horaCorta(iso) {
+    if (!iso) return "";
+    try {
+      return new Date(iso).toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" });
+    } catch (e) {
+      return "";
+    }
+  }
+
+  async function cargarDashboard() {
+    var elUltima       = document.getElementById("dashUltima");
+    var elUltimaSub    = document.getElementById("dashUltimaSub");
+    var elEfectividad  = document.getElementById("dashEfectividad");
+    var elRacha        = document.getElementById("dashRacha");
+    var elTotal        = document.getElementById("dashTotal");
+    var elUpdated      = document.getElementById("dashUpdated");
+
+    if (!SUPABASE_URL || SUPABASE_URL.indexOf("__SUPABASE") === 0) {
+      elUpdated.textContent = "Panel en vivo no configurado.";
+      return;
+    }
+
+    try {
+      var url = SUPABASE_URL + "/rest/v1/senales?fecha=eq." + hoyISO() + "&select=*&order=created_at.desc";
+      var res = await fetch(url, { headers: headers });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      var data = await res.json();
+
+      if (!Array.isArray(data) || data.length === 0) {
+        elUltima.textContent    = "—";
+        elUltimaSub.textContent = "Aún no hay señales cerradas hoy";
+        elEfectividad.textContent = "—";
+        elRacha.textContent       = "—";
+        elTotal.textContent       = "0";
+      } else {
+        var total       = data.length;
+        var ganadas     = data.filter(esGanada).length;
+        var efectividad = Math.round((ganadas / total) * 100);
+        var ultima      = data[0];
+
+        elUltima.textContent = emojiResultado(ultima.prediccion) + " " + ultima.prediccion +
+          " — " + (esGanada(ultima) ? "Ganada ✅" : "Perdida ❌");
+        elUltimaSub.textContent = [ultima.patron, ultima.gale_nombre, horaCorta(ultima.created_at)]
+          .filter(Boolean).join(" · ");
+
+        elEfectividad.textContent = efectividad + "%";
+
+        var refGanada = esGanada(data[0]);
+        var racha = 0;
+        for (var i = 0; i < data.length; i++) {
+          if (esGanada(data[i]) === refGanada) racha++;
+          else break;
+        }
+        elRacha.textContent = racha + " " + (refGanada ? "ganadas ✅" : "perdidas ❌");
+
+        elTotal.textContent = String(total);
+      }
+
+      elUpdated.textContent = "Actualizado " + new Date().toLocaleTimeString("es-CO",
+        { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    } catch (e) {
+      elUpdated.textContent = "No se pudo conectar con el panel en vivo — reintentando…";
+    }
+  }
+
+  cargarDashboard();
+  setInterval(cargarDashboard, 30000);
+
+  // ---- Scroll reveal + contador animado ----
+  var prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function animateCount(el) {
+    var target = parseInt(el.dataset.countTo, 10);
+    var suffix = el.dataset.suffix || "";
+    if (prefersReduced || isNaN(target)) {
+      el.textContent = (isNaN(target) ? el.textContent : target.toLocaleString("es-CO")) + (isNaN(target) ? "" : suffix);
+      return;
+    }
+    var duration = 1300;
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target).toLocaleString("es-CO") + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target.toLocaleString("es-CO") + suffix;
+    }
+    requestAnimationFrame(step);
+  }
+
+  if ("IntersectionObserver" in window) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var group = Array.prototype.filter.call(el.parentElement ? el.parentElement.children : [], function (s) {
+          return s.classList && s.classList.contains("reveal");
+        });
+        var idx = group.indexOf(el);
+        el.style.transitionDelay = (idx >= 0 ? Math.min(idx, 4) * 70 : 0) + "ms";
+        el.classList.add("is-visible");
+
+        var counter = el.matches(".stat-number") ? el : el.querySelector(".stat-number[data-count-to]");
+        if (counter && counter.dataset.countTo && !counter.dataset.counted) {
+          counter.dataset.counted = "1";
+          animateCount(counter);
+        }
+        revealObserver.unobserve(el);
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll(".reveal").forEach(function (el) { revealObserver.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-visible"); });
+    document.querySelectorAll(".stat-number[data-count-to]").forEach(function (el) {
+      el.textContent = parseInt(el.dataset.countTo, 10).toLocaleString("es-CO") + (el.dataset.suffix || "");
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
