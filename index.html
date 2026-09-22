@@ -269,6 +269,7 @@
     display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;
     max-width:var(--max); margin:0 auto;
   }
+  .dash-grid-3{grid-template-columns:repeat(3, 1fr);}
   .dash-card{
     background:linear-gradient(180deg, var(--card), var(--bg-alt));
     border:1px solid var(--card-border);
@@ -363,10 +364,12 @@
     .features{grid-template-columns:repeat(2, 1fr);}
     .stats-grid{grid-template-columns:repeat(2, 1fr);}
     .dash-grid{grid-template-columns:repeat(2, 1fr);}
+    .dash-grid-3{grid-template-columns:repeat(2, 1fr);}
   }
   @media (max-width:620px){
     .features{grid-template-columns:1fr;}
     .dash-grid{grid-template-columns:1fr;}
+    .dash-grid-3{grid-template-columns:1fr;}
     .pricing-grid{grid-template-columns:1fr;}
     .hero{padding:64px 20px 56px;}
     section{padding:64px 20px;}
@@ -501,6 +504,26 @@
           <div class="dash-value gold-text" id="dashTotal">—</div>
         </div>
       </div>
+
+      <div class="section-head reveal" style="margin-top:56px; margin-bottom:32px;">
+        <span class="tag">Este mes</span>
+      </div>
+      <div class="dash-grid dash-grid-3">
+        <div class="dash-card reveal">
+          <div class="dash-label">Efectividad del mes</div>
+          <div class="dash-value gold-text" id="dashMesEfectividad">—</div>
+        </div>
+        <div class="dash-card reveal">
+          <div class="dash-label">Señales del mes</div>
+          <div class="dash-value gold-text" id="dashMesTotal">—</div>
+        </div>
+        <div class="dash-card reveal">
+          <div class="dash-label">Mejor patrón del mes</div>
+          <div class="dash-value" id="dashMesPatron">—</div>
+          <div class="dash-sub" id="dashMesPatronSub"></div>
+        </div>
+      </div>
+
       <p class="stats-note" id="dashUpdated">Conectando con el panel en vivo…</p>
     </div>
   </section>
@@ -589,6 +612,91 @@
     }
   }
 
+  function primerDiaMesISO() {
+    var d = new Date();
+    var pad = function (n) { return String(n).padStart(2, "0"); };
+    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-01";
+  }
+
+  function mejorPatron(data) {
+    var porPatron = {};
+    data.forEach(function (s) {
+      var p = s.patron || "—";
+      if (!porPatron[p]) porPatron[p] = { total: 0, ganadas: 0 };
+      porPatron[p].total++;
+      if (esGanada(s)) porPatron[p].ganadas++;
+    });
+    var nombre = null, mejorStats = null;
+    Object.keys(porPatron).forEach(function (p) {
+      var stats = porPatron[p];
+      var winrate = stats.ganadas / stats.total;
+      if (!mejorStats || winrate > mejorStats.winrate ||
+          (winrate === mejorStats.winrate && stats.total > mejorStats.total)) {
+        nombre = p;
+        mejorStats = { winrate: winrate, total: stats.total, ganadas: stats.ganadas };
+      }
+    });
+    if (!nombre) return null;
+    return { nombre: nombre, pct: Math.round(mejorStats.winrate * 100), total: mejorStats.total };
+  }
+
+  async function cargarDashboardMes() {
+    var elMesEfectividad = document.getElementById("dashMesEfectividad");
+    var elMesTotal       = document.getElementById("dashMesTotal");
+    var elMesPatron       = document.getElementById("dashMesPatron");
+    var elMesPatronSub    = document.getElementById("dashMesPatronSub");
+
+    try {
+      var url = SUPABASE_URL + "/rest/v1/senales?fecha=gte." + primerDiaMesISO() + "&select=*";
+      var res = await fetch(url, { headers: headers });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      var data = await res.json();
+
+      if (!Array.isArray(data) || data.length === 0) {
+        elMesEfectividad.textContent = "—";
+        elMesTotal.textContent       = "0";
+        elMesPatron.textContent      = "—";
+        elMesPatronSub.textContent   = "Aún sin señales este mes";
+        return;
+      }
+
+      var total       = data.length;
+      var ganadas     = data.filter(esGanada).length;
+      var efectividad = Math.round((ganadas / total) * 100);
+      elMesEfectividad.textContent = efectividad + "%";
+      elMesTotal.textContent       = String(total);
+
+      var mejor = mejorPatron(data);
+      if (mejor) {
+        elMesPatron.textContent    = mejor.nombre;
+        elMesPatronSub.textContent = mejor.pct + "% efectividad · " + mejor.total + " señales";
+      } else {
+        elMesPatron.textContent    = "—";
+        elMesPatronSub.textContent = "";
+      }
+    } catch (e) {
+      elMesEfectividad.textContent = "—";
+      elMesTotal.textContent       = "—";
+      elMesPatron.textContent      = "—";
+      elMesPatronSub.textContent   = "";
+    }
+  }
+
+  var ultimasSenales  = [];
+  var tickerIndice    = 0;
+
+  async function cargarTicker() {
+    try {
+      var url = SUPABASE_URL + "/rest/v1/senales?select=*&order=created_at.desc&limit=5";
+      var res = await fetch(url, { headers: headers });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      var data = await res.json();
+      if (Array.isArray(data) && data.length > 0) ultimasSenales = data;
+    } catch (e) {
+      // deja el array anterior si falla — el ticker sigue mostrando lo último conocido
+    }
+  }
+
   async function cargarDashboard() {
     var elUltima       = document.getElementById("dashUltima");
     var elUltimaSub    = document.getElementById("dashUltimaSub");
@@ -645,8 +753,13 @@
     }
   }
 
-  cargarDashboard();
-  setInterval(cargarDashboard, 30000);
+  function actualizarPanelEnVivo() {
+    cargarDashboard();
+    cargarDashboardMes();
+    cargarTicker();
+  }
+  actualizarPanelEnVivo();
+  setInterval(actualizarPanelEnVivo, 30000);
 
   // ---- Scroll reveal + contador animado ----
   var prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -678,25 +791,30 @@
   actualizarEstadoBot();
   setInterval(actualizarEstadoBot, 30000);
 
-  // ---- Ticker de última señal (simulado — luego se conecta a Supabase) ----
-  var tickerMuestras = [
-    { emoji: "🔵", texto: "Player", resultado: "Ganada ✅", patron: "Ruptura de racha Banker" },
-    { emoji: "🔴", texto: "Banker", resultado: "Ganada ✅", patron: "Racha confirmada 3+" },
-    { emoji: "🟡", texto: "Empate", resultado: "Perdida ❌", patron: "Entrada en gale 2" },
-    { emoji: "🔵", texto: "Player", resultado: "Ganada ✅", patron: "Patrón alterno confirmado" },
-    { emoji: "🔴", texto: "Banker", resultado: "Ganada ✅", patron: "Ruptura confirmada" }
-  ];
-  var tickerIndice = 0;
+  // ---- Ticker de última señal — rota entre las últimas 5 señales reales,
+  // obtenidas de Supabase por cargarTicker() cada 30s (junto al resto del panel).
   function actualizarTicker() {
     var el = document.getElementById("tickerText");
     if (!el) return;
-    var minsAtras = Math.floor(Math.random() * 8) + 1;
-    var muestra = tickerMuestras[tickerIndice % tickerMuestras.length];
+
+    if (!ultimasSenales.length) {
+      el.textContent = "🎲 Última señal: cargando…";
+      return;
+    }
+
+    var s = ultimasSenales[tickerIndice % ultimasSenales.length];
     tickerIndice++;
+
+    var minsAtras = s.created_at
+      ? Math.max(0, Math.round((Date.now() - new Date(s.created_at).getTime()) / 60000))
+      : null;
+    var haceTexto = minsAtras === null ? "" : " · hace " + minsAtras + " min";
+
     el.style.opacity = 0;
     setTimeout(function () {
-      el.textContent = "🎲 Última señal: " + muestra.emoji + " " + muestra.texto +
-        " — " + muestra.resultado + " · " + muestra.patron + " · hace " + minsAtras + " min";
+      el.textContent = "🎲 Última señal: " + emojiResultado(s.prediccion) + " " + s.prediccion +
+        " — " + (esGanada(s) ? "Ganada ✅" : "Perdida ❌") +
+        (s.patron ? " · " + s.patron : "") + haceTexto;
       el.style.opacity = 1;
     }, 250);
   }
