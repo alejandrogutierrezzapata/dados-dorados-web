@@ -101,6 +101,21 @@
     padding:96px 24px 80px;
     text-align:center;
     position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{position:relative; z-index:1;}
+  .hero-particles{position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden;}
+  .particle{
+    position:absolute; bottom:-40px; opacity:0;
+    color:var(--gold-dim);
+    filter:drop-shadow(0 0 6px rgba(212,175,55,0.25));
+    animation:floatUp linear infinite;
+  }
+  @keyframes floatUp{
+    0%{transform:translateY(0) rotate(0deg); opacity:0;}
+    10%{opacity:0.55;}
+    90%{opacity:0.35;}
+    100%{transform:translateY(-640px) rotate(360deg); opacity:0;}
   }
   .hero .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
@@ -144,6 +159,30 @@
   .btn-secondary:hover{border-color:rgba(212,175,55,0.5); background:rgba(212,175,55,0.06);}
 
   .dice-row{font-size:1.8rem; letter-spacing:0.5em; opacity:0.65;}
+
+  /* ---------- LIVE BAR (hero) ---------- */
+  .live-bar{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+    gap:14px; margin-bottom:36px;
+  }
+  .live-status, .ticker-pill{
+    display:inline-flex; align-items:center; gap:9px;
+    background:rgba(212,175,55,0.05);
+    border:1px solid rgba(212,175,55,0.16);
+    padding:9px 18px; border-radius:999px;
+    font-size:0.85rem; color:var(--text-dim);
+  }
+  .bot-dot{
+    width:8px; height:8px; border-radius:50%; flex-shrink:0;
+    background:var(--text-faint);
+  }
+  .bot-dot.on{background:var(--green); animation:pulseGreen 1.7s infinite;}
+  @keyframes pulseGreen{
+    0%{box-shadow:0 0 0 0 rgba(76,175,125,0.5);}
+    70%{box-shadow:0 0 0 8px rgba(76,175,125,0);}
+    100%{box-shadow:0 0 0 0 rgba(76,175,125,0);}
+  }
+  .ticker-text{transition:opacity .25s ease;}
 
   /* ---------- SECTION SHELL ---------- */
   section{padding:88px 24px;}
@@ -252,6 +291,14 @@
     display:grid; grid-template-columns:repeat(2, 1fr); gap:24px;
     max-width:820px; margin:0 auto;
   }
+  .pricing-grid.single{grid-template-columns:1fr; max-width:480px;}
+  .premium-soon{
+    max-width:620px; margin:32px auto 0; text-align:center;
+    border:1px dashed rgba(212,175,55,0.3); border-radius:var(--radius);
+    padding:26px 30px; background:rgba(212,175,55,0.04);
+  }
+  .premium-soon .price-badge{position:static; display:inline-flex; margin-bottom:14px;}
+  .premium-soon p{color:var(--text-dim); font-size:0.95rem;}
   .price-card{
     background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius);
     padding:38px 32px; position:relative; overflow:hidden;
@@ -342,6 +389,7 @@
 <main>
   <!-- HERO -->
   <section class="hero">
+    <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
     <div class="wrap">
       <span class="eyebrow">🔴 Análisis en vivo — mesas de Bac Bo</span>
       <h1><span class="gold-text">Dados Dorados</span></h1>
@@ -349,6 +397,15 @@
       <div class="hero-ctas">
         <a class="btn-primary" href="https://t.me/DadosDorados" target="_blank" rel="noopener">✈️ Unirme al canal gratis</a>
         <a class="btn-secondary" href="#caracteristicas">Ver cómo funciona ↓</a>
+      </div>
+      <div class="live-bar">
+        <div class="live-status" id="botStatus">
+          <span class="bot-dot" id="botDot"></span>
+          <span id="botStatusText">Consultando estado del bot…</span>
+        </div>
+        <div class="ticker-pill">
+          <span class="ticker-text" id="tickerText">🎲 Última señal: cargando…</span>
+        </div>
       </div>
       <div class="dice-row">⚀ ⚁ ⚂ ⚃ ⚄ ⚅</div>
     </div>
@@ -453,14 +510,13 @@
     <div class="wrap">
       <div class="section-head reveal">
         <span class="tag">Acceso</span>
-        <h2>Planes simples, sin letra chica</h2>
-        <p>Empieza gratis y sube a Premium cuando quieras el análisis completo, en tiempo real.</p>
+        <h2>Acceso Gratuito</h2>
+        <p>Únete gratis — los planes Premium llegan pronto</p>
       </div>
-      <div class="pricing-grid">
+      <div class="pricing-grid single">
         <div class="price-card reveal">
-          <span class="price-badge soon">Gratuito</span>
-          <h3>Plan Gratis</h3>
-          <div class="price-amount">$0 <span>/ para siempre</span></div>
+          <span class="price-badge">Gratuito</span>
+          <h3>Beneficios incluidos</h3>
           <ul class="price-list">
             <li>1 de cada 5 alertas completas (con todos los gales)</li>
             <li>Reporte diario a las 10pm con resultados del día</li>
@@ -470,23 +526,10 @@
           </ul>
           <a class="price-cta gold" href="https://t.me/DadosDorados" target="_blank" rel="noopener">Unirme gratis</a>
         </div>
-        <div class="price-card featured reveal">
-          <span class="price-badge">Recomendado</span>
-          <h3>Plan Premium</h3>
-          <div class="price-amount">$40.000 <span>COP / mes</span></div>
-          <ul class="price-list">
-            <li>Todas las alertas en tiempo real</li>
-            <li>Aviso de sospecha de patrón antes de la entrada</li>
-            <li>Alerta cuando hay racha de 3+ alertas ganadas seguidas</li>
-            <li>Alerta al entrar en modo pausa</li>
-            <li>Alerta del día cada mañana a las 8am</li>
-            <li>Resumen semanal los domingos</li>
-            <li>Grupo VIP exclusivo (@DadosDoradosVIP)</li>
-            <li>Estadísticas diarias detalladas</li>
-            <li>Soporte directo por Telegram</li>
-          </ul>
-          <a class="price-cta gold" href="https://t.me/DadosDorados" target="_blank" rel="noopener">Quiero Premium</a>
-        </div>
+      </div>
+      <div class="premium-soon reveal">
+        <span class="price-badge soon">Premium · Próximamente</span>
+        <p>Alertas en tiempo real, grupo VIP, estadísticas detalladas y soporte directo — muy pronto.</p>
       </div>
     </div>
   </section>
@@ -607,6 +650,78 @@
 
   // ---- Scroll reveal + contador animado ----
   var prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---- Estado del bot + cuenta regresiva hasta las 8am ----
+  function actualizarEstadoBot() {
+    var dot  = document.getElementById("botDot");
+    var text = document.getElementById("botStatusText");
+    if (!dot || !text) return;
+
+    var ahora = new Date();
+    var hora  = ahora.getHours();
+    var activo = hora >= 8 && hora < 22;
+
+    if (activo) {
+      dot.classList.add("on");
+      text.textContent = "Bot activo — analizando la mesa en vivo";
+    } else {
+      dot.classList.remove("on");
+      var objetivo = new Date(ahora);
+      objetivo.setHours(8, 0, 0, 0);
+      if (ahora.getHours() >= 8) objetivo.setDate(objetivo.getDate() + 1);
+      var diff = objetivo - ahora;
+      var horas = Math.floor(diff / 3600000);
+      var mins  = Math.floor((diff % 3600000) / 60000);
+      text.textContent = "El bot arranca en " + horas + "h " + mins + "m";
+    }
+  }
+  actualizarEstadoBot();
+  setInterval(actualizarEstadoBot, 30000);
+
+  // ---- Ticker de última señal (simulado — luego se conecta a Supabase) ----
+  var tickerMuestras = [
+    { emoji: "🔵", texto: "Player", resultado: "Ganada ✅", patron: "Ruptura de racha Banker" },
+    { emoji: "🔴", texto: "Banker", resultado: "Ganada ✅", patron: "Racha confirmada 3+" },
+    { emoji: "🟡", texto: "Empate", resultado: "Perdida ❌", patron: "Entrada en gale 2" },
+    { emoji: "🔵", texto: "Player", resultado: "Ganada ✅", patron: "Patrón alterno confirmado" },
+    { emoji: "🔴", texto: "Banker", resultado: "Ganada ✅", patron: "Ruptura confirmada" }
+  ];
+  var tickerIndice = 0;
+  function actualizarTicker() {
+    var el = document.getElementById("tickerText");
+    if (!el) return;
+    var minsAtras = Math.floor(Math.random() * 8) + 1;
+    var muestra = tickerMuestras[tickerIndice % tickerMuestras.length];
+    tickerIndice++;
+    el.style.opacity = 0;
+    setTimeout(function () {
+      el.textContent = "🎲 Última señal: " + muestra.emoji + " " + muestra.texto +
+        " — " + muestra.resultado + " · " + muestra.patron + " · hace " + minsAtras + " min";
+      el.style.opacity = 1;
+    }, 250);
+  }
+  actualizarTicker();
+  setInterval(actualizarTicker, 7000);
+
+  // ---- Partículas de dados flotando en el hero ----
+  if (!prefersReduced) {
+    var contenedorParticulas = document.getElementById("heroParticles");
+    if (contenedorParticulas) {
+      var glifosDados = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+      var cantidad = window.innerWidth < 620 ? 8 : 14;
+      for (var p = 0; p < cantidad; p++) {
+        var particula = document.createElement("span");
+        particula.className = "particle";
+        particula.textContent = glifosDados[Math.floor(Math.random() * glifosDados.length)];
+        particula.style.left = (Math.random() * 100) + "%";
+        var duracion = 14 + Math.random() * 14;
+        particula.style.animationDuration = duracion + "s";
+        particula.style.animationDelay = "-" + (Math.random() * duracion) + "s";
+        particula.style.fontSize = (1 + Math.random() * 1.2) + "rem";
+        contenedorParticulas.appendChild(particula);
+      }
+    }
+  }
 
   function animateCount(el) {
     var target = parseInt(el.dataset.countTo, 10);
