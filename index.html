@@ -603,13 +603,22 @@
     return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
   }
 
+  // Los timestamps de Supabase están en UTC. Si llegan sin zona horaria
+  // (columna "timestamp" sin tz), new Date() los tomaría como hora local,
+  // así que se les agrega "Z" para forzar la interpretación en UTC.
+  function fechaDesdeUTC(iso) {
+    if (!iso) return null;
+    var s = String(iso).trim().replace(" ", "T");
+    if (!/(Z|[+-]\d{2}(:?\d{2})?)$/i.test(s)) s += "Z";
+    var d = new Date(s);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  // Convierte un timestamp UTC a la hora local del navegador del usuario.
   function horaCorta(iso) {
-    if (!iso) return "";
-    try {
-      return new Date(iso).toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" });
-    } catch (e) {
-      return "";
-    }
+    var d = fechaDesdeUTC(iso);
+    if (!d) return "";
+    return d.toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" });
   }
 
   function primerDiaMesISO() {
@@ -805,16 +814,18 @@
     var s = ultimasSenales[tickerIndice % ultimasSenales.length];
     tickerIndice++;
 
-    var minsAtras = s.created_at
-      ? Math.max(0, Math.round((Date.now() - new Date(s.created_at).getTime()) / 60000))
+    var fechaSenal = fechaDesdeUTC(s.created_at);
+    var minsAtras = fechaSenal
+      ? Math.max(0, Math.round((Date.now() - fechaSenal.getTime()) / 60000))
       : null;
     var haceTexto = minsAtras === null ? "" : " · hace " + minsAtras + " min";
+    var horaTexto = fechaSenal ? " · " + horaCorta(s.created_at) : "";
 
     el.style.opacity = 0;
     setTimeout(function () {
       el.textContent = "🎲 Última señal: " + emojiResultado(s.prediccion) + " " + s.prediccion +
         " — " + (esGanada(s) ? "Ganada ✅" : "Perdida ❌") +
-        (s.patron ? " · " + s.patron : "") + haceTexto;
+        (s.patron ? " · " + s.patron : "") + horaTexto + haceTexto;
       el.style.opacity = 1;
     }, 250);
   }
