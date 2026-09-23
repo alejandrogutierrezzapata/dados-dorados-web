@@ -95,6 +95,36 @@
     white-space:nowrap;
   }
   .nav-cta:hover{transform:translateY(-1px); box-shadow:0 6px 22px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.35);}
+  .nav-right{display:flex; align-items:center; gap:14px;}
+
+  /* ---------- SELECTOR DE IDIOMA ---------- */
+  .lang-switch{
+    display:inline-flex; align-items:center; gap:2px;
+    padding:3px; border-radius:999px;
+    background:rgba(212,175,55,0.05);
+    border:1px solid rgba(212,175,55,0.22);
+  }
+  .lang-switch button{
+    appearance:none; border:0; background:transparent; cursor:pointer;
+    font:600 0.72rem/1 'Inter', sans-serif; letter-spacing:0.08em;
+    color:var(--text-faint);
+    padding:7px 10px; border-radius:999px;
+    transition:color .15s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .lang-switch button + button{position:relative;}
+  .lang-switch button + button::before{
+    content:""; position:absolute; left:-1px; top:30%; bottom:30%; width:1px;
+    background:rgba(212,175,55,0.2);
+  }
+  .lang-switch button:hover{color:var(--gold-light);}
+  .lang-switch button[aria-pressed="true"]{
+    color:#141008;
+    background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 60%, var(--gold-dim) 100%);
+    box-shadow:0 2px 10px rgba(212,175,55,0.25), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .lang-switch button[aria-pressed="true"]::before,
+  .lang-switch button[aria-pressed="true"] + button::before{opacity:0;}
+  .lang-switch button:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
 
   /* ---------- HERO ---------- */
   .hero{
@@ -374,6 +404,17 @@
     .hero{padding:64px 20px 56px;}
     section{padding:64px 20px;}
     .nav-cta span.long{display:none;}
+    nav{padding:12px 16px;}
+    .brand{font-size:1.2rem; gap:6px;}
+    .nav-right{gap:8px;}
+    .nav-cta{padding:10px 14px;}
+    .lang-switch button{padding:7px 8px;}
+    .brand{white-space:nowrap;}
+  }
+  @media (max-width:360px){
+    .brand{font-size:1.05rem;}
+    .brand .dice{font-size:1.2rem;}
+    .lang-switch button{padding:7px 6px;}
     .footer-inner{flex-direction:column; text-align:center;}
   }
 </style>
@@ -383,9 +424,16 @@
 <header>
   <nav>
     <div class="brand"><span class="dice">🎲</span> <span class="gold-text">Dados Dorados</span></div>
-    <a class="nav-cta" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener">
-      <span>✈️</span><span class="long">Unirme al canal</span><span style="display:none" class="short">Unirme</span>
-    </a>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-aria="nav.langLabel">
+        <button type="button" data-lang="es" aria-pressed="true" title="Español">ES</button>
+        <button type="button" data-lang="en" aria-pressed="false" title="English">EN</button>
+        <button type="button" data-lang="fr" aria-pressed="false" title="Français">FR</button>
+      </div>
+      <a class="nav-cta" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener">
+        <span>✈️</span><span class="long" data-i18n="nav.cta">Unirme al canal</span><span style="display:none" class="short" data-i18n="nav.ctaShort">Unirme</span>
+      </a>
+    </div>
   </nav>
 </header>
 
@@ -394,20 +442,20 @@
   <section class="hero">
     <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
     <div class="wrap">
-      <span class="eyebrow">🔴 Análisis en vivo — mesas de Bac Bo</span>
+      <span class="eyebrow" data-i18n="hero.eyebrow">🔴 Análisis en vivo — mesas de Bac Bo</span>
       <h1><span class="gold-text">Dados Dorados</span></h1>
-      <p class="slogan">"Donde cada dado es una oportunidad de oro"</p>
+      <p class="slogan" data-i18n="hero.slogan">"Donde cada dado es una oportunidad de oro"</p>
       <div class="hero-ctas">
-        <a class="btn-primary" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener">✈️ Unirme al canal gratis</a>
-        <a class="btn-secondary" href="#caracteristicas">Ver cómo funciona ↓</a>
+        <a class="btn-primary" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="hero.cta">✈️ Unirme al canal gratis</a>
+        <a class="btn-secondary" href="#caracteristicas" data-i18n="hero.how">Ver cómo funciona ↓</a>
       </div>
       <div class="live-bar">
         <div class="live-status" id="botStatus">
           <span class="bot-dot" id="botDot"></span>
-          <span id="botStatusText">Consultando estado del bot…</span>
+          <span id="botStatusText" data-i18n="bot.checking">Consultando estado del bot…</span>
         </div>
         <div class="ticker-pill">
-          <span class="ticker-text" id="tickerText">🎲 Última señal: cargando…</span>
+          <span class="ticker-text" id="tickerText" data-i18n="ticker.loading">🎲 Última señal: cargando…</span>
         </div>
       </div>
       <div class="dice-row">⚀ ⚁ ⚂ ⚃ ⚄ ⚅</div>
@@ -418,30 +466,30 @@
   <section id="caracteristicas">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="tag">Qué ofrecemos</span>
-        <h2>Todo lo que necesitas para decidir con criterio</h2>
-        <p>Un sistema construido para leer la mesa en tiempo real y avisarte en el momento justo.</p>
+        <span class="tag" data-i18n="features.tag">Qué ofrecemos</span>
+        <h2 data-i18n="features.title">Todo lo que necesitas para decidir con criterio</h2>
+        <p data-i18n="features.lead">Un sistema construido para leer la mesa en tiempo real y avisarte en el momento justo.</p>
       </div>
       <div class="features">
         <div class="feature-card reveal">
           <div class="feature-icon">⚡</div>
-          <h3>Alertas en tiempo real</h3>
-          <p>Conexión directa a la mesa de Bac Bo en vivo. Cada ronda se procesa al instante, sin retrasos.</p>
+          <h3 data-i18n="f1.title">Alertas en tiempo real</h3>
+          <p data-i18n="f1.text">Conexión directa a la mesa de Bac Bo en vivo. Cada ronda se procesa al instante, sin retrasos.</p>
         </div>
         <div class="feature-card reveal">
           <div class="feature-icon">📊</div>
-          <h3>Análisis de patrones</h3>
-          <p>Detectamos rachas y tendencias históricas antes de sugerir una entrada, con confirmación previa.</p>
+          <h3 data-i18n="f2.title">Análisis de patrones</h3>
+          <p data-i18n="f2.text">Detectamos rachas y tendencias históricas antes de sugerir una entrada, con confirmación previa.</p>
         </div>
         <div class="feature-card reveal">
           <div class="feature-icon">🎯</div>
-          <h3>Gestión de gales</h3>
-          <p>Cada alerta incluye su plan de gales — sabes exactamente cuánto arriesgar y hasta dónde llegar.</p>
+          <h3 data-i18n="f3.title">Gestión de gales</h3>
+          <p data-i18n="f3.text">Cada alerta incluye su plan de gales — sabes exactamente cuánto arriesgar y hasta dónde llegar.</p>
         </div>
         <div class="feature-card reveal">
           <div class="feature-icon">🛡️</div>
-          <h3>Modo pausa automático</h3>
-          <p>Tras pérdidas seguidas, el sistema entra en modo pausa y analiza en silencio hasta recuperar precisión.</p>
+          <h3 data-i18n="f4.title">Modo pausa automático</h3>
+          <p data-i18n="f4.text">Tras pérdidas seguidas, el sistema entra en modo pausa y analiza en silencio hasta recuperar precisión.</p>
         </div>
       </div>
     </div>
@@ -451,29 +499,29 @@
   <section class="stats-section">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="tag">Números del canal</span>
-        <h2>Resultados que hablan por sí solos</h2>
+        <span class="tag" data-i18n="stats.tag">Números del canal</span>
+        <h2 data-i18n="stats.title">Resultados que hablan por sí solos</h2>
       </div>
       <div class="stats-grid">
         <div class="stat-card reveal">
           <div class="stat-number gold-text" data-count-to="73" data-suffix="%">0%</div>
-          <div class="stat-label">Efectividad histórica</div>
+          <div class="stat-label" data-i18n="stats.s1">Efectividad histórica</div>
         </div>
         <div class="stat-card reveal">
           <div class="stat-number gold-text" data-count-to="1240" data-suffix="+">0+</div>
-          <div class="stat-label">Alertas cerradas</div>
+          <div class="stat-label" data-i18n="stats.s2">Alertas cerradas</div>
         </div>
         <div class="stat-card reveal">
           <div class="stat-number gold-text" data-count-to="2800" data-suffix="+">0+</div>
-          <div class="stat-label">Miembros en el canal</div>
+          <div class="stat-label" data-i18n="stats.s3">Miembros en el canal</div>
         </div>
         <div class="stat-card reveal">
           <div class="stat-number gold-text">24/7</div>
-          <div class="stat-label">Monitoreo de la mesa</div>
+          <div class="stat-label" data-i18n="stats.s4">Monitoreo de la mesa</div>
         </div>
       </div>
-      <p class="stats-note">Resultados actualizados al cierre de cada señal.</p>
-      <p class="stats-note" style="margin-top:8px;">* Datos de ejemplo mientras se recopilan estadísticas reales del canal — se actualizarán con cifras verificadas.</p>
+      <p class="stats-note" data-i18n="stats.note">Resultados actualizados al cierre de cada señal.</p>
+      <p class="stats-note" style="margin-top:8px;" data-i18n="stats.sample">* Datos de ejemplo mientras se recopilan estadísticas reales del canal — se actualizarán con cifras verificadas.</p>
     </div>
   </section>
 
@@ -481,50 +529,50 @@
   <section id="dashboard" class="dashboard-section">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="tag"><span class="live-dot"></span> En vivo</span>
-        <h2>Dashboard del día</h2>
-        <p>Datos reales de las señales ya cerradas de hoy — se actualiza solo.</p>
+        <span class="tag"><span class="live-dot"></span> <span data-i18n="dash.tag">En vivo</span></span>
+        <h2 data-i18n="dash.title">Dashboard del día</h2>
+        <p data-i18n="dash.lead">Datos reales de las señales ya cerradas de hoy — se actualiza solo.</p>
       </div>
       <div class="dash-grid">
         <div class="dash-card reveal">
-          <div class="dash-label">Última señal cerrada</div>
+          <div class="dash-label" data-i18n="dash.last">Última señal cerrada</div>
           <div class="dash-value" id="dashUltima">—</div>
-          <div class="dash-sub" id="dashUltimaSub">Cargando…</div>
+          <div class="dash-sub" id="dashUltimaSub" data-i18n="dash.loading">Cargando…</div>
         </div>
         <div class="dash-card reveal">
-          <div class="dash-label">Efectividad del día</div>
+          <div class="dash-label" data-i18n="dash.rate">Efectividad del día</div>
           <div class="dash-value gold-text" id="dashEfectividad">—</div>
         </div>
         <div class="dash-card reveal">
-          <div class="dash-label">Racha actual</div>
+          <div class="dash-label" data-i18n="dash.streak">Racha actual</div>
           <div class="dash-value" id="dashRacha">—</div>
         </div>
         <div class="dash-card reveal">
-          <div class="dash-label">Señales del día</div>
+          <div class="dash-label" data-i18n="dash.count">Señales del día</div>
           <div class="dash-value gold-text" id="dashTotal">—</div>
         </div>
       </div>
 
       <div class="section-head reveal" style="margin-top:56px; margin-bottom:32px;">
-        <span class="tag">Este mes</span>
+        <span class="tag" data-i18n="month.tag">Este mes</span>
       </div>
       <div class="dash-grid dash-grid-3">
         <div class="dash-card reveal">
-          <div class="dash-label">Efectividad del mes</div>
+          <div class="dash-label" data-i18n="month.rate">Efectividad del mes</div>
           <div class="dash-value gold-text" id="dashMesEfectividad">—</div>
         </div>
         <div class="dash-card reveal">
-          <div class="dash-label">Señales del mes</div>
+          <div class="dash-label" data-i18n="month.count">Señales del mes</div>
           <div class="dash-value gold-text" id="dashMesTotal">—</div>
         </div>
         <div class="dash-card reveal">
-          <div class="dash-label">Mejor patrón del mes</div>
+          <div class="dash-label" data-i18n="month.best">Mejor patrón del mes</div>
           <div class="dash-value" id="dashMesPatron">—</div>
           <div class="dash-sub" id="dashMesPatronSub"></div>
         </div>
       </div>
 
-      <p class="stats-note" id="dashUpdated">Conectando con el panel en vivo…</p>
+      <p class="stats-note" id="dashUpdated" data-i18n="dash.connecting">Conectando con el panel en vivo…</p>
     </div>
   </section>
 
@@ -532,27 +580,27 @@
   <section id="precios">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="tag">Acceso</span>
-        <h2>Acceso Gratuito</h2>
-        <p>Únete gratis — los planes Premium llegan pronto</p>
+        <span class="tag" data-i18n="price.tag">Acceso</span>
+        <h2 data-i18n="price.title">Acceso Gratuito</h2>
+        <p data-i18n="price.lead">Únete gratis — los planes Premium llegan pronto</p>
       </div>
       <div class="pricing-grid single">
         <div class="price-card reveal">
-          <span class="price-badge">Gratuito</span>
-          <h3>Beneficios incluidos</h3>
+          <span class="price-badge" data-i18n="price.badge">Gratuito</span>
+          <h3 data-i18n="price.benefits">Beneficios incluidos</h3>
           <ul class="price-list">
-            <li>1 de cada 5 alertas completas (con todos los gales)</li>
-            <li>Reporte diario a las 10pm con resultados del día</li>
-            <li>Alerta cuando hay racha de 3+ alertas ganadas seguidas</li>
-            <li>Alerta cuando el bot entra en modo pausa</li>
-            <li>Acceso al canal @DadosDorados</li>
+            <li data-i18n="price.b1">1 de cada 5 alertas completas (con todos los gales)</li>
+            <li data-i18n="price.b2">Reporte diario a las 10pm con resultados del día</li>
+            <li data-i18n="price.b3">Alerta cuando hay racha de 3+ alertas ganadas seguidas</li>
+            <li data-i18n="price.b4">Alerta cuando el bot entra en modo pausa</li>
+            <li data-i18n="price.b5">Acceso al canal @DadosDorados</li>
           </ul>
-          <a class="price-cta gold" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener">Unirme gratis</a>
+          <a class="price-cta gold" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="price.cta">Unirme gratis</a>
         </div>
       </div>
       <div class="premium-soon reveal">
-        <span class="price-badge soon">Premium · Próximamente</span>
-        <p>Alertas en tiempo real, grupo VIP, estadísticas detalladas y soporte directo — muy pronto.</p>
+        <span class="price-badge soon" data-i18n="price.soonBadge">Premium · Próximamente</span>
+        <p data-i18n="price.soonText">Alertas en tiempo real, grupo VIP, estadísticas detalladas y soporte directo — muy pronto.</p>
       </div>
     </div>
   </section>
@@ -560,9 +608,9 @@
   <!-- FINAL CTA -->
   <section class="final-cta">
     <div class="wrap">
-      <h2><span class="gold-text">¿Listo para decidir con ventaja?</span></h2>
-      <p>Únete a Dados Dorados y recibe el próximo análisis directo en tu Telegram.</p>
-      <a class="btn-primary" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener">✈️ Empezar en el bot — @AGZ_Dice_Bot</a>
+      <h2><span class="gold-text" data-i18n="final.title">¿Listo para decidir con ventaja?</span></h2>
+      <p data-i18n="final.text">Únete a Dados Dorados y recibe el próximo análisis directo en tu Telegram.</p>
+      <a class="btn-primary" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="final.cta">✈️ Empezar en el bot — @AGZ_Dice_Bot</a>
     </div>
   </section>
 </main>
@@ -572,12 +620,12 @@
     <div class="footer-brand"><span>🎲</span> <span class="gold-text">Dados Dorados</span></div>
     <div class="links">
       <a href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener">Telegram</a>
-      <a href="#caracteristicas">Características</a>
+      <a href="#caracteristicas" data-i18n="footer.features">Características</a>
       <a href="#dashboard">Dashboard</a>
-      <a href="#precios">Precios</a>
+      <a href="#precios" data-i18n="footer.pricing">Precios</a>
     </div>
   </div>
-  <p class="disclaimer">
+  <p class="disclaimer" data-i18n="footer.disclaimer">
     Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados; implica riesgo real de dinero, así que participa con responsabilidad.
     Servicio para mayores de edad, no afiliado a Evolution Gaming ni a los operadores mencionados.
   </p>
@@ -588,6 +636,296 @@
   var SUPABASE_URL = "https://nqkdaxsdopeuclrwriav.supabase.co";
   var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xa2RheHNkb3BldWNscndyaWF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0NjA3OTEsImV4cCI6MjA5NzAzNjc5MX0.SVdlI3R5K0rSYxSDpHRMHHw-3CDbSXTdgyZeA768j8s";
   var headers = { apikey: SUPABASE_ANON_KEY, Authorization: "Bearer " + SUPABASE_ANON_KEY };
+
+  // ---- Idiomas (ES / EN / FR) ----
+  var TRADUCCIONES = {
+    es: {
+      "meta.title": "Dados Dorados — Análisis en vivo para Bac Bo",
+      "meta.description": "Dados Dorados: análisis de patrones en tiempo real para mesas de Bac Bo en vivo, con gestión de gales incluida. Donde cada dado es una oportunidad de oro.",
+      "nav.langLabel": "Idioma",
+      "nav.cta": "Unirme al canal",
+      "nav.ctaShort": "Unirme",
+      "hero.eyebrow": "🔴 Análisis en vivo — mesas de Bac Bo",
+      "hero.slogan": "\"Donde cada dado es una oportunidad de oro\"",
+      "hero.cta": "✈️ Unirme al canal gratis",
+      "hero.how": "Ver cómo funciona ↓",
+      "bot.checking": "Consultando estado del bot…",
+      "bot.active": "Bot activo — analizando la mesa en vivo",
+      "bot.startsIn": "El bot arranca en {h}h {m}m",
+      "ticker.loading": "🎲 Última señal: cargando…",
+      "ticker.prefix": "🎲 Última señal: ",
+      "ticker.ago": "hace {m} min",
+      "features.tag": "Qué ofrecemos",
+      "features.title": "Todo lo que necesitas para decidir con criterio",
+      "features.lead": "Un sistema construido para leer la mesa en tiempo real y avisarte en el momento justo.",
+      "f1.title": "Alertas en tiempo real",
+      "f1.text": "Conexión directa a la mesa de Bac Bo en vivo. Cada ronda se procesa al instante, sin retrasos.",
+      "f2.title": "Análisis de patrones",
+      "f2.text": "Detectamos rachas y tendencias históricas antes de sugerir una entrada, con confirmación previa.",
+      "f3.title": "Gestión de gales",
+      "f3.text": "Cada alerta incluye su plan de gales — sabes exactamente cuánto arriesgar y hasta dónde llegar.",
+      "f4.title": "Modo pausa automático",
+      "f4.text": "Tras pérdidas seguidas, el sistema entra en modo pausa y analiza en silencio hasta recuperar precisión.",
+      "stats.tag": "Números del canal",
+      "stats.title": "Resultados que hablan por sí solos",
+      "stats.s1": "Efectividad histórica",
+      "stats.s2": "Alertas cerradas",
+      "stats.s3": "Miembros en el canal",
+      "stats.s4": "Monitoreo de la mesa",
+      "stats.note": "Resultados actualizados al cierre de cada señal.",
+      "stats.sample": "* Datos de ejemplo mientras se recopilan estadísticas reales del canal — se actualizarán con cifras verificadas.",
+      "dash.tag": "En vivo",
+      "dash.title": "Dashboard del día",
+      "dash.lead": "Datos reales de las señales ya cerradas de hoy — se actualiza solo.",
+      "dash.last": "Última señal cerrada",
+      "dash.loading": "Cargando…",
+      "dash.rate": "Efectividad del día",
+      "dash.streak": "Racha actual",
+      "dash.count": "Señales del día",
+      "dash.connecting": "Conectando con el panel en vivo…",
+      "dash.notConfigured": "Panel en vivo no configurado.",
+      "dash.empty": "Aún no hay señales cerradas hoy",
+      "dash.updated": "Actualizado {t}",
+      "dash.error": "No se pudo conectar con el panel en vivo — reintentando…",
+      "result.win": "Ganada ✅",
+      "result.loss": "Perdida ❌",
+      "streak.win": "ganadas ✅",
+      "streak.loss": "perdidas ❌",
+      "month.tag": "Este mes",
+      "month.rate": "Efectividad del mes",
+      "month.count": "Señales del mes",
+      "month.best": "Mejor patrón del mes",
+      "month.empty": "Aún sin señales este mes",
+      "month.bestSub": "{pct}% efectividad · {total} señales",
+      "price.tag": "Acceso",
+      "price.title": "Acceso Gratuito",
+      "price.lead": "Únete gratis — los planes Premium llegan pronto",
+      "price.badge": "Gratuito",
+      "price.benefits": "Beneficios incluidos",
+      "price.b1": "1 de cada 5 alertas completas (con todos los gales)",
+      "price.b2": "Reporte diario a las 10pm con resultados del día",
+      "price.b3": "Alerta cuando hay racha de 3+ alertas ganadas seguidas",
+      "price.b4": "Alerta cuando el bot entra en modo pausa",
+      "price.b5": "Acceso al canal @DadosDorados",
+      "price.cta": "Unirme gratis",
+      "price.soonBadge": "Premium · Próximamente",
+      "price.soonText": "Alertas en tiempo real, grupo VIP, estadísticas detalladas y soporte directo — muy pronto.",
+      "final.title": "¿Listo para decidir con ventaja?",
+      "final.text": "Únete a Dados Dorados y recibe el próximo análisis directo en tu Telegram.",
+      "final.cta": "✈️ Empezar en el bot — @AGZ_Dice_Bot",
+      "footer.features": "Características",
+      "footer.pricing": "Precios",
+      "footer.disclaimer": "Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados; implica riesgo real de dinero, así que participa con responsabilidad. Servicio para mayores de edad, no afiliado a Evolution Gaming ni a los operadores mencionados."
+    },
+    en: {
+      "meta.title": "Dados Dorados — Live analysis for Bac Bo",
+      "meta.description": "Dados Dorados: real-time pattern analysis for live Bac Bo tables, with gale management included. Where every die is a golden opportunity.",
+      "nav.langLabel": "Language",
+      "nav.cta": "Join the channel",
+      "nav.ctaShort": "Join",
+      "hero.eyebrow": "🔴 Live analysis — Bac Bo tables",
+      "hero.slogan": "\"Where every die is a golden opportunity\"",
+      "hero.cta": "✈️ Join the channel for free",
+      "hero.how": "See how it works ↓",
+      "bot.checking": "Checking bot status…",
+      "bot.active": "Bot active — analyzing the live table",
+      "bot.startsIn": "The bot starts in {h}h {m}m",
+      "ticker.loading": "🎲 Latest signal: loading…",
+      "ticker.prefix": "🎲 Latest signal: ",
+      "ticker.ago": "{m} min ago",
+      "features.tag": "What we offer",
+      "features.title": "Everything you need to decide wisely",
+      "features.lead": "A system built to read the table in real time and alert you at just the right moment.",
+      "f1.title": "Real-time alerts",
+      "f1.text": "Direct connection to the live Bac Bo table. Every round is processed instantly, with no delays.",
+      "f2.title": "Pattern analysis",
+      "f2.text": "We detect streaks and historical trends before suggesting an entry, with prior confirmation.",
+      "f3.title": "Gale management",
+      "f3.text": "Every alert includes its gale plan — you know exactly how much to risk and how far to go.",
+      "f4.title": "Automatic pause mode",
+      "f4.text": "After consecutive losses, the system enters pause mode and analyzes silently until it regains accuracy.",
+      "stats.tag": "Channel numbers",
+      "stats.title": "Results that speak for themselves",
+      "stats.s1": "Historical accuracy",
+      "stats.s2": "Closed alerts",
+      "stats.s3": "Channel members",
+      "stats.s4": "Table monitoring",
+      "stats.note": "Results updated when each signal closes.",
+      "stats.sample": "* Sample data while real channel statistics are collected — it will be updated with verified figures.",
+      "dash.tag": "Live",
+      "dash.title": "Today's dashboard",
+      "dash.lead": "Real data from today's closed signals — updates automatically.",
+      "dash.last": "Last closed signal",
+      "dash.loading": "Loading…",
+      "dash.rate": "Today's accuracy",
+      "dash.streak": "Current streak",
+      "dash.count": "Today's signals",
+      "dash.connecting": "Connecting to the live panel…",
+      "dash.notConfigured": "Live panel not configured.",
+      "dash.empty": "No closed signals yet today",
+      "dash.updated": "Updated {t}",
+      "dash.error": "Couldn't connect to the live panel — retrying…",
+      "result.win": "Won ✅",
+      "result.loss": "Lost ❌",
+      "streak.win": "won ✅",
+      "streak.loss": "lost ❌",
+      "month.tag": "This month",
+      "month.rate": "Monthly accuracy",
+      "month.count": "Signals this month",
+      "month.best": "Best pattern this month",
+      "month.empty": "No signals yet this month",
+      "month.bestSub": "{pct}% accuracy · {total} signals",
+      "price.tag": "Access",
+      "price.title": "Free Access",
+      "price.lead": "Join for free — Premium plans coming soon",
+      "price.badge": "Free",
+      "price.benefits": "Included benefits",
+      "price.b1": "1 in 5 full alerts (with all gales)",
+      "price.b2": "Daily report at 10pm with the day's results",
+      "price.b3": "Alert when there's a streak of 3+ winning alerts in a row",
+      "price.b4": "Alert when the bot enters pause mode",
+      "price.b5": "Access to the @DadosDorados channel",
+      "price.cta": "Join for free",
+      "price.soonBadge": "Premium · Coming soon",
+      "price.soonText": "Real-time alerts, VIP group, detailed statistics and direct support — very soon.",
+      "final.title": "Ready to decide with an edge?",
+      "final.text": "Join Dados Dorados and get the next analysis straight to your Telegram.",
+      "final.cta": "✈️ Start with the bot — @AGZ_Dice_Bot",
+      "footer.features": "Features",
+      "footer.pricing": "Pricing",
+      "footer.disclaimer": "Dados Dorados provides pattern analysis for live tables, with no guarantee of results; it involves real financial risk, so please play responsibly. Adults only. Not affiliated with Evolution Gaming or the operators mentioned."
+    },
+    fr: {
+      "meta.title": "Dados Dorados — Analyse en direct pour Bac Bo",
+      "meta.description": "Dados Dorados : analyse de tendances en temps réel pour les tables de Bac Bo en direct, avec gestion des gales incluse. Là où chaque dé est une opportunité en or.",
+      "nav.langLabel": "Langue",
+      "nav.cta": "Rejoindre le canal",
+      "nav.ctaShort": "Rejoindre",
+      "hero.eyebrow": "🔴 Analyse en direct — tables de Bac Bo",
+      "hero.slogan": "« Là où chaque dé est une opportunité en or »",
+      "hero.cta": "✈️ Rejoindre le canal gratuitement",
+      "hero.how": "Voir comment ça marche ↓",
+      "bot.checking": "Vérification de l'état du bot…",
+      "bot.active": "Bot actif — analyse de la table en direct",
+      "bot.startsIn": "Le bot démarre dans {h} h {m} min",
+      "ticker.loading": "🎲 Dernier signal : chargement…",
+      "ticker.prefix": "🎲 Dernier signal : ",
+      "ticker.ago": "il y a {m} min",
+      "features.tag": "Ce que nous offrons",
+      "features.title": "Tout ce qu'il faut pour décider en connaissance de cause",
+      "features.lead": "Un système conçu pour lire la table en temps réel et vous alerter au bon moment.",
+      "f1.title": "Alertes en temps réel",
+      "f1.text": "Connexion directe à la table de Bac Bo en direct. Chaque manche est traitée instantanément, sans délai.",
+      "f2.title": "Analyse des tendances",
+      "f2.text": "Nous détectons les séries et les tendances historiques avant de suggérer une entrée, avec confirmation préalable.",
+      "f3.title": "Gestion des gales",
+      "f3.text": "Chaque alerte inclut son plan de gales — vous savez exactement combien risquer et jusqu'où aller.",
+      "f4.title": "Mode pause automatique",
+      "f4.text": "Après plusieurs pertes consécutives, le système passe en mode pause et analyse en silence jusqu'à retrouver sa précision.",
+      "stats.tag": "Chiffres du canal",
+      "stats.title": "Des résultats qui parlent d'eux-mêmes",
+      "stats.s1": "Efficacité historique",
+      "stats.s2": "Alertes clôturées",
+      "stats.s3": "Membres du canal",
+      "stats.s4": "Surveillance de la table",
+      "stats.note": "Résultats mis à jour à la clôture de chaque signal.",
+      "stats.sample": "* Données d'exemple en attendant les statistiques réelles du canal — elles seront remplacées par des chiffres vérifiés.",
+      "dash.tag": "En direct",
+      "dash.title": "Tableau de bord du jour",
+      "dash.lead": "Données réelles des signaux clôturés aujourd'hui — mise à jour automatique.",
+      "dash.last": "Dernier signal clôturé",
+      "dash.loading": "Chargement…",
+      "dash.rate": "Efficacité du jour",
+      "dash.streak": "Série en cours",
+      "dash.count": "Signaux du jour",
+      "dash.connecting": "Connexion au panneau en direct…",
+      "dash.notConfigured": "Panneau en direct non configuré.",
+      "dash.empty": "Aucun signal clôturé aujourd'hui pour l'instant",
+      "dash.updated": "Mis à jour à {t}",
+      "dash.error": "Impossible de se connecter au panneau en direct — nouvelle tentative…",
+      "result.win": "Gagné ✅",
+      "result.loss": "Perdu ❌",
+      "streak.win": "gagnés ✅",
+      "streak.loss": "perdus ❌",
+      "month.tag": "Ce mois-ci",
+      "month.rate": "Efficacité du mois",
+      "month.count": "Signaux du mois",
+      "month.best": "Meilleure tendance du mois",
+      "month.empty": "Aucun signal ce mois-ci pour l'instant",
+      "month.bestSub": "{pct} % d'efficacité · {total} signaux",
+      "price.tag": "Accès",
+      "price.title": "Accès gratuit",
+      "price.lead": "Rejoignez-nous gratuitement — les offres Premium arrivent bientôt",
+      "price.badge": "Gratuit",
+      "price.benefits": "Avantages inclus",
+      "price.b1": "1 alerte complète sur 5 (avec tous les gales)",
+      "price.b2": "Rapport quotidien à 22 h avec les résultats du jour",
+      "price.b3": "Alerte lors d'une série de 3+ alertes gagnantes d'affilée",
+      "price.b4": "Alerte lorsque le bot passe en mode pause",
+      "price.b5": "Accès au canal @DadosDorados",
+      "price.cta": "Rejoindre gratuitement",
+      "price.soonBadge": "Premium · Bientôt",
+      "price.soonText": "Alertes en temps réel, groupe VIP, statistiques détaillées et support direct — très bientôt.",
+      "final.title": "Prêt à décider avec un avantage ?",
+      "final.text": "Rejoignez Dados Dorados et recevez la prochaine analyse directement sur votre Telegram.",
+      "final.cta": "✈️ Commencer avec le bot — @AGZ_Dice_Bot",
+      "footer.features": "Fonctionnalités",
+      "footer.pricing": "Tarifs",
+      "footer.disclaimer": "Dados Dorados propose une analyse de tendances pour les tables en direct, sans garantie de résultats ; cela implique un risque financier réel, alors jouez de manière responsable. Service réservé aux adultes, non affilié à Evolution Gaming ni aux opérateurs mentionnés."
+    }
+  };
+  var LOCALES = { es: "es-CO", en: "en-US", fr: "fr-FR" };
+  var CLAVE_IDIOMA = "dadosDorados.idioma";
+  var idioma = "es";
+  try {
+    var guardado = localStorage.getItem(CLAVE_IDIOMA);
+    if (guardado && TRADUCCIONES[guardado]) idioma = guardado;
+  } catch (e) {}
+
+  // Texto traducido, reemplazando {variables}. Si falta una clave, cae al español.
+  function t(clave, vars) {
+    var texto = TRADUCCIONES[idioma][clave];
+    if (texto === undefined) texto = TRADUCCIONES.es[clave] || clave;
+    return texto.replace(/\{(\w+)\}/g, function (_, k) { return vars && vars[k] !== undefined ? vars[k] : ""; });
+  }
+
+  function locale() { return LOCALES[idioma]; }
+
+  function aplicarIdioma() {
+    document.documentElement.lang = idioma;
+    document.title = t("meta.title");
+    var meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", t("meta.description"));
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      el.textContent = t(el.getAttribute("data-i18n"));
+    });
+    document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
+      el.setAttribute("aria-label", t(el.getAttribute("data-i18n-aria")));
+    });
+    document.querySelectorAll(".lang-switch button").forEach(function (btn) {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-lang") === idioma ? "true" : "false");
+    });
+  }
+
+  function cambiarIdioma(nuevo) {
+    if (!TRADUCCIONES[nuevo] || nuevo === idioma) return;
+    idioma = nuevo;
+    try { localStorage.setItem(CLAVE_IDIOMA, nuevo); } catch (e) {}
+    aplicarIdioma();
+    // Re-renderiza los textos dinámicos en el nuevo idioma.
+    actualizarPanelEnVivo();
+    actualizarEstadoBot();
+    tickerIndice = Math.max(0, tickerIndice - 1);
+    actualizarTicker();
+    document.querySelectorAll(".stat-number[data-count-to][data-counted]").forEach(function (el) {
+      el.textContent = parseInt(el.dataset.countTo, 10).toLocaleString(locale()) + (el.dataset.suffix || "");
+    });
+  }
+
+  document.querySelectorAll(".lang-switch button").forEach(function (btn) {
+    btn.addEventListener("click", function () { cambiarIdioma(btn.getAttribute("data-lang")); });
+  });
+  aplicarIdioma();
 
   function emojiResultado(r) {
     return r === "Player" ? "🔵" : r === "Banker" ? "🔴" : "🟡";
@@ -635,7 +973,7 @@
   function horaCorta(iso) {
     var d = fechaDesdeUTC(iso);
     if (!d) return "";
-    return d.toLocaleTimeString("es-CO", { timeZone: ZONA_HORARIA, hour: "2-digit", minute: "2-digit" });
+    return d.toLocaleTimeString(locale(), { timeZone: ZONA_HORARIA, hour: "2-digit", minute: "2-digit" });
   }
 
   function primerDiaMesISO() {
@@ -681,7 +1019,7 @@
         elMesEfectividad.textContent = "—";
         elMesTotal.textContent       = "0";
         elMesPatron.textContent      = "—";
-        elMesPatronSub.textContent   = "Aún sin señales este mes";
+        elMesPatronSub.textContent   = t("month.empty");
         return;
       }
 
@@ -694,7 +1032,7 @@
       var mejor = mejorPatron(data);
       if (mejor) {
         elMesPatron.textContent    = mejor.nombre;
-        elMesPatronSub.textContent = mejor.pct + "% efectividad · " + mejor.total + " señales";
+        elMesPatronSub.textContent = t("month.bestSub", { pct: mejor.pct, total: mejor.total });
       } else {
         elMesPatron.textContent    = "—";
         elMesPatronSub.textContent = "";
@@ -731,7 +1069,7 @@
     var elUpdated      = document.getElementById("dashUpdated");
 
     if (!SUPABASE_URL || SUPABASE_URL.indexOf("__SUPABASE") === 0) {
-      elUpdated.textContent = "Panel en vivo no configurado.";
+      elUpdated.textContent = t("dash.notConfigured");
       return;
     }
 
@@ -743,7 +1081,7 @@
 
       if (!Array.isArray(data) || data.length === 0) {
         elUltima.textContent    = "—";
-        elUltimaSub.textContent = "Aún no hay señales cerradas hoy";
+        elUltimaSub.textContent = t("dash.empty");
         elEfectividad.textContent = "—";
         elRacha.textContent       = "—";
         elTotal.textContent       = "0";
@@ -754,7 +1092,7 @@
         var ultima      = data[0];
 
         elUltima.textContent = emojiResultado(ultima.prediccion) + " " + ultima.prediccion +
-          " — " + (esGanada(ultima) ? "Ganada ✅" : "Perdida ❌");
+          " — " + (esGanada(ultima) ? t("result.win") : t("result.loss"));
         elUltimaSub.textContent = [ultima.patron, ultima.gale_nombre, horaCorta(ultima.created_at)]
           .filter(Boolean).join(" · ");
 
@@ -766,15 +1104,15 @@
           if (esGanada(data[i]) === refGanada) racha++;
           else break;
         }
-        elRacha.textContent = racha + " " + (refGanada ? "ganadas ✅" : "perdidas ❌");
+        elRacha.textContent = racha + " " + (refGanada ? t("streak.win") : t("streak.loss"));
 
         elTotal.textContent = String(total);
       }
 
-      elUpdated.textContent = "Actualizado " + new Date().toLocaleTimeString("es-CO",
-        { timeZone: ZONA_HORARIA, hour: "2-digit", minute: "2-digit", second: "2-digit" });
+      elUpdated.textContent = t("dash.updated", { t: new Date().toLocaleTimeString(locale(),
+        { timeZone: ZONA_HORARIA, hour: "2-digit", minute: "2-digit", second: "2-digit" }) });
     } catch (e) {
-      elUpdated.textContent = "No se pudo conectar con el panel en vivo — reintentando…";
+      elUpdated.textContent = t("dash.error");
     }
   }
 
@@ -801,7 +1139,7 @@
 
     if (activo) {
       dot.classList.add("on");
-      text.textContent = "Bot activo — analizando la mesa en vivo";
+      text.textContent = t("bot.active");
     } else {
       dot.classList.remove("on");
       // Segundos que faltan para las 8:00 en hora colombiana (Colombia no tiene horario de verano).
@@ -810,7 +1148,7 @@
       var diff = (segObjetivo - segAhora) * 1000;
       var horas = Math.floor(diff / 3600000);
       var mins  = Math.floor((diff % 3600000) / 60000);
-      text.textContent = "El bot arranca en " + horas + "h " + mins + "m";
+      text.textContent = t("bot.startsIn", { h: horas, m: mins });
     }
   }
   actualizarEstadoBot();
@@ -823,7 +1161,7 @@
     if (!el) return;
 
     if (!ultimasSenales.length) {
-      el.textContent = "🎲 Última señal: cargando…";
+      el.textContent = t("ticker.loading");
       return;
     }
 
@@ -834,13 +1172,13 @@
     var minsAtras = fechaSenal
       ? Math.max(0, Math.round((Date.now() - fechaSenal.getTime()) / 60000))
       : null;
-    var haceTexto = minsAtras === null ? "" : " · hace " + minsAtras + " min";
+    var haceTexto = minsAtras === null ? "" : " · " + t("ticker.ago", { m: minsAtras });
     var horaTexto = fechaSenal ? " · " + horaCorta(s.created_at) : "";
 
     el.style.opacity = 0;
     setTimeout(function () {
-      el.textContent = "🎲 Última señal: " + emojiResultado(s.prediccion) + " " + s.prediccion +
-        " — " + (esGanada(s) ? "Ganada ✅" : "Perdida ❌") +
+      el.textContent = t("ticker.prefix") + emojiResultado(s.prediccion) + " " + s.prediccion +
+        " — " + (esGanada(s) ? t("result.win") : t("result.loss")) +
         (s.patron ? " · " + s.patron : "") + horaTexto + haceTexto;
       el.style.opacity = 1;
     }, 250);
@@ -872,7 +1210,7 @@
     var target = parseInt(el.dataset.countTo, 10);
     var suffix = el.dataset.suffix || "";
     if (prefersReduced || isNaN(target)) {
-      el.textContent = (isNaN(target) ? el.textContent : target.toLocaleString("es-CO")) + (isNaN(target) ? "" : suffix);
+      el.textContent = (isNaN(target) ? el.textContent : target.toLocaleString(locale())) + (isNaN(target) ? "" : suffix);
       return;
     }
     var duration = 1300;
@@ -881,9 +1219,9 @@
       if (!start) start = ts;
       var progress = Math.min((ts - start) / duration, 1);
       var eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.floor(eased * target).toLocaleString("es-CO") + suffix;
+      el.textContent = Math.floor(eased * target).toLocaleString(locale()) + suffix;
       if (progress < 1) requestAnimationFrame(step);
-      else el.textContent = target.toLocaleString("es-CO") + suffix;
+      else el.textContent = target.toLocaleString(locale()) + suffix;
     }
     requestAnimationFrame(step);
   }
@@ -913,7 +1251,7 @@
   } else {
     document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-visible"); });
     document.querySelectorAll(".stat-number[data-count-to]").forEach(function (el) {
-      el.textContent = parseInt(el.dataset.countTo, 10).toLocaleString("es-CO") + (el.dataset.suffix || "");
+      el.textContent = parseInt(el.dataset.countTo, 10).toLocaleString(locale()) + (el.dataset.suffix || "");
     });
   }
 })();
