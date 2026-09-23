@@ -597,10 +597,27 @@
     return s.gano === 1 || s.gano === true;
   }
 
+  // Todas las fechas y horas del sitio se muestran en hora de Colombia,
+  // sin importar la zona horaria del navegador.
+  var ZONA_HORARIA = "America/Bogota";
+
+  // Devuelve { anio, mes, dia, hora, minuto, segundo } de una fecha vista en hora colombiana.
+  function partesBogota(d) {
+    var partes = {};
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: ZONA_HORARIA, hourCycle: "h23",
+      year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", second: "2-digit"
+    }).formatToParts(d || new Date()).forEach(function (p) { partes[p.type] = p.value; });
+    return {
+      anio: partes.year, mes: partes.month, dia: partes.day,
+      hora: parseInt(partes.hour, 10), minuto: parseInt(partes.minute, 10), segundo: parseInt(partes.second, 10)
+    };
+  }
+
   function hoyISO() {
-    var d = new Date();
-    var pad = function (n) { return String(n).padStart(2, "0"); };
-    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+    var p = partesBogota();
+    return p.anio + "-" + p.mes + "-" + p.dia;
   }
 
   // Los timestamps de Supabase están en UTC. Si llegan sin zona horaria
@@ -614,17 +631,16 @@
     return isNaN(d.getTime()) ? null : d;
   }
 
-  // Convierte un timestamp UTC a la hora local del navegador del usuario.
+  // Convierte un timestamp UTC a hora colombiana.
   function horaCorta(iso) {
     var d = fechaDesdeUTC(iso);
     if (!d) return "";
-    return d.toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" });
+    return d.toLocaleTimeString("es-CO", { timeZone: ZONA_HORARIA, hour: "2-digit", minute: "2-digit" });
   }
 
   function primerDiaMesISO() {
-    var d = new Date();
-    var pad = function (n) { return String(n).padStart(2, "0"); };
-    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-01";
+    var p = partesBogota();
+    return p.anio + "-" + p.mes + "-01";
   }
 
   function mejorPatron(data) {
@@ -756,7 +772,7 @@
       }
 
       elUpdated.textContent = "Actualizado " + new Date().toLocaleTimeString("es-CO",
-        { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+        { timeZone: ZONA_HORARIA, hour: "2-digit", minute: "2-digit", second: "2-digit" });
     } catch (e) {
       elUpdated.textContent = "No se pudo conectar con el panel en vivo — reintentando…";
     }
@@ -779,8 +795,8 @@
     var text = document.getElementById("botStatusText");
     if (!dot || !text) return;
 
-    var ahora = new Date();
-    var hora  = ahora.getHours();
+    var ahora = partesBogota();
+    var hora  = ahora.hora;
     var activo = hora >= 8 && hora < 22;
 
     if (activo) {
@@ -788,10 +804,10 @@
       text.textContent = "Bot activo — analizando la mesa en vivo";
     } else {
       dot.classList.remove("on");
-      var objetivo = new Date(ahora);
-      objetivo.setHours(8, 0, 0, 0);
-      if (ahora.getHours() >= 8) objetivo.setDate(objetivo.getDate() + 1);
-      var diff = objetivo - ahora;
+      // Segundos que faltan para las 8:00 en hora colombiana (Colombia no tiene horario de verano).
+      var segAhora    = hora * 3600 + ahora.minuto * 60 + ahora.segundo;
+      var segObjetivo = 8 * 3600 + (hora >= 8 ? 24 * 3600 : 0);
+      var diff = (segObjetivo - segAhora) * 1000;
       var horas = Math.floor(diff / 3600000);
       var mins  = Math.floor((diff % 3600000) / 60000);
       text.textContent = "El bot arranca en " + horas + "h " + mins + "m";
