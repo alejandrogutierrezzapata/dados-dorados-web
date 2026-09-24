@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <title>Dados Dorados</title>
+  <defs>
+    <radialGradient id="glow" cx="0.5" cy="0.46" r="0.55">
+      <stop offset="0" stop-color="#2a220f"/>
+      <stop offset="0.6" stop-color="#131110"/>
+      <stop offset="1" stop-color="#0a0908"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3d47b"/>
+      <stop offset="0.55" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#8a7128"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3d47b" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#8a7128" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="pip" cx="0.4" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#2a2418"/>
+      <stop offset="1" stop-color="#0a0908"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Fondo negro con brillo cálido (se ve bien recortado en círculo por Telegram) -->
+  <rect width="512" height="512" fill="url(#glow)"/>
+  <circle cx="256" cy="256" r="228" fill="none" stroke="url(#ring)" stroke-width="3"/>
+  <circle cx="256" cy="256" r="214" fill="none" stroke="#8a7128" stroke-opacity="0.35" stroke-width="1"/>
+
+  <!-- Dado dorado mostrando el 6 -->
+  <rect x="146" y="146" width="220" height="220" rx="44" fill="url(#gold)"/>
+  <rect x="146" y="146" width="220" height="220" rx="44" fill="none" stroke="#f3d47b" stroke-opacity="0.7" stroke-width="2"/>
+  <path d="M190 150 H322 A40 40 0 0 1 362 190 V210 Q256 238 150 210 V190 A40 40 0 0 1 190 150 Z" fill="url(#shine)"/>
+
+  <g fill="url(#pip)">
+    <circle cx="212" cy="204" r="19"/>
+    <circle cx="300" cy="204" r="19"/>
+    <circle cx="212" cy="256" r="19"/>
+    <circle cx="300" cy="256" r="19"/>
+    <circle cx="212" cy="308" r="19"/>
+    <circle cx="300" cy="308" r="19"/>
+  </g>
+</svg>
