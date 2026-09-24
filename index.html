@@ -339,13 +339,6 @@
     max-width:820px; margin:0 auto;
   }
   .pricing-grid.single{grid-template-columns:1fr; max-width:480px;}
-  .premium-soon{
-    max-width:620px; margin:32px auto 0; text-align:center;
-    border:1px dashed rgba(212,175,55,0.3); border-radius:var(--radius);
-    padding:26px 30px; background:rgba(212,175,55,0.04);
-  }
-  .premium-soon .price-badge{position:static; display:inline-flex; margin-bottom:14px;}
-  .premium-soon p{color:var(--text-dim); font-size:0.95rem;}
   .price-card{
     background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius);
     padding:38px 32px; position:relative; overflow:hidden;
@@ -361,10 +354,12 @@
     font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
     padding:5px 12px; border-radius:999px; border:1px solid rgba(212,175,55,0.3);
   }
-  .price-badge.soon{background:rgba(242,237,225,0.06); color:var(--text-faint); border-color:rgba(242,237,225,0.15);}
+  .price-badge.inline{position:static; align-self:flex-start; margin-bottom:18px; text-transform:none; letter-spacing:0.02em; font-size:0.78rem;}
+  .price-note{text-align:center; margin-top:18px; color:var(--text-faint); font-size:0.85rem;}
   .price-card h3{font-family:'Inter',sans-serif; font-size:1.1rem; font-weight:700; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;}
   .price-amount{font-family:'Cormorant Garamond', serif; font-size:3.2rem; font-weight:700; letter-spacing:-0.02em; margin:12px 0 24px;}
   .price-amount span{font-size:1rem; color:var(--text-faint); font-family:'Inter',sans-serif; font-weight:500;}
+  .price-amount .gold-text{font:inherit; color:transparent;}
   .price-list{list-style:none; margin-bottom:28px; flex:1;}
   .price-list li{
     display:flex; align-items:flex-start; gap:10px;
@@ -597,27 +592,29 @@
     <div class="wrap">
       <div class="section-head reveal">
         <span class="tag" data-i18n="price.tag">Acceso</span>
-        <h2 data-i18n="price.title">Acceso Gratuito</h2>
-        <p data-i18n="price.lead">Únete gratis — los planes Premium llegan pronto</p>
+        <h2 data-i18n="price.title">Acceso Completo</h2>
+        <p data-i18n="price.lead">Todos los beneficios VIP, gratis por tiempo limitado</p>
       </div>
       <div class="pricing-grid single">
-        <div class="price-card reveal">
-          <span class="price-badge" data-i18n="price.badge">Gratuito</span>
-          <h3 data-i18n="price.benefits">Beneficios incluidos</h3>
+        <div class="price-card featured reveal">
+          <span class="price-badge inline" data-i18n="price.badge">🎁 Primer mes gratis — Plazas limitadas</span>
+          <h3 data-i18n="price.name">Acceso Completo</h3>
+          <div class="price-amount"><span class="gold-text" data-i18n="price.amount">Gratis</span> <span data-i18n="price.period">por tiempo limitado</span></div>
           <ul class="price-list">
-            <li data-i18n="price.b1">1 de cada 5 alertas completas (con todos los gales)</li>
-            <li data-i18n="price.b2">Reporte diario a las 10pm con resultados del día</li>
+            <li data-i18n="price.b1">Todas las alertas en tiempo real (con todos los gales)</li>
+            <li data-i18n="price.b2">Aviso de sospecha de patrón antes de la entrada</li>
             <li data-i18n="price.b3">Alerta cuando hay racha de 3+ alertas ganadas seguidas</li>
             <li data-i18n="price.b4">Alerta cuando el bot entra en modo pausa</li>
-            <li data-i18n="price.b5">Acceso al canal @DadosDorados</li>
+            <li data-i18n="price.b5">Alerta del día cada mañana a las 8am</li>
+            <li data-i18n="price.b6">Reporte diario a las 10pm y resumen semanal los domingos</li>
+            <li data-i18n="price.b7">Grupo VIP exclusivo (@DadosDoradosVIP)</li>
+            <li data-i18n="price.b8">Estadísticas diarias detalladas</li>
+            <li data-i18n="price.b9">Soporte directo por Telegram</li>
           </ul>
           <a class="price-cta gold" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="price.cta">Unirme gratis</a>
         </div>
       </div>
-      <div class="premium-soon reveal">
-        <span class="price-badge soon" data-i18n="price.soonBadge">Premium · Próximamente</span>
-        <p data-i18n="price.soonText">Alertas en tiempo real, grupo VIP, estadísticas detalladas y soporte directo — muy pronto.</p>
-      </div>
+      <p class="price-note reveal" data-i18n="price.note">Próximamente planes Premium desde $40.000 COP/mes</p>
     </div>
   </section>
 
@@ -714,18 +711,23 @@
       "month.empty": "Aún sin señales este mes",
       "month.bestSub": "{pct}% efectividad · {total} señales",
       "price.tag": "Acceso",
-      "price.title": "Acceso Gratuito",
-      "price.lead": "Únete gratis — los planes Premium llegan pronto",
-      "price.badge": "Gratuito",
-      "price.benefits": "Beneficios incluidos",
-      "price.b1": "1 de cada 5 alertas completas (con todos los gales)",
-      "price.b2": "Reporte diario a las 10pm con resultados del día",
+      "price.title": "Acceso Completo",
+      "price.lead": "Todos los beneficios VIP, gratis por tiempo limitado",
+      "price.badge": "🎁 Primer mes gratis — Plazas limitadas",
+      "price.name": "Acceso Completo",
+      "price.amount": "Gratis",
+      "price.period": "por tiempo limitado",
+      "price.b1": "Todas las alertas en tiempo real (con todos los gales)",
+      "price.b2": "Aviso de sospecha de patrón antes de la entrada",
       "price.b3": "Alerta cuando hay racha de 3+ alertas ganadas seguidas",
       "price.b4": "Alerta cuando el bot entra en modo pausa",
-      "price.b5": "Acceso al canal @DadosDorados",
+      "price.b5": "Alerta del día cada mañana a las 8am",
+      "price.b6": "Reporte diario a las 10pm y resumen semanal los domingos",
+      "price.b7": "Grupo VIP exclusivo (@DadosDoradosVIP)",
+      "price.b8": "Estadísticas diarias detalladas",
+      "price.b9": "Soporte directo por Telegram",
       "price.cta": "Unirme gratis",
-      "price.soonBadge": "Premium · Próximamente",
-      "price.soonText": "Alertas en tiempo real, grupo VIP, estadísticas detalladas y soporte directo — muy pronto.",
+      "price.note": "Próximamente planes Premium desde $40.000 COP/mes",
       "final.title": "¿Listo para decidir con ventaja?",
       "final.text": "Únete a Dados Dorados y recibe el próximo análisis directo en tu Telegram.",
       "final.cta": "✈️ Empezar en el bot — 🎲 Dados Dorados Bot",
@@ -792,18 +794,23 @@
       "month.empty": "No signals yet this month",
       "month.bestSub": "{pct}% accuracy · {total} signals",
       "price.tag": "Access",
-      "price.title": "Free Access",
-      "price.lead": "Join for free — Premium plans coming soon",
-      "price.badge": "Free",
-      "price.benefits": "Included benefits",
-      "price.b1": "1 in 5 full alerts (with all gales)",
-      "price.b2": "Daily report at 10pm with the day's results",
+      "price.title": "Full Access",
+      "price.lead": "Every VIP benefit, free for a limited time",
+      "price.badge": "🎁 First month free — Limited spots",
+      "price.name": "Full Access",
+      "price.amount": "Free",
+      "price.period": "for a limited time",
+      "price.b1": "All alerts in real time (with all gales)",
+      "price.b2": "Pattern heads-up before the entry",
       "price.b3": "Alert when there's a streak of 3+ winning alerts in a row",
       "price.b4": "Alert when the bot enters pause mode",
-      "price.b5": "Access to the @DadosDorados channel",
+      "price.b5": "Alert of the day every morning at 8am",
+      "price.b6": "Daily report at 10pm and weekly summary on Sundays",
+      "price.b7": "Exclusive VIP group (@DadosDoradosVIP)",
+      "price.b8": "Detailed daily statistics",
+      "price.b9": "Direct support via Telegram",
       "price.cta": "Join for free",
-      "price.soonBadge": "Premium · Coming soon",
-      "price.soonText": "Real-time alerts, VIP group, detailed statistics and direct support — very soon.",
+      "price.note": "Premium plans coming soon from $40,000 COP/month",
       "final.title": "Ready to decide with an edge?",
       "final.text": "Join Dados Dorados and get the next analysis straight to your Telegram.",
       "final.cta": "✈️ Start with the bot — 🎲 Dados Dorados Bot",
@@ -870,18 +877,23 @@
       "month.empty": "Aucun signal ce mois-ci pour l'instant",
       "month.bestSub": "{pct} % d'efficacité · {total} signaux",
       "price.tag": "Accès",
-      "price.title": "Accès gratuit",
-      "price.lead": "Rejoignez-nous gratuitement — les offres Premium arrivent bientôt",
-      "price.badge": "Gratuit",
-      "price.benefits": "Avantages inclus",
-      "price.b1": "1 alerte complète sur 5 (avec tous les gales)",
-      "price.b2": "Rapport quotidien à 22 h avec les résultats du jour",
+      "price.title": "Accès complet",
+      "price.lead": "Tous les avantages VIP, gratuits pour une durée limitée",
+      "price.badge": "🎁 Premier mois gratuit — Places limitées",
+      "price.name": "Accès complet",
+      "price.amount": "Gratuit",
+      "price.period": "pour une durée limitée",
+      "price.b1": "Toutes les alertes en temps réel (avec tous les gales)",
+      "price.b2": "Avertissement de motif avant l'entrée",
       "price.b3": "Alerte lors d'une série de 3+ alertes gagnantes d'affilée",
       "price.b4": "Alerte lorsque le bot passe en mode pause",
-      "price.b5": "Accès au canal @DadosDorados",
+      "price.b5": "Alerte du jour chaque matin à 8 h",
+      "price.b6": "Rapport quotidien à 22 h et résumé hebdomadaire le dimanche",
+      "price.b7": "Groupe VIP exclusif (@DadosDoradosVIP)",
+      "price.b8": "Statistiques quotidiennes détaillées",
+      "price.b9": "Support direct via Telegram",
       "price.cta": "Rejoindre gratuitement",
-      "price.soonBadge": "Premium · Bientôt",
-      "price.soonText": "Alertes en temps réel, groupe VIP, statistiques détaillées et support direct — très bientôt.",
+      "price.note": "Offres Premium bientôt disponibles à partir de 40 000 COP/mois",
       "final.title": "Prêt à décider avec un avantage ?",
       "final.text": "Rejoignez Dados Dorados et recevez la prochaine analyse directement sur votre Telegram.",
       "final.cta": "✈️ Commencer avec le bot — 🎲 Dados Dorados Bot",
