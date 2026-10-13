@@ -371,6 +371,8 @@
     padding:14px; border-radius:999px; text-decoration:none; font-weight:700; font-size:0.95rem;
     transition:transform .2s ease, box-shadow .2s ease;
   }
+  .price-cta.outline{border:1px solid rgba(212,175,55,0.45); color:var(--gold-light);}
+  .price-cta.outline:hover{transform:translateY(-2px); background:rgba(212,175,55,0.08);}
   .price-cta.gold{
     background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-dim) 100%);
     color:#141008; box-shadow:inset 0 1px 0 rgba(255,255,255,0.35);
@@ -510,29 +512,28 @@
   <section class="stats-section">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="tag" data-i18n="stats.tag">Números del canal</span>
-        <h2 data-i18n="stats.title">Resultados que hablan por sí solos</h2>
+        <span class="tag" data-i18n="stats.tag">Así funciona</span>
+        <h2 data-i18n="stats.title">Horarios y acceso, claros</h2>
       </div>
       <div class="stats-grid">
         <div class="stat-card reveal">
-          <div class="stat-number gold-text" data-count-to="73" data-suffix="%">0%</div>
-          <div class="stat-label" data-i18n="stats.s1">Efectividad histórica</div>
+          <div class="stat-number gold-text" data-i18n="stats.n1">8am–1am</div>
+          <div class="stat-label" data-i18n="stats.s1">Señales en el VIP (todos los días)</div>
         </div>
         <div class="stat-card reveal">
-          <div class="stat-number gold-text" data-count-to="1240" data-suffix="+">0+</div>
-          <div class="stat-label" data-i18n="stats.s2">Alertas cerradas</div>
+          <div class="stat-number gold-text" data-i18n="stats.n2">8am–10pm</div>
+          <div class="stat-label" data-i18n="stats.s2">Canal gratis abierto</div>
         </div>
         <div class="stat-card reveal">
-          <div class="stat-number gold-text" data-count-to="2800" data-suffix="+">0+</div>
-          <div class="stat-label" data-i18n="stats.s3">Miembros en el canal</div>
+          <div class="stat-number gold-text" data-i18n="stats.n3">1 de 5</div>
+          <div class="stat-label" data-i18n="stats.s3">Señales que llegan al canal gratis</div>
         </div>
         <div class="stat-card reveal">
-          <div class="stat-number gold-text">24/7</div>
-          <div class="stat-label" data-i18n="stats.s4">Monitoreo de la mesa</div>
+          <div class="stat-number gold-text" data-i18n="stats.n4">7 días</div>
+          <div class="stat-label" data-i18n="stats.s4">VIP gratis para probar</div>
         </div>
       </div>
-      <p class="stats-note" data-i18n="stats.note">Resultados actualizados al cierre de cada señal.</p>
-      <p class="stats-note" style="margin-top:8px;" data-i18n="stats.sample">* Datos de ejemplo mientras se recopilan estadísticas reales del canal — se actualizarán con cifras verificadas.</p>
+      <p class="stats-note" data-i18n="stats.note">Las cifras reales del día están en el panel en vivo de abajo.</p>
     </div>
   </section>
 
@@ -591,30 +592,40 @@
   <section id="precios">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="tag" data-i18n="price.tag">Acceso</span>
-        <h2 data-i18n="price.title">Acceso Completo</h2>
-        <p data-i18n="price.lead">Todos los beneficios VIP, gratis por tiempo limitado</p>
+        <span class="tag" data-i18n="price.tag">Planes</span>
+        <h2 data-i18n="price.title">Elige cómo empezar</h2>
+        <p data-i18n="price.lead">Empieza gratis en el canal o prueba el VIP 7 días sin pagar nada.</p>
       </div>
-      <div class="pricing-grid single">
-        <div class="price-card featured reveal">
-          <span class="price-badge inline" data-i18n="price.badge">🎁 7 días gratis — Plazas limitadas</span>
-          <h3 data-i18n="price.name">Acceso Completo</h3>
-          <div class="price-amount"><span class="gold-text" data-i18n="price.amount">Gratis</span> <span data-i18n="price.period">por tiempo limitado</span></div>
+      <div class="pricing-grid">
+        <div class="price-card reveal">
+          <h3 data-i18n="pricef.name">Canal gratis</h3>
+          <div class="price-amount"><span class="gold-text" data-i18n="pricef.amount">$0</span> <span data-i18n="pricef.period">siempre</span></div>
           <ul class="price-list">
-            <li data-i18n="price.b1">Todas las alertas en tiempo real (con todos los gales)</li>
-            <li data-i18n="price.b2">Aviso de sospecha de patrón antes de la entrada</li>
-            <li data-i18n="price.b3">Alerta cuando hay racha de 3+ alertas ganadas seguidas</li>
-            <li data-i18n="price.b4">Alerta cuando el bot entra en modo pausa</li>
-            <li data-i18n="price.b5">Alerta del día cada mañana a las 8am</li>
-            <li data-i18n="price.b6">Reporte diario a las 10pm y resumen semanal los domingos</li>
-            <li data-i18n="price.b7">Grupo VIP exclusivo (@DadosDoradosVIP)</li>
-            <li data-i18n="price.b8">Estadísticas diarias detalladas</li>
-            <li data-i18n="price.b9">Soporte directo por Telegram</li>
+            <li data-i18n="pricef.b1">1 de cada 5 señales, completa (entrada, gales y resultado)</li>
+            <li data-i18n="pricef.b2">De 8:00 AM a 10:00 PM</li>
+            <li data-i18n="pricef.b3">Bienvenida a las 8am y reporte del día a las 10pm</li>
+            <li data-i18n="pricef.b4">Alertas de rachas ganadoras</li>
           </ul>
-          <a class="price-cta gold" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="price.cta">Unirme gratis</a>
+          <a class="price-cta outline" href="https://t.me/DadosDorados" target="_blank" rel="noopener" data-i18n="pricef.cta">Unirme al canal gratis</a>
+        </div>
+        <div class="price-card featured reveal">
+          <span class="price-badge inline" data-i18n="price.badge">🎁 7 días gratis para probar</span>
+          <h3 data-i18n="price.name">VIP Premium</h3>
+          <div class="price-amount"><span class="gold-text" data-i18n="price.amount">$100.000</span> <span data-i18n="price.period">COP / mes</span></div>
+          <ul class="price-list">
+            <li data-i18n="price.b1">Todas las señales en tiempo real, con sus gales</li>
+            <li data-i18n="price.b2">De 8:00 AM a 1:00 AM, todos los días</li>
+            <li data-i18n="price.b3">Aviso de patrón antes de cada entrada</li>
+            <li data-i18n="price.b4">Alertas de racha y de modo pausa</li>
+            <li data-i18n="price.b5">Reporte del día a las 10pm</li>
+            <li data-i18n="price.b6">Contenido protegido (no se puede reenviar)</li>
+            <li data-i18n="price.b7">Soporte directo y privado por Telegram</li>
+            <li data-i18n="price.b8">Pago fácil por llave Bre-B</li>
+          </ul>
+          <a class="price-cta gold" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="price.cta">Probar 7 días gratis</a>
         </div>
       </div>
-      <p class="price-note reveal" data-i18n="price.note">Próximamente planes Premium desde $100.000 COP/mes</p>
+      <p class="price-note reveal" data-i18n="price.note">La prueba gratis es una por número de celular colombiano (+57). Sin tarjeta: después pagas por Bre-B solo si quieres seguir.</p>
     </div>
   </section>
 
@@ -638,10 +649,7 @@
       <a href="#precios" data-i18n="footer.pricing">Precios</a>
     </div>
   </div>
-  <p class="disclaimer" data-i18n="footer.disclaimer">
-    Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados; implica riesgo real de dinero, así que participa con responsabilidad.
-    Servicio para mayores de edad, no afiliado a Evolution Gaming ni a los operadores mencionados.
-  </p>
+  <p class="disclaimer" data-i18n="footer.disclaimer">Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados; implica riesgo real de dinero, así que participa con responsabilidad. Servicio para mayores de edad, no afiliado a Evolution Gaming ni a los operadores mencionados.</p>
 </footer>
 
 <script>
@@ -679,14 +687,13 @@
       "f3.text": "Cada alerta incluye su plan de gales — sabes exactamente cuánto arriesgar y hasta dónde llegar.",
       "f4.title": "Modo pausa automático",
       "f4.text": "Tras pérdidas seguidas, el sistema entra en modo pausa y analiza en silencio hasta recuperar precisión.",
-      "stats.tag": "Números del canal",
-      "stats.title": "Resultados que hablan por sí solos",
-      "stats.s1": "Efectividad histórica",
-      "stats.s2": "Alertas cerradas",
-      "stats.s3": "Miembros en el canal",
-      "stats.s4": "Monitoreo de la mesa",
-      "stats.note": "Resultados actualizados al cierre de cada señal.",
-      "stats.sample": "* Datos de ejemplo mientras se recopilan estadísticas reales del canal — se actualizarán con cifras verificadas.",
+      "stats.tag": "Así funciona",
+      "stats.title": "Horarios y acceso, claros",
+      "stats.s1": "Señales en el VIP (todos los días)",
+      "stats.s2": "Canal gratis abierto",
+      "stats.s3": "Señales que llegan al canal gratis",
+      "stats.s4": "VIP gratis para probar",
+      "stats.note": "Las cifras reales del día están en el panel en vivo de abajo.",
       "dash.tag": "En vivo",
       "dash.title": "Dashboard del día",
       "dash.lead": "Datos reales de las señales ya cerradas de hoy — se actualiza solo.",
@@ -710,24 +717,35 @@
       "month.best": "Mejor patrón del mes",
       "month.empty": "Aún sin señales este mes",
       "month.bestSub": "{pct}% efectividad · {total} señales",
-      "price.tag": "Acceso",
-      "price.title": "Acceso Completo",
-      "price.lead": "Todos los beneficios VIP, gratis por tiempo limitado",
-      "price.badge": "🎁 7 días gratis — Plazas limitadas",
-      "price.name": "Acceso Completo",
-      "price.amount": "Gratis",
-      "price.period": "por tiempo limitado",
-      "price.b1": "Todas las alertas en tiempo real (con todos los gales)",
-      "price.b2": "Aviso de sospecha de patrón antes de la entrada",
-      "price.b3": "Alerta cuando hay racha de 3+ alertas ganadas seguidas",
-      "price.b4": "Alerta cuando el bot entra en modo pausa",
-      "price.b5": "Alerta del día cada mañana a las 8am",
-      "price.b6": "Reporte diario a las 10pm y resumen semanal los domingos",
-      "price.b7": "Grupo VIP exclusivo (@DadosDoradosVIP)",
-      "price.b8": "Estadísticas diarias detalladas",
-      "price.b9": "Soporte directo por Telegram",
-      "price.cta": "Unirme gratis",
-      "price.note": "Próximamente planes Premium desde $100.000 COP/mes",
+      "price.tag": "Planes",
+      "pricef.cta": "Unirme al canal gratis",
+      "pricef.b4": "Alertas de rachas ganadoras",
+      "pricef.b3": "Bienvenida a las 8am y reporte del día a las 10pm",
+      "pricef.b2": "De 8:00 AM a 10:00 PM",
+      "pricef.b1": "1 de cada 5 señales, completa (entrada, gales y resultado)",
+      "pricef.period": "siempre",
+      "pricef.amount": "$0",
+      "pricef.name": "Canal gratis",
+      "stats.n4": "7 días",
+      "stats.n3": "1 de 5",
+      "stats.n2": "8am–10pm",
+      "stats.n1": "8am–1am",
+      "price.title": "Elige cómo empezar",
+      "price.lead": "Empieza gratis en el canal o prueba el VIP 7 días sin pagar nada.",
+      "price.badge": "🎁 7 días gratis para probar",
+      "price.name": "VIP Premium",
+      "price.amount": "$100.000",
+      "price.period": "COP / mes",
+      "price.b1": "Todas las señales en tiempo real, con sus gales",
+      "price.b2": "De 8:00 AM a 1:00 AM, todos los días",
+      "price.b3": "Aviso de patrón antes de cada entrada",
+      "price.b4": "Alertas de racha y de modo pausa",
+      "price.b5": "Reporte del día a las 10pm",
+      "price.b6": "Contenido protegido (no se puede reenviar)",
+      "price.b7": "Soporte directo y privado por Telegram",
+      "price.b8": "Pago fácil por llave Bre-B",
+      "price.cta": "Probar 7 días gratis",
+      "price.note": "La prueba gratis es una por número de celular colombiano (+57). Sin tarjeta: después pagas por Bre-B solo si quieres seguir.",
       "final.title": "¿Listo para decidir con ventaja?",
       "final.text": "Únete a Dados Dorados y recibe el próximo análisis directo en tu Telegram.",
       "final.cta": "✈️ Empezar en el bot — 🎲 Dados Dorados Bot",
@@ -762,14 +780,13 @@
       "f3.text": "Every alert includes its gale plan — you know exactly how much to risk and how far to go.",
       "f4.title": "Automatic pause mode",
       "f4.text": "After consecutive losses, the system enters pause mode and analyzes silently until it regains accuracy.",
-      "stats.tag": "Channel numbers",
-      "stats.title": "Results that speak for themselves",
-      "stats.s1": "Historical accuracy",
-      "stats.s2": "Closed alerts",
-      "stats.s3": "Channel members",
-      "stats.s4": "Table monitoring",
-      "stats.note": "Results updated when each signal closes.",
-      "stats.sample": "* Sample data while real channel statistics are collected — it will be updated with verified figures.",
+      "stats.tag": "How it works",
+      "stats.title": "Clear hours and access",
+      "stats.s1": "VIP signals (every day)",
+      "stats.s2": "Free channel open",
+      "stats.s3": "Signals that reach the free channel",
+      "stats.s4": "Free VIP trial",
+      "stats.note": "Today's real numbers are in the live dashboard below.",
       "dash.tag": "Live",
       "dash.title": "Today's dashboard",
       "dash.lead": "Real data from today's closed signals — updates automatically.",
@@ -793,24 +810,35 @@
       "month.best": "Best pattern this month",
       "month.empty": "No signals yet this month",
       "month.bestSub": "{pct}% accuracy · {total} signals",
-      "price.tag": "Access",
-      "price.title": "Full Access",
-      "price.lead": "Every VIP benefit, free for a limited time",
-      "price.badge": "🎁 7 days free — Limited spots",
-      "price.name": "Full Access",
-      "price.amount": "Free",
-      "price.period": "for a limited time",
-      "price.b1": "All alerts in real time (with all gales)",
-      "price.b2": "Pattern heads-up before the entry",
-      "price.b3": "Alert when there's a streak of 3+ winning alerts in a row",
-      "price.b4": "Alert when the bot enters pause mode",
-      "price.b5": "Alert of the day every morning at 8am",
-      "price.b6": "Daily report at 10pm and weekly summary on Sundays",
-      "price.b7": "Exclusive VIP group (@DadosDoradosVIP)",
-      "price.b8": "Detailed daily statistics",
-      "price.b9": "Direct support via Telegram",
-      "price.cta": "Join for free",
-      "price.note": "Premium plans coming soon from $100,000 COP/month",
+      "price.tag": "Plans",
+      "pricef.cta": "Join the free channel",
+      "pricef.b4": "Winning-streak alerts",
+      "pricef.b3": "Morning welcome at 8am and daily report at 10pm",
+      "pricef.b2": "From 8:00 AM to 10:00 PM",
+      "pricef.b1": "1 in 5 signals, complete (entry, gales and result)",
+      "pricef.period": "forever",
+      "pricef.amount": "$0",
+      "pricef.name": "Free channel",
+      "stats.n4": "7 days",
+      "stats.n3": "1 in 5",
+      "stats.n2": "8am–10pm",
+      "stats.n1": "8am–1am",
+      "price.title": "Choose how to start",
+      "price.lead": "Start free in the channel or try the VIP for 7 days at no cost.",
+      "price.badge": "🎁 7-day free trial",
+      "price.name": "VIP Premium",
+      "price.amount": "$100.000",
+      "price.period": "COP / month",
+      "price.b1": "Every signal in real time, with its gales",
+      "price.b2": "From 8:00 AM to 1:00 AM, every day",
+      "price.b3": "Pattern heads-up before every entry",
+      "price.b4": "Streak and pause-mode alerts",
+      "price.b5": "Daily report at 10pm",
+      "price.b6": "Protected content (can't be forwarded)",
+      "price.b7": "Direct, private support on Telegram",
+      "price.b8": "Easy payment via Bre-B key",
+      "price.cta": "Try 7 days free",
+      "price.note": "One free trial per Colombian phone number (+57). No card needed: pay via Bre-B afterwards only if you want to continue.",
       "final.title": "Ready to decide with an edge?",
       "final.text": "Join Dados Dorados and get the next analysis straight to your Telegram.",
       "final.cta": "✈️ Start with the bot — 🎲 Dados Dorados Bot",
@@ -845,14 +873,13 @@
       "f3.text": "Chaque alerte inclut son plan de gales — vous savez exactement combien risquer et jusqu'où aller.",
       "f4.title": "Mode pause automatique",
       "f4.text": "Après plusieurs pertes consécutives, le système passe en mode pause et analyse en silence jusqu'à retrouver sa précision.",
-      "stats.tag": "Chiffres du canal",
-      "stats.title": "Des résultats qui parlent d'eux-mêmes",
-      "stats.s1": "Efficacité historique",
-      "stats.s2": "Alertes clôturées",
-      "stats.s3": "Membres du canal",
-      "stats.s4": "Surveillance de la table",
-      "stats.note": "Résultats mis à jour à la clôture de chaque signal.",
-      "stats.sample": "* Données d'exemple en attendant les statistiques réelles du canal — elles seront remplacées par des chiffres vérifiés.",
+      "stats.tag": "Comment ça marche",
+      "stats.title": "Horaires et accès, en clair",
+      "stats.s1": "Signaux VIP (tous les jours)",
+      "stats.s2": "Canal gratuit ouvert",
+      "stats.s3": "Signaux envoyés au canal gratuit",
+      "stats.s4": "Essai VIP gratuit",
+      "stats.note": "Les chiffres réels du jour sont dans le tableau de bord en direct ci-dessous.",
       "dash.tag": "En direct",
       "dash.title": "Tableau de bord du jour",
       "dash.lead": "Données réelles des signaux clôturés aujourd'hui — mise à jour automatique.",
@@ -876,24 +903,35 @@
       "month.best": "Meilleure tendance du mois",
       "month.empty": "Aucun signal ce mois-ci pour l'instant",
       "month.bestSub": "{pct} % d'efficacité · {total} signaux",
-      "price.tag": "Accès",
-      "price.title": "Accès complet",
-      "price.lead": "Tous les avantages VIP, gratuits pour une durée limitée",
-      "price.badge": "🎁 Premier mois gratuit — Places limitées",
-      "price.name": "Accès complet",
-      "price.amount": "Gratuit",
-      "price.period": "pour une durée limitée",
-      "price.b1": "Toutes les alertes en temps réel (avec tous les gales)",
-      "price.b2": "Avertissement de motif avant l'entrée",
-      "price.b3": "Alerte lors d'une série de 3+ alertes gagnantes d'affilée",
-      "price.b4": "Alerte lorsque le bot passe en mode pause",
-      "price.b5": "Alerte du jour chaque matin à 8 h",
-      "price.b6": "Rapport quotidien à 22 h et résumé hebdomadaire le dimanche",
-      "price.b7": "Groupe VIP exclusif (@DadosDoradosVIP)",
-      "price.b8": "Statistiques quotidiennes détaillées",
-      "price.b9": "Support direct via Telegram",
-      "price.cta": "Rejoindre gratuitement",
-      "price.note": "Offres Premium bientôt disponibles à partir de 100 000 COP/mois",
+      "price.tag": "Formules",
+      "pricef.cta": "Rejoindre le canal gratuit",
+      "pricef.b4": "Alertes de séries gagnantes",
+      "pricef.b3": "Message de bienvenue à 8h et rapport du jour à 22h",
+      "pricef.b2": "De 8h à 22h",
+      "pricef.b1": "1 signal sur 5, complet (entrée, gales et résultat)",
+      "pricef.period": "pour toujours",
+      "pricef.amount": "$0",
+      "pricef.name": "Canal gratuit",
+      "stats.n4": "7 jours",
+      "stats.n3": "1 sur 5",
+      "stats.n2": "8h–22h",
+      "stats.n1": "8h–1h",
+      "price.title": "Choisissez comment commencer",
+      "price.lead": "Commencez gratuitement sur le canal ou essayez le VIP 7 jours sans payer.",
+      "price.badge": "🎁 7 jours d'essai gratuit",
+      "price.name": "VIP Premium",
+      "price.amount": "$100.000",
+      "price.period": "COP / mois",
+      "price.b1": "Tous les signaux en temps réel, avec leurs gales",
+      "price.b2": "De 8h à 1h du matin, tous les jours",
+      "price.b3": "Alerte de tendance avant chaque entrée",
+      "price.b4": "Alertes de série et de mode pause",
+      "price.b5": "Rapport du jour à 22h",
+      "price.b6": "Contenu protégé (impossible à transférer)",
+      "price.b7": "Support direct et privé sur Telegram",
+      "price.b8": "Paiement facile par clé Bre-B",
+      "price.cta": "Essayer 7 jours gratuits",
+      "price.note": "Un essai gratuit par numéro de téléphone colombien (+57). Sans carte : vous payez ensuite par Bre-B seulement si vous voulez continuer.",
       "final.title": "Prêt à décider avec un avantage ?",
       "final.text": "Rejoignez Dados Dorados et recevez la prochaine analyse directement sur votre Telegram.",
       "final.cta": "✈️ Commencer avec le bot — 🎲 Dados Dorados Bot",
@@ -1163,7 +1201,7 @@
 
     var ahora = partesBogota();
     var hora  = ahora.hora;
-    var activo = hora >= 8 && hora < 22;
+    var activo = hora >= 8 || hora < 1;  // VIP de 8:00 a 1:00 AM
 
     if (activo) {
       dot.classList.add("on");
