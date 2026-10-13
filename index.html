@@ -283,6 +283,32 @@
   .feature-card p{color:var(--text-dim); font-size:0.92rem; line-height:1.6;}
 
   /* ---------- STATS ---------- */
+  .tz-switch{display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0 auto 30px;}
+  .tz-switch button{
+    background:var(--card); border:1px solid var(--card-border); color:var(--text-dim);
+    padding:8px 14px; border-radius:999px; font:600 0.85rem 'Inter',sans-serif; cursor:pointer;
+    transition:border-color .2s ease, color .2s ease, background .2s ease;
+  }
+  .tz-switch button:hover{color:var(--gold-light);}
+  .tz-switch button[aria-pressed="true"]{border-color:rgba(212,175,55,0.6); color:var(--gold-light); background:rgba(212,175,55,0.1);}
+  .hours-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; max-width:820px; margin:0 auto;}
+  .hours-card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:28px 24px; text-align:center;}
+  .hours-card.vip{border-color:rgba(212,175,55,0.55);}
+  .hours-label{display:block; font:700 0.78rem 'Inter',sans-serif; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-dim);}
+  .hours-range{
+    font-family:'Cormorant Garamond', serif; font-weight:700; font-size:clamp(2.2rem, 5vw, 3rem);
+    line-height:1.1; margin:12px 0 8px; transition:opacity .25s ease;
+  }
+  .hours-range.cambiando{opacity:0.15;}
+  .hours-range sup{font:600 0.75rem 'Inter',sans-serif; color:var(--text-faint); margin-left:6px; vertical-align:super;}
+  .hours-sub{display:block; color:var(--text-faint); font-size:0.85rem;}
+  .hours-state{display:inline-flex; align-items:center; gap:7px; margin-top:14px; font-size:0.85rem; color:var(--text-dim);}
+  .hours-state::before{content:""; width:8px; height:8px; border-radius:50%; background:#6b6b6b;}
+  .hours-state.on{color:#7be3a3;}
+  .hours-state.on::before{background:#3ddc84; box-shadow:0 0 8px #3ddc84;}
+  .hours-now{text-align:center; color:var(--text-faint); font-size:0.82rem; margin-top:22px;}
+  .price-desc{color:var(--text-dim); font-size:0.92rem; line-height:1.55; margin:-10px 0 22px;}
+  @media (max-width:620px){ .hours-grid{grid-template-columns:1fr;} }
   .stats-section{background:var(--bg-alt); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);}
   .stats-grid{
     display:grid; grid-template-columns:repeat(4, 1fr); gap:24px;
@@ -508,32 +534,30 @@
     </div>
   </section>
 
-  <!-- STATS -->
-  <section class="stats-section">
+  <!-- HORARIO -->
+  <section class="stats-section" id="horario">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="tag" data-i18n="stats.tag">Así funciona</span>
-        <h2 data-i18n="stats.title">Horarios y acceso, claros</h2>
+        <span class="tag" data-i18n="hours.tag">Horario</span>
+        <h2 data-i18n="hours.title">Operamos en estos horarios</h2>
+        <p data-i18n="hours.lead">Elige tu país o deja que rote: el horario se ajusta solo a cada zona.</p>
       </div>
-      <div class="stats-grid">
-        <div class="stat-card reveal">
-          <div class="stat-number gold-text" data-i18n="stats.n1">8am–1am</div>
-          <div class="stat-label" data-i18n="stats.s1">Señales en el VIP (todos los días)</div>
+      <div class="tz-switch reveal" id="tzSwitch" role="group" data-i18n-aria="hours.tzLabel" aria-label="Zona horaria"></div>
+      <div class="hours-grid">
+        <div class="hours-card vip reveal">
+          <span class="hours-label" data-i18n="hours.vip">VIP Premium</span>
+          <div class="hours-range" id="hoursVip"><span class="gold-text">08:00 – 01:00</span></div>
+          <span class="hours-sub" data-i18n="hours.vipSub">Todos los días · 17 horas de señales</span>
+          <span class="hours-state" id="stateVip"></span>
         </div>
-        <div class="stat-card reveal">
-          <div class="stat-number gold-text" data-i18n="stats.n2">8am–10pm</div>
-          <div class="stat-label" data-i18n="stats.s2">Canal gratis abierto</div>
-        </div>
-        <div class="stat-card reveal">
-          <div class="stat-number gold-text" data-i18n="stats.n3">1 de 5</div>
-          <div class="stat-label" data-i18n="stats.s3">Señales que llegan al canal gratis</div>
-        </div>
-        <div class="stat-card reveal">
-          <div class="stat-number gold-text" data-i18n="stats.n4">7 días</div>
-          <div class="stat-label" data-i18n="stats.s4">VIP gratis para probar</div>
+        <div class="hours-card reveal">
+          <span class="hours-label" data-i18n="hours.free">Canal gratis</span>
+          <div class="hours-range" id="hoursFree"><span class="gold-text">08:00 – 22:00</span></div>
+          <span class="hours-sub" data-i18n="hours.freeSub">Todos los días · 1 de cada 5 señales</span>
+          <span class="hours-state" id="stateFree"></span>
         </div>
       </div>
-      <p class="stats-note" data-i18n="stats.note">Las cifras reales del día están en el panel en vivo de abajo.</p>
+      <p class="hours-now" id="hoursNow"></p>
     </div>
   </section>
 
@@ -599,33 +623,36 @@
       <div class="pricing-grid">
         <div class="price-card reveal">
           <h3 data-i18n="pricef.name">Canal gratis</h3>
-          <div class="price-amount"><span class="gold-text" data-i18n="pricef.amount">$0</span> <span data-i18n="pricef.period">siempre</span></div>
+          <div class="price-amount"><span class="gold-text" data-i18n="pricef.amount">$0</span> <span data-i18n="pricef.period">para siempre</span></div>
+          <p class="price-desc" data-i18n="pricef.desc">Ideal para conocer el método y ver resultados reales antes de decidir.</p>
           <ul class="price-list">
-            <li data-i18n="pricef.b1">1 de cada 5 señales, completa (entrada, gales y resultado)</li>
-            <li data-i18n="pricef.b2">De 8:00 AM a 10:00 PM</li>
-            <li data-i18n="pricef.b3">Bienvenida a las 8am y reporte del día a las 10pm</li>
-            <li data-i18n="pricef.b4">Alertas de rachas ganadoras</li>
+            <li data-i18n="pricef.b1">1 de cada 5 señales, completa: entrada, gales y resultado</li>
+            <li data-i18n="pricef.b2">De 8:00 AM a 10:00 PM (hora Colombia), todos los días</li>
+            <li data-i18n="pricef.b3">Bienvenida cada mañana y reporte del día en la noche</li>
+            <li data-i18n="pricef.b4">Alertas cuando el bot va en racha ganadora</li>
+            <li data-i18n="pricef.b5">Adelanto de cómo va el VIP durante el día</li>
           </ul>
-          <a class="price-cta outline" href="https://t.me/DadosDorados" target="_blank" rel="noopener" data-i18n="pricef.cta">Unirme al canal gratis</a>
+          <a class="price-cta outline" href="https://t.me/DadosDorados" target="_blank" rel="noopener" data-i18n="pricef.cta">Unirme gratis</a>
         </div>
         <div class="price-card featured reveal">
-          <span class="price-badge inline" data-i18n="price.badge">🎁 7 días gratis para probar</span>
+          <span class="price-badge inline" data-i18n="price.badge">🎁 Pruébalo 7 días gratis</span>
           <h3 data-i18n="price.name">VIP Premium</h3>
           <div class="price-amount"><span class="gold-text" data-i18n="price.amount">$100.000</span> <span data-i18n="price.period">COP / mes</span></div>
+          <p class="price-desc" data-i18n="price.desc">Todas las señales del día, al instante, para que no se te escape ninguna oportunidad.</p>
           <ul class="price-list">
-            <li data-i18n="price.b1">Todas las señales en tiempo real, con sus gales</li>
-            <li data-i18n="price.b2">De 8:00 AM a 1:00 AM, todos los días</li>
-            <li data-i18n="price.b3">Aviso de patrón antes de cada entrada</li>
-            <li data-i18n="price.b4">Alertas de racha y de modo pausa</li>
-            <li data-i18n="price.b5">Reporte del día a las 10pm</li>
-            <li data-i18n="price.b6">Contenido protegido (no se puede reenviar)</li>
-            <li data-i18n="price.b7">Soporte directo y privado por Telegram</li>
-            <li data-i18n="price.b8">Pago fácil por llave Bre-B</li>
+            <li data-i18n="price.b1">Todas las señales en tiempo real, cada una con su plan de gales</li>
+            <li data-i18n="price.b2">17 horas diarias: de 8:00 AM a 1:00 AM (hora Colombia)</li>
+            <li data-i18n="price.b3">Aviso «analizando» antes de cada entrada, para que estés listo</li>
+            <li data-i18n="price.b4">Alertas de rachas y aviso cuando el bot pausa para protegerte de malas rachas</li>
+            <li data-i18n="price.b5">Reporte del día con la efectividad real</li>
+            <li data-i18n="price.b6">Canal privado con contenido protegido</li>
+            <li data-i18n="price.b7">Soporte directo y personal por Telegram</li>
+            <li data-i18n="price.b8">Pago mensual fácil por llave Bre-B</li>
           </ul>
-          <a class="price-cta gold" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="price.cta">Probar 7 días gratis</a>
+          <a class="price-cta gold" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="price.cta">Empezar mis 7 días gratis</a>
         </div>
       </div>
-      <p class="price-note reveal" data-i18n="price.note">La prueba gratis es una por número de celular colombiano (+57). Sin tarjeta: después pagas por Bre-B solo si quieres seguir.</p>
+      <p class="price-note reveal" data-i18n="price.note">Prueba gratis: una por número de celular de Colombia (+57). No pedimos tarjeta: si te gusta, sigues pagando por Bre-B.</p>
     </div>
   </section>
 
@@ -687,13 +714,6 @@
       "f3.text": "Cada alerta incluye su plan de gales — sabes exactamente cuánto arriesgar y hasta dónde llegar.",
       "f4.title": "Modo pausa automático",
       "f4.text": "Tras pérdidas seguidas, el sistema entra en modo pausa y analiza en silencio hasta recuperar precisión.",
-      "stats.tag": "Así funciona",
-      "stats.title": "Horarios y acceso, claros",
-      "stats.s1": "Señales en el VIP (todos los días)",
-      "stats.s2": "Canal gratis abierto",
-      "stats.s3": "Señales que llegan al canal gratis",
-      "stats.s4": "VIP gratis para probar",
-      "stats.note": "Las cifras reales del día están en el panel en vivo de abajo.",
       "dash.tag": "En vivo",
       "dash.title": "Dashboard del día",
       "dash.lead": "Datos reales de las señales ya cerradas de hoy — se actualiza solo.",
@@ -718,34 +738,50 @@
       "month.empty": "Aún sin señales este mes",
       "month.bestSub": "{pct}% efectividad · {total} señales",
       "price.tag": "Planes",
-      "pricef.cta": "Unirme al canal gratis",
-      "pricef.b4": "Alertas de rachas ganadoras",
-      "pricef.b3": "Bienvenida a las 8am y reporte del día a las 10pm",
-      "pricef.b2": "De 8:00 AM a 10:00 PM",
-      "pricef.b1": "1 de cada 5 señales, completa (entrada, gales y resultado)",
-      "pricef.period": "siempre",
+      "price.desc": "Todas las señales del día, al instante, para que no se te escape ninguna oportunidad.",
+      "pricef.b5": "Adelanto de cómo va el VIP durante el día",
+      "pricef.desc": "Ideal para conocer el método y ver resultados reales antes de decidir.",
+      "tz.utc": "UTC",
+      "tz.fr": "Francia",
+      "tz.es": "España",
+      "tz.br": "Brasil",
+      "tz.co": "Colombia",
+      "hours.now": "Hora actual en {zona}: {h}",
+      "hours.nextDay": "+1 día",
+      "hours.closed": "Cerrado · abre a las {h}",
+      "hours.open": "Abierto ahora",
+      "hours.freeSub": "Todos los días · 1 de cada 5 señales",
+      "hours.free": "Canal gratis",
+      "hours.vipSub": "Todos los días · 17 horas de señales",
+      "hours.vip": "VIP Premium",
+      "hours.tzLabel": "Zona horaria",
+      "hours.lead": "Elige tu país o deja que rote: el horario se ajusta solo a cada zona.",
+      "hours.title": "Operamos en estos horarios",
+      "hours.tag": "Horario",
+      "pricef.cta": "Unirme gratis",
+      "pricef.b4": "Alertas cuando el bot va en racha ganadora",
+      "pricef.b3": "Bienvenida cada mañana y reporte del día en la noche",
+      "pricef.b2": "De 8:00 AM a 10:00 PM (hora Colombia), todos los días",
+      "pricef.b1": "1 de cada 5 señales, completa: entrada, gales y resultado",
+      "pricef.period": "para siempre",
       "pricef.amount": "$0",
       "pricef.name": "Canal gratis",
-      "stats.n4": "7 días",
-      "stats.n3": "1 de 5",
-      "stats.n2": "8am–10pm",
-      "stats.n1": "8am–1am",
       "price.title": "Elige cómo empezar",
       "price.lead": "Empieza gratis en el canal o prueba el VIP 7 días sin pagar nada.",
-      "price.badge": "🎁 7 días gratis para probar",
+      "price.badge": "🎁 Pruébalo 7 días gratis",
       "price.name": "VIP Premium",
       "price.amount": "$100.000",
       "price.period": "COP / mes",
-      "price.b1": "Todas las señales en tiempo real, con sus gales",
-      "price.b2": "De 8:00 AM a 1:00 AM, todos los días",
-      "price.b3": "Aviso de patrón antes de cada entrada",
-      "price.b4": "Alertas de racha y de modo pausa",
-      "price.b5": "Reporte del día a las 10pm",
-      "price.b6": "Contenido protegido (no se puede reenviar)",
-      "price.b7": "Soporte directo y privado por Telegram",
-      "price.b8": "Pago fácil por llave Bre-B",
-      "price.cta": "Probar 7 días gratis",
-      "price.note": "La prueba gratis es una por número de celular colombiano (+57). Sin tarjeta: después pagas por Bre-B solo si quieres seguir.",
+      "price.b1": "Todas las señales en tiempo real, cada una con su plan de gales",
+      "price.b2": "17 horas diarias: de 8:00 AM a 1:00 AM (hora Colombia)",
+      "price.b3": "Aviso «analizando» antes de cada entrada, para que estés listo",
+      "price.b4": "Alertas de rachas y aviso cuando el bot pausa para protegerte de malas rachas",
+      "price.b5": "Reporte del día con la efectividad real",
+      "price.b6": "Canal privado con contenido protegido",
+      "price.b7": "Soporte directo y personal por Telegram",
+      "price.b8": "Pago mensual fácil por llave Bre-B",
+      "price.cta": "Empezar mis 7 días gratis",
+      "price.note": "Prueba gratis: una por número de celular de Colombia (+57). No pedimos tarjeta: si te gusta, sigues pagando por Bre-B.",
       "final.title": "¿Listo para decidir con ventaja?",
       "final.text": "Únete a Dados Dorados y recibe el próximo análisis directo en tu Telegram.",
       "final.cta": "✈️ Empezar en el bot — 🎲 Dados Dorados Bot",
@@ -780,13 +816,6 @@
       "f3.text": "Every alert includes its gale plan — you know exactly how much to risk and how far to go.",
       "f4.title": "Automatic pause mode",
       "f4.text": "After consecutive losses, the system enters pause mode and analyzes silently until it regains accuracy.",
-      "stats.tag": "How it works",
-      "stats.title": "Clear hours and access",
-      "stats.s1": "VIP signals (every day)",
-      "stats.s2": "Free channel open",
-      "stats.s3": "Signals that reach the free channel",
-      "stats.s4": "Free VIP trial",
-      "stats.note": "Today's real numbers are in the live dashboard below.",
       "dash.tag": "Live",
       "dash.title": "Today's dashboard",
       "dash.lead": "Real data from today's closed signals — updates automatically.",
@@ -811,34 +840,50 @@
       "month.empty": "No signals yet this month",
       "month.bestSub": "{pct}% accuracy · {total} signals",
       "price.tag": "Plans",
-      "pricef.cta": "Join the free channel",
-      "pricef.b4": "Winning-streak alerts",
-      "pricef.b3": "Morning welcome at 8am and daily report at 10pm",
-      "pricef.b2": "From 8:00 AM to 10:00 PM",
-      "pricef.b1": "1 in 5 signals, complete (entry, gales and result)",
+      "price.desc": "Every signal of the day, instantly, so you never miss an opportunity.",
+      "pricef.b5": "Daily sneak peek of how the VIP is doing",
+      "pricef.desc": "Perfect to get to know the method and see real results before deciding.",
+      "tz.utc": "UTC",
+      "tz.fr": "France",
+      "tz.es": "Spain",
+      "tz.br": "Brazil",
+      "tz.co": "Colombia",
+      "hours.now": "Current time in {zona}: {h}",
+      "hours.nextDay": "+1 day",
+      "hours.closed": "Closed · opens at {h}",
+      "hours.open": "Open now",
+      "hours.freeSub": "Every day · 1 in 5 signals",
+      "hours.free": "Free channel",
+      "hours.vipSub": "Every day · 17 hours of signals",
+      "hours.vip": "VIP Premium",
+      "hours.tzLabel": "Time zone",
+      "hours.lead": "Pick your country or let it rotate — the hours adjust to each time zone.",
+      "hours.title": "Our operating hours",
+      "hours.tag": "Schedule",
+      "pricef.cta": "Join for free",
+      "pricef.b4": "Alerts when the bot is on a winning streak",
+      "pricef.b3": "Morning welcome and a daily report every night",
+      "pricef.b2": "8:00 AM to 10:00 PM (Colombia time), every day",
+      "pricef.b1": "1 in 5 signals, complete: entry, gales and result",
       "pricef.period": "forever",
       "pricef.amount": "$0",
       "pricef.name": "Free channel",
-      "stats.n4": "7 days",
-      "stats.n3": "1 in 5",
-      "stats.n2": "8am–10pm",
-      "stats.n1": "8am–1am",
       "price.title": "Choose how to start",
       "price.lead": "Start free in the channel or try the VIP for 7 days at no cost.",
-      "price.badge": "🎁 7-day free trial",
+      "price.badge": "🎁 Try it free for 7 days",
       "price.name": "VIP Premium",
       "price.amount": "$100.000",
       "price.period": "COP / month",
-      "price.b1": "Every signal in real time, with its gales",
-      "price.b2": "From 8:00 AM to 1:00 AM, every day",
-      "price.b3": "Pattern heads-up before every entry",
-      "price.b4": "Streak and pause-mode alerts",
-      "price.b5": "Daily report at 10pm",
-      "price.b6": "Protected content (can't be forwarded)",
-      "price.b7": "Direct, private support on Telegram",
-      "price.b8": "Easy payment via Bre-B key",
-      "price.cta": "Try 7 days free",
-      "price.note": "One free trial per Colombian phone number (+57). No card needed: pay via Bre-B afterwards only if you want to continue.",
+      "price.b1": "Every signal in real time, each with its gale plan",
+      "price.b2": "17 hours a day: 8:00 AM to 1:00 AM (Colombia time)",
+      "price.b3": "“Analyzing” heads-up before every entry so you're ready",
+      "price.b4": "Streak alerts, plus a notice when the bot pauses to protect you from bad runs",
+      "price.b5": "Daily report with the real win rate",
+      "price.b6": "Private channel with protected content",
+      "price.b7": "Direct, personal support on Telegram",
+      "price.b8": "Easy monthly payment via Bre-B key",
+      "price.cta": "Start my 7 free days",
+      "price.note": "Free trial: one per Colombian phone number (+57). No card required — if you like it, keep going by paying via Bre-B.",
       "final.title": "Ready to decide with an edge?",
       "final.text": "Join Dados Dorados and get the next analysis straight to your Telegram.",
       "final.cta": "✈️ Start with the bot — 🎲 Dados Dorados Bot",
@@ -873,13 +918,6 @@
       "f3.text": "Chaque alerte inclut son plan de gales — vous savez exactement combien risquer et jusqu'où aller.",
       "f4.title": "Mode pause automatique",
       "f4.text": "Après plusieurs pertes consécutives, le système passe en mode pause et analyse en silence jusqu'à retrouver sa précision.",
-      "stats.tag": "Comment ça marche",
-      "stats.title": "Horaires et accès, en clair",
-      "stats.s1": "Signaux VIP (tous les jours)",
-      "stats.s2": "Canal gratuit ouvert",
-      "stats.s3": "Signaux envoyés au canal gratuit",
-      "stats.s4": "Essai VIP gratuit",
-      "stats.note": "Les chiffres réels du jour sont dans le tableau de bord en direct ci-dessous.",
       "dash.tag": "En direct",
       "dash.title": "Tableau de bord du jour",
       "dash.lead": "Données réelles des signaux clôturés aujourd'hui — mise à jour automatique.",
@@ -904,34 +942,50 @@
       "month.empty": "Aucun signal ce mois-ci pour l'instant",
       "month.bestSub": "{pct} % d'efficacité · {total} signaux",
       "price.tag": "Formules",
-      "pricef.cta": "Rejoindre le canal gratuit",
-      "pricef.b4": "Alertes de séries gagnantes",
-      "pricef.b3": "Message de bienvenue à 8h et rapport du jour à 22h",
-      "pricef.b2": "De 8h à 22h",
-      "pricef.b1": "1 signal sur 5, complet (entrée, gales et résultat)",
+      "price.desc": "Tous les signaux du jour, instantanément, pour ne manquer aucune opportunité.",
+      "pricef.b5": "Aperçu quotidien des résultats du VIP",
+      "pricef.desc": "Idéal pour découvrir la méthode et voir de vrais résultats avant de décider.",
+      "tz.utc": "UTC",
+      "tz.fr": "France",
+      "tz.es": "Espagne",
+      "tz.br": "Brésil",
+      "tz.co": "Colombie",
+      "hours.now": "Heure actuelle — {zona} : {h}",
+      "hours.nextDay": "+1 jour",
+      "hours.closed": "Fermé · ouvre à {h}",
+      "hours.open": "Ouvert maintenant",
+      "hours.freeSub": "Tous les jours · 1 signal sur 5",
+      "hours.free": "Canal gratuit",
+      "hours.vipSub": "Tous les jours · 17 heures de signaux",
+      "hours.vip": "VIP Premium",
+      "hours.tzLabel": "Fuseau horaire",
+      "hours.lead": "Choisissez votre pays ou laissez défiler : les horaires s'adaptent à chaque fuseau.",
+      "hours.title": "Nos horaires d'ouverture",
+      "hours.tag": "Horaires",
+      "pricef.cta": "Rejoindre gratuitement",
+      "pricef.b4": "Alertes quand le bot enchaîne les gains",
+      "pricef.b3": "Message de bienvenue le matin et rapport du jour le soir",
+      "pricef.b2": "De 8h à 22h (heure de Colombie), tous les jours",
+      "pricef.b1": "1 signal sur 5, complet : entrée, gales et résultat",
       "pricef.period": "pour toujours",
       "pricef.amount": "$0",
       "pricef.name": "Canal gratuit",
-      "stats.n4": "7 jours",
-      "stats.n3": "1 sur 5",
-      "stats.n2": "8h–22h",
-      "stats.n1": "8h–1h",
       "price.title": "Choisissez comment commencer",
       "price.lead": "Commencez gratuitement sur le canal ou essayez le VIP 7 jours sans payer.",
-      "price.badge": "🎁 7 jours d'essai gratuit",
+      "price.badge": "🎁 Essayez-le 7 jours gratuits",
       "price.name": "VIP Premium",
       "price.amount": "$100.000",
       "price.period": "COP / mois",
-      "price.b1": "Tous les signaux en temps réel, avec leurs gales",
-      "price.b2": "De 8h à 1h du matin, tous les jours",
-      "price.b3": "Alerte de tendance avant chaque entrée",
-      "price.b4": "Alertes de série et de mode pause",
-      "price.b5": "Rapport du jour à 22h",
-      "price.b6": "Contenu protégé (impossible à transférer)",
-      "price.b7": "Support direct et privé sur Telegram",
-      "price.b8": "Paiement facile par clé Bre-B",
-      "price.cta": "Essayer 7 jours gratuits",
-      "price.note": "Un essai gratuit par numéro de téléphone colombien (+57). Sans carte : vous payez ensuite par Bre-B seulement si vous voulez continuer.",
+      "price.b1": "Tous les signaux en temps réel, chacun avec son plan de gales",
+      "price.b2": "17 heures par jour : de 8h à 1h du matin (heure de Colombie)",
+      "price.b3": "Alerte « analyse en cours » avant chaque entrée, pour être prêt",
+      "price.b4": "Alertes de séries et avis quand le bot fait une pause pour vous protéger",
+      "price.b5": "Rapport du jour avec l'efficacité réelle",
+      "price.b6": "Canal privé au contenu protégé",
+      "price.b7": "Support direct et personnel sur Telegram",
+      "price.b8": "Paiement mensuel facile par clé Bre-B",
+      "price.cta": "Commencer mes 7 jours gratuits",
+      "price.note": "Essai gratuit : un par numéro de téléphone colombien (+57). Aucune carte demandée : si ça vous plaît, continuez en payant par Bre-B.",
       "final.title": "Prêt à décider avec un avantage ?",
       "final.text": "Rejoignez Dados Dorados et recevez la prochaine analyse directement sur votre Telegram.",
       "final.cta": "✈️ Commencer avec le bot — 🎲 Dados Dorados Bot",
@@ -981,6 +1035,7 @@
     // Re-renderiza los textos dinámicos en el nuevo idioma.
     actualizarPanelEnVivo();
     actualizarEstadoBot();
+    renderHorario();
     tickerIndice = Math.max(0, tickerIndice - 1);
     actualizarTicker();
     document.querySelectorAll(".stat-number[data-count-to][data-counted]").forEach(function (el) {
@@ -1192,6 +1247,94 @@
 
   // ---- Scroll reveal + contador animado ----
   var prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---- Horario de operación, convertido a varias zonas horarias ----
+  // Los horarios se definen en hora de Colombia (UTC-5, sin horario de verano).
+  var HORARIOS = { vip: [8, 1], gratis: [8, 22] };
+  var ZONAS = [
+    { tz: "America/Bogota", clave: "tz.co" },
+    { tz: "America/Sao_Paulo", clave: "tz.br" },
+    { tz: "Europe/Madrid", clave: "tz.es" },
+    { tz: "Europe/Paris", clave: "tz.fr" },
+    { tz: "UTC", clave: "tz.utc" }
+  ];
+  var zonaIdx = 0;
+  try {
+    var tzVisitante = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    ZONAS.forEach(function (z, i) { if (z.tz === tzVisitante) zonaIdx = i; });
+  } catch (e) {}
+  var rotarZonas = !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var sobreHorario = false;
+
+  // Instante de hoy (fecha de Colombia) a la hora `h` de Colombia, más `dias`.
+  function instanteColombia(h, dias) {
+    var hoy = partesBogota();
+    return new Date(Date.UTC(+hoy.anio, +hoy.mes - 1, +hoy.dia + (dias || 0), h + 5, 0, 0));
+  }
+  function horaEn(d, tz) {
+    return new Intl.DateTimeFormat(locale(), { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: tz }).format(d);
+  }
+  function diaEn(d, tz) {
+    return new Intl.DateTimeFormat("en-CA", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: tz }).format(d);
+  }
+  function abiertoAhora(r) {
+    var h = partesBogota().hora;
+    return r[0] < r[1] ? (h >= r[0] && h < r[1]) : (h >= r[0] || h < r[1]);
+  }
+  function pintarRango(idEl, idEstado, r, tz) {
+    var inicio = instanteColombia(r[0], 0);
+    var fin = instanteColombia(r[1], r[1] <= r[0] ? 1 : 0);
+    var el = document.getElementById(idEl);
+    if (el) {
+      el.innerHTML = '<span class="gold-text">' + horaEn(inicio, tz) + " – " + horaEn(fin, tz) + "</span>"
+        + (diaEn(fin, tz) !== diaEn(inicio, tz) ? "<sup>" + t("hours.nextDay") + "</sup>" : "");
+    }
+    var estado = document.getElementById(idEstado);
+    if (!estado) return;
+    if (abiertoAhora(r)) {
+      estado.classList.add("on");
+      estado.textContent = t("hours.open");
+    } else {
+      var abre = instanteColombia(r[0], 0);
+      if (abre <= new Date()) abre = instanteColombia(r[0], 1);
+      estado.classList.remove("on");
+      estado.textContent = t("hours.closed", { h: horaEn(abre, tz) });
+    }
+  }
+  function renderHorario() {
+    var cont = document.getElementById("tzSwitch");
+    if (!cont) return;
+    var zona = ZONAS[zonaIdx];
+    cont.innerHTML = "";
+    ZONAS.forEach(function (z, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = t(z.clave);
+      b.setAttribute("aria-pressed", i === zonaIdx ? "true" : "false");
+      b.addEventListener("click", function () { zonaIdx = i; rotarZonas = false; renderHorario(); });
+      cont.appendChild(b);
+    });
+    pintarRango("hoursVip", "stateVip", HORARIOS.vip, zona.tz);
+    pintarRango("hoursFree", "stateFree", HORARIOS.gratis, zona.tz);
+    var ahora = document.getElementById("hoursNow");
+    if (ahora) ahora.textContent = t("hours.now", { h: horaEn(new Date(), zona.tz), zona: t(zona.clave) });
+  }
+  var seccionHorario = document.getElementById("horario");
+  if (seccionHorario) {
+    seccionHorario.addEventListener("mouseenter", function () { sobreHorario = true; });
+    seccionHorario.addEventListener("mouseleave", function () { sobreHorario = false; });
+  }
+  renderHorario();
+  setInterval(function () {
+    if (!rotarZonas || sobreHorario) { renderHorario(); return; }
+    var rangos = document.querySelectorAll(".hours-range");
+    rangos.forEach(function (el) { el.classList.add("cambiando"); });
+    setTimeout(function () {
+      zonaIdx = (zonaIdx + 1) % ZONAS.length;
+      renderHorario();
+      rangos.forEach(function (el) { el.classList.remove("cambiando"); });
+    }, 250);
+  }, 4000);
 
   // ---- Estado del bot + cuenta regresiva hasta las 8am ----
   function actualizarEstadoBot() {
