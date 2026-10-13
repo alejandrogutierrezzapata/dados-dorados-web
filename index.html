@@ -223,6 +223,7 @@
     background:var(--text-faint);
   }
   .bot-dot.on{background:var(--green); animation:pulseGreen 1.7s infinite;}
+  .bot-dot.wait{background:#d4a537;}
   @keyframes pulseGreen{
     0%{box-shadow:0 0 0 0 rgba(76,175,125,0.5);}
     70%{box-shadow:0 0 0 8px rgba(76,175,125,0);}
@@ -481,7 +482,7 @@
   <section class="hero">
     <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
     <div class="wrap">
-      <span class="eyebrow" data-i18n="hero.eyebrow">🔴 Análisis en vivo — mesas de Bac Bo</span>
+      <span class="eyebrow"><span class="bot-dot" id="eyebrowDot"></span><span id="eyebrowText">Análisis en vivo — mesas de Bac Bo</span></span>
       <h1><span class="gold-text">Dados Dorados</span></h1>
       <p class="slogan" data-i18n="hero.slogan">"Donde cada dado es una oportunidad de oro"</p>
       <div class="hero-ctas">
@@ -693,12 +694,14 @@
       "nav.langLabel": "Idioma",
       "nav.cta": "Unirme al canal",
       "nav.ctaShort": "Unirme",
-      "hero.eyebrow": "🔴 Análisis en vivo — mesas de Bac Bo",
+      "hero.eyebrow": "Análisis en vivo — mesas de Bac Bo",
       "hero.slogan": "\"Donde cada dado es una oportunidad de oro\"",
       "hero.cta": "✈️ Unirme al canal gratis",
       "hero.how": "Ver cómo funciona ↓",
       "bot.checking": "Consultando estado del bot…",
       "bot.active": "Bot activo — analizando la mesa en vivo",
+      "bot.paused": "Bot en pausa — volvemos en breve",
+      "hero.eyebrowOff": "Análisis en pausa — mesas de Bac Bo",
       "bot.startsIn": "El bot arranca en {h}h {m}m",
       "ticker.loading": "🎲 Última señal: cargando…",
       "ticker.prefix": "🎲 Última señal: ",
@@ -795,12 +798,14 @@
       "nav.langLabel": "Language",
       "nav.cta": "Join the channel",
       "nav.ctaShort": "Join",
-      "hero.eyebrow": "🔴 Live analysis — Bac Bo tables",
+      "hero.eyebrow": "Live analysis — Bac Bo tables",
       "hero.slogan": "\"Where every die is a golden opportunity\"",
       "hero.cta": "✈️ Join the channel for free",
       "hero.how": "See how it works ↓",
       "bot.checking": "Checking bot status…",
       "bot.active": "Bot active — analyzing the live table",
+      "bot.paused": "Bot paused — back shortly",
+      "hero.eyebrowOff": "Analysis paused — Bac Bo tables",
       "bot.startsIn": "The bot starts in {h}h {m}m",
       "ticker.loading": "🎲 Latest signal: loading…",
       "ticker.prefix": "🎲 Latest signal: ",
@@ -897,12 +902,14 @@
       "nav.langLabel": "Langue",
       "nav.cta": "Rejoindre le canal",
       "nav.ctaShort": "Rejoindre",
-      "hero.eyebrow": "🔴 Analyse en direct — tables de Bac Bo",
+      "hero.eyebrow": "Analyse en direct — tables de Bac Bo",
       "hero.slogan": "« Là où chaque dé est une opportunité en or »",
       "hero.cta": "✈️ Rejoindre le canal gratuitement",
       "hero.how": "Voir comment ça marche ↓",
       "bot.checking": "Vérification de l'état du bot…",
       "bot.active": "Bot actif — analyse de la table en direct",
+      "bot.paused": "Bot en pause — retour sous peu",
+      "hero.eyebrowOff": "Analyse en pause — tables de Bac Bo",
       "bot.startsIn": "Le bot démarre dans {h} h {m} min",
       "ticker.loading": "🎲 Dernier signal : chargement…",
       "ticker.prefix": "🎲 Dernier signal : ",
@@ -1337,20 +1344,53 @@
   }, 4000);
 
   // ---- Estado del bot + cuenta regresiva hasta las 8am ----
+  // El bot está "en vivo" si llegó una ronda de la mesa hace menos de 3 min
+  // (las rondas son públicas en Supabase) y es horario del VIP (8:00-1:00 COL).
+  var ultimaRondaMs = null, estadoConsultado = false;
+  async function consultarUltimaRonda() {
+    try {
+      var res = await fetch(SUPABASE_URL + "/rest/v1/rondas_bacbo?select=created_at&order=id.desc&limit=1", { headers: headers });
+      if (res.ok) {
+        var filas = await res.json();
+        if (filas.length) {
+          // created_at viene en UTC sin zona; se recorta a milisegundos para Safari.
+          var c = String(filas[0].created_at).replace(/(\.\d{3})\d+/, "$1");
+          if (!/(Z|[+-]\d\d:?\d\d)$/i.test(c)) c += "Z";
+          ultimaRondaMs = Date.parse(c);
+        }
+      }
+    } catch (e) {}
+    estadoConsultado = true;
+    actualizarEstadoBot();
+  }
+
   function actualizarEstadoBot() {
-    var dot  = document.getElementById("botDot");
-    var text = document.getElementById("botStatusText");
+    var dot   = document.getElementById("botDot");
+    var text  = document.getElementById("botStatusText");
+    var eDot  = document.getElementById("eyebrowDot");
+    var eText = document.getElementById("eyebrowText");
     if (!dot || !text) return;
 
     var ahora = partesBogota();
     var hora  = ahora.hora;
-    var activo = hora >= 8 || hora < 1;  // VIP de 8:00 a 1:00 AM
+    var enHorario = hora >= 8 || hora < 1;  // VIP de 8:00 a 1:00 AM
+    var vivo = ultimaRondaMs !== null && !isNaN(ultimaRondaMs) && (Date.now() - ultimaRondaMs) < 180000;
+    var estado = !estadoConsultado ? "checking" : enHorario && vivo ? "on" : enHorario ? "wait" : "off";
 
-    if (activo) {
-      dot.classList.add("on");
+    [dot, eDot].forEach(function (d) {
+      if (!d) return;
+      d.classList.toggle("on", estado === "on");
+      d.classList.toggle("wait", estado === "wait");
+    });
+    if (eText) eText.textContent = t(estado === "on" ? "hero.eyebrow" : "hero.eyebrowOff");
+
+    if (estado === "checking") {
+      text.textContent = t("bot.checking");
+    } else if (estado === "on") {
       text.textContent = t("bot.active");
+    } else if (estado === "wait") {
+      text.textContent = t("bot.paused");
     } else {
-      dot.classList.remove("on");
       // Segundos que faltan para las 8:00 en hora colombiana (Colombia no tiene horario de verano).
       var segAhora    = hora * 3600 + ahora.minuto * 60 + ahora.segundo;
       var segObjetivo = 8 * 3600 + (hora >= 8 ? 24 * 3600 : 0);
@@ -1361,7 +1401,8 @@
     }
   }
   actualizarEstadoBot();
-  setInterval(actualizarEstadoBot, 30000);
+  consultarUltimaRonda();
+  setInterval(consultarUltimaRonda, 30000);
 
   // ---- Ticker de última señal — rota entre las últimas 5 señales reales,
   // obtenidas de Supabase por cargarTicker() cada 30s (junto al resto del panel).
