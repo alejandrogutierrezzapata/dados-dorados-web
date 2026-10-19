@@ -395,7 +395,7 @@
       <div class="rules">
         <div class="card rule reveal"><i>1</i><p data-i18n="bb.p1">Hay dos lados: Player (azul) y Banker (rojo). Cada uno tira dos dados.</p></div>
         <div class="card rule reveal"><i>2</i><p data-i18n="bb.p2">Gana el lado que sume más. Tú apuestas a cuál va a ganar.</p></div>
-        <div class="card rule reveal"><i>3</i><p data-i18n="bb.p3">Si aciertas, te pagan lo mismo que apostaste: apuestas 1 y recibes 1 de ganancia.</p></div>
+        <div class="card rule reveal"><i>3</i><p data-i18n="bb.p3">Si aciertas, te pagan el doble de lo que apostaste: apuestas 5.000 y recibes 10.000 (tus 5.000 de vuelta + 5.000 de ganancia).</p></div>
         <div class="card rule reveal"><i>4</i><p data-i18n="bb.p4">Si los dos suman igual es empate: el casino te devuelve el 90 % de lo que pusiste en Player o Banker.</p></div>
       </div>
     </div>
@@ -452,20 +452,21 @@
         <div class="card rung reveal">
           <span class="n" data-i18n="gal.s1n">Directa</span>
           <div class="fichas"><span class="ficha"></span></div>
-          <b data-i18n="gal.s1b">Apuestas 1 ficha</b><p data-i18n="gal.s1">Si sale, ganas 1 ficha. Fin de la señal.</p>
+          <b data-i18n="gal.s1b">Apuestas 1 ficha</b><p data-i18n="gal.s1">Si sale, recibes 2 fichas: la tuya + 1 de ganancia. Fin de la señal.</p>
         </div>
         <div class="card rung reveal">
           <span class="n" data-i18n="gal.s2n">Gale 1</span>
           <div class="fichas"><span class="ficha"></span><span class="ficha"></span></div>
-          <b data-i18n="gal.s2b">Apuestas 2 fichas</b><p data-i18n="gal.s2">Solo si falló la Directa. Si sale, recuperas la ficha perdida y ganas 1.</p>
+          <b data-i18n="gal.s2b">Apuestas 2 fichas</b><p data-i18n="gal.s2">Solo si falló la Directa. Si sale, recibes 4: en total habías puesto 3 (1 + 2), así que ganas 1.</p>
         </div>
         <div class="card rung reveal">
           <span class="n" data-i18n="gal.s3n">Gale 2</span>
           <div class="fichas"><span class="ficha"></span><span class="ficha"></span><span class="ficha"></span><span class="ficha"></span></div>
-          <b data-i18n="gal.s3b">Apuestas 4 fichas</b><p data-i18n="gal.s3">Solo si falló el Gale 1. Si sale, recuperas las 3 perdidas y ganas 1.</p>
+          <b data-i18n="gal.s3b">Apuestas 4 fichas</b><p data-i18n="gal.s3">Solo si falló el Gale 1. Si sale, recibes 8: en total habías puesto 7 (1 + 2 + 4), así que ganas 1.</p>
         </div>
       </div>
-      <div class="banner win reveal">✅ <span data-i18n="gal.win">Ganes en el paso que ganes, terminas con +1 ficha.</span></div>
+      <div class="banner win reveal">✅ <span data-i18n="gal.win">Siempre te pagan el doble de lo que apuestas en ese paso. Pero en los gales vienes de perder, así que tu ganancia final es siempre 1 ficha.</span></div>
+      <div class="banner info reveal">💵 <span data-i18n="gal.ex">Ejemplo con fichas de 5.000: si sale en la Directa ganas 5.000. Si sale en el Gale 1, apostaste 10.000 y recibes 20.000, pero ya habías perdido 5.000: ganas 5.000. Si sale en el Gale 2, recibes 40.000 tras poner 35.000: ganas 5.000.</span></div>
       <div class="banner loss reveal">⚠️ <span data-i18n="gal.loss">Si fallan los tres pasos, pierdes 1 + 2 + 4 = 7 fichas. Por eso tu ficha debe ser pequeña.</span></div>
       <div class="banner info reveal">ℹ️ <span data-i18n="gal.one">¿La señal dice «Gales: 1»? Entonces solo hay Directa y Gale 1: lo máximo que arriesgas son 3 fichas.</span></div>
       <div class="tips">
@@ -584,7 +585,7 @@
       </div>
       <div class="faq">
         <details class="card reveal"><summary data-i18n="faq.q1">¿Necesito saber de apuestas?</summary><p data-i18n="faq.a1">No. Lee arriba «Bac Bo en 30 segundos», «Cómo se lee una señal» y «Los gales». Con eso ya puedes seguir cualquier señal: el bot te dice qué apostar y qué hacer en cada paso.</p></details>
-        <details class="card reveal"><summary data-i18n="faq.q2">¿Qué es un gale, en una frase?</summary><p data-i18n="faq.a2">Volver a apostar al mismo lado con el doble, para que si sale recuperes lo perdido y ganes 1 ficha.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q2">¿Qué es un gale, en una frase?</summary><p data-i18n="faq.a2">Volver a apostar al mismo lado con el doble. Como te pagan el doble de lo que apuestas, si sale recuperas todo lo perdido y ganas 1 ficha.</p></details>
         <details class="card reveal"><summary data-i18n="faq.q3">¿Estoy obligado a hacer los gales?</summary><p data-i18n="faq.a3">No. Si solo juegas la Directa, en cada señal ganas o pierdes 1 ficha y listo. Pero ten en cuenta que nuestra efectividad cuenta las señales ganadas en cualquier paso, con gales incluidos.</p></details>
         <details class="card reveal"><summary data-i18n="faq.q4">¿Qué hago si sale empate?</summary><p data-i18n="faq.a4">Nada especial: el casino te devuelve el 90 % y repites la misma apuesta, sin doblar. El bot te lo recuerda con un mensaje.</p></details>
         <details class="card reveal"><summary data-i18n="faq.q5">¿Y si veo la señal tarde?</summary><p data-i18n="faq.a5">Si ya pasó la ronda en la que tocaba apostar, no entres a mitad. Espera la siguiente señal: siempre vienen más.</p></details>
@@ -689,7 +690,7 @@
       "bb.vs": "contra",
       "bb.p1": "Hay dos lados: Player (azul) y Banker (rojo). Cada uno tira dos dados.",
       "bb.p2": "Gana el lado que sume más. Tú apuestas a cuál va a ganar.",
-      "bb.p3": "Si aciertas, te pagan lo mismo que apostaste: apuestas 1 y recibes 1 de ganancia.",
+      "bb.p3": "Si aciertas, te pagan el doble de lo que apostaste: apuestas 5.000 y recibes 10.000 (tus 5.000 de vuelta + 5.000 de ganancia).",
       "bb.p4": "Si los dos suman igual es empate: el casino te devuelve el 90 % de lo que pusiste en Player o Banker.",
       "how.tag": "Cómo funciona",
       "how.title": "Tres pasos, sin complicaciones",
@@ -713,14 +714,15 @@
       "gal.lead": "Un gale es volver a intentarlo doblando la apuesta. Piensa en «fichas»: tú decides cuánto vale una (por ejemplo, 1 ficha = la apuesta más pequeña que te sientas cómodo perdiendo).",
       "gal.s1n": "Directa",
       "gal.s1b": "Apuestas 1 ficha",
-      "gal.s1": "Si sale, ganas 1 ficha. Fin de la señal.",
+      "gal.s1": "Si sale, recibes 2 fichas: la tuya + 1 de ganancia. Fin de la señal.",
       "gal.s2n": "Gale 1",
       "gal.s2b": "Apuestas 2 fichas",
-      "gal.s2": "Solo si falló la Directa. Si sale, recuperas la ficha perdida y ganas 1.",
+      "gal.s2": "Solo si falló la Directa. Si sale, recibes 4: en total habías puesto 3 (1 + 2), así que ganas 1.",
       "gal.s3n": "Gale 2",
       "gal.s3b": "Apuestas 4 fichas",
-      "gal.s3": "Solo si falló el Gale 1. Si sale, recuperas las 3 perdidas y ganas 1.",
-      "gal.win": "Ganes en el paso que ganes, terminas con +1 ficha.",
+      "gal.s3": "Solo si falló el Gale 1. Si sale, recibes 8: en total habías puesto 7 (1 + 2 + 4), así que ganas 1.",
+      "gal.win": "Siempre te pagan el doble de lo que apuestas en ese paso. Pero en los gales vienes de perder, así que tu ganancia final es siempre 1 ficha.",
+      "gal.ex": "Ejemplo con fichas de 5.000: si sale en la Directa ganas 5.000. Si sale en el Gale 1, apostaste 10.000 y recibes 20.000, pero ya habías perdido 5.000: ganas 5.000. Si sale en el Gale 2, recibes 40.000 tras poner 35.000: ganas 5.000.",
       "gal.loss": "Si fallan los tres pasos, pierdes 1 + 2 + 4 = 7 fichas. Por eso tu ficha debe ser pequeña.",
       "gal.one": "¿La señal dice «Gales: 1»? Entonces solo hay Directa y Gale 1: lo máximo que arriesgas son 3 fichas.",
       "gal.tieT": "¿Y si sale empate en medio?",
@@ -804,7 +806,7 @@
       "faq.q1": "¿Necesito saber de apuestas?",
       "faq.a1": "No. Lee arriba «Bac Bo en 30 segundos», «Cómo se lee una señal» y «Los gales». Con eso ya puedes seguir cualquier señal: el bot te dice qué apostar y qué hacer en cada paso.",
       "faq.q2": "¿Qué es un gale, en una frase?",
-      "faq.a2": "Volver a apostar al mismo lado con el doble, para que si sale recuperes lo perdido y ganes 1 ficha.",
+      "faq.a2": "Volver a apostar al mismo lado con el doble. Como te pagan el doble de lo que apuestas, si sale recuperas todo lo perdido y ganas 1 ficha.",
       "faq.q3": "¿Estoy obligado a hacer los gales?",
       "faq.a3": "No. Si solo juegas la Directa, en cada señal ganas o pierdes 1 ficha y listo. Pero ten en cuenta que nuestra efectividad cuenta las señales ganadas en cualquier paso, con gales incluidos.",
       "faq.q4": "¿Qué hago si sale empate?",
@@ -883,7 +885,7 @@
       "bb.vs": "vs",
       "bb.p1": "There are two sides: Player (blue) and Banker (red). Each one rolls two dice.",
       "bb.p2": "The side with the higher total wins. You bet on which one will win.",
-      "bb.p3": "If you're right, you win the same amount you bet: bet 1, win 1.",
+      "bb.p3": "If you're right, you get back double your bet: bet 5 and you receive 10 (your 5 back + 5 profit).",
       "bb.p4": "If both totals are equal, it's a tie: the casino returns 90% of your Player or Banker bet.",
       "how.tag": "How it works",
       "how.title": "Three steps, no hassle",
@@ -907,14 +909,15 @@
       "gal.lead": "A gale means trying again with a doubled bet. Think in «chips»: you decide what one chip is worth (for example, 1 chip = the smallest bet you're comfortable losing).",
       "gal.s1n": "Direct",
       "gal.s1b": "You bet 1 chip",
-      "gal.s1": "If it hits, you win 1 chip. Signal over.",
+      "gal.s1": "If it hits, you receive 2 chips: yours + 1 profit. Signal over.",
       "gal.s2n": "Gale 1",
       "gal.s2b": "You bet 2 chips",
-      "gal.s2": "Only if the Direct bet missed. If it hits, you get back the lost chip and win 1.",
+      "gal.s2": "Only if the Direct bet missed. If it hits, you receive 4: you had put in 3 in total (1 + 2), so you win 1.",
       "gal.s3n": "Gale 2",
       "gal.s3b": "You bet 4 chips",
-      "gal.s3": "Only if Gale 1 missed. If it hits, you get back the 3 lost chips and win 1.",
-      "gal.win": "Whichever step you win on, you end up +1 chip.",
+      "gal.s3": "Only if Gale 1 missed. If it hits, you receive 8: you had put in 7 in total (1 + 2 + 4), so you win 1.",
+      "gal.win": "You're always paid double what you bet on that step. But in the gales you're coming from losses, so your final profit is always 1 chip.",
+      "gal.ex": "Example with 5-unit chips: if it hits on the Direct bet you win 5. If it hits on Gale 1, you bet 10 and receive 20, but you had already lost 5: you win 5. If it hits on Gale 2, you receive 40 after putting in 35: you win 5.",
       "gal.loss": "If all three steps miss, you lose 1 + 2 + 4 = 7 chips. That's why your chip should be small.",
       "gal.one": "Does the signal say «Gales: 1»? Then there's only Direct and Gale 1: the most you risk is 3 chips.",
       "gal.tieT": "What if there's a tie in the middle?",
@@ -998,7 +1001,7 @@
       "faq.q1": "Do I need to know about betting?",
       "faq.a1": "No. Read «Bac Bo in 30 seconds», «How to read a signal» and «Gales» above. That's enough to follow any signal: the bot tells you what to bet and what to do at each step.",
       "faq.q2": "What's a gale, in one sentence?",
-      "faq.a2": "Betting on the same side again with double the amount, so that if it hits you get back what you lost and win 1 chip.",
+      "faq.a2": "Betting on the same side again with double the amount. Since you're paid double your bet, if it hits you get back everything you lost and win 1 chip.",
       "faq.q3": "Do I have to play the gales?",
       "faq.a3": "No. If you only play the Direct bet, you win or lose 1 chip per signal and that's it. But keep in mind that our hit rate counts signals won at any step, gales included.",
       "faq.q4": "What do I do on a tie?",
@@ -1077,7 +1080,7 @@
       "bb.vs": "contre",
       "bb.p1": "Il y a deux côtés : Player (bleu) et Banker (rouge). Chacun lance deux dés.",
       "bb.p2": "Le côté avec le plus gros total gagne. Tu paries sur celui qui va gagner.",
-      "bb.p3": "Si tu as raison, tu gagnes autant que ta mise : tu mises 1, tu gagnes 1.",
+      "bb.p3": "Si tu as raison, on te rend le double de ta mise : tu mises 5 et tu reçois 10 (tes 5 + 5 de gain).",
       "bb.p4": "Si les deux totaux sont égaux, c'est une égalité : le casino te rend 90 % de ta mise sur Player ou Banker.",
       "how.tag": "Fonctionnement",
       "how.title": "Trois étapes, sans complication",
@@ -1101,14 +1104,15 @@
       "gal.lead": "Un gale, c'est réessayer en doublant la mise. Pense en «jetons» : tu décides combien vaut un jeton (par exemple, 1 jeton = la plus petite mise que tu es prêt à perdre).",
       "gal.s1n": "Directe",
       "gal.s1b": "Tu mises 1 jeton",
-      "gal.s1": "Si ça passe, tu gagnes 1 jeton. Fin du signal.",
+      "gal.s1": "Si ça passe, tu reçois 2 jetons : le tien + 1 de gain. Fin du signal.",
       "gal.s2n": "Gale 1",
       "gal.s2b": "Tu mises 2 jetons",
-      "gal.s2": "Seulement si la Directe a échoué. Si ça passe, tu récupères le jeton perdu et tu gagnes 1.",
+      "gal.s2": "Seulement si la Directe a échoué. Si ça passe, tu reçois 4 : tu avais misé 3 au total (1 + 2), donc tu gagnes 1.",
       "gal.s3n": "Gale 2",
       "gal.s3b": "Tu mises 4 jetons",
-      "gal.s3": "Seulement si le Gale 1 a échoué. Si ça passe, tu récupères les 3 jetons perdus et tu gagnes 1.",
-      "gal.win": "Quelle que soit l'étape gagnante, tu finis à +1 jeton.",
+      "gal.s3": "Seulement si le Gale 1 a échoué. Si ça passe, tu reçois 8 : tu avais misé 7 au total (1 + 2 + 4), donc tu gagnes 1.",
+      "gal.win": "On te paie toujours le double de ta mise à cette étape. Mais dans les gales tu viens de perdre, donc ton gain final est toujours 1 jeton.",
+      "gal.ex": "Exemple avec des jetons de 5 : si ça passe à la Directe tu gagnes 5. Si ça passe au Gale 1, tu mises 10 et reçois 20, mais tu avais déjà perdu 5 : tu gagnes 5. Si ça passe au Gale 2, tu reçois 40 après avoir misé 35 : tu gagnes 5.",
       "gal.loss": "Si les trois étapes échouent, tu perds 1 + 2 + 4 = 7 jetons. C'est pour ça que ton jeton doit être petit.",
       "gal.one": "Le signal indique «Gales : 1» ? Alors il n'y a que Directe et Gale 1 : tu risques au maximum 3 jetons.",
       "gal.tieT": "Et s'il y a une égalité en cours de route ?",
@@ -1192,7 +1196,7 @@
       "faq.q1": "Faut-il s'y connaître en paris ?",
       "faq.a1": "Non. Lis plus haut «Le Bac Bo en 30 secondes», «Comment lire un signal» et «Les gales». Ça suffit pour suivre n'importe quel signal : le bot te dit quoi miser et quoi faire à chaque étape.",
       "faq.q2": "Un gale, en une phrase ?",
-      "faq.a2": "Remiser sur le même côté avec le double, pour que si ça passe tu récupères ce que tu as perdu et gagnes 1 jeton.",
+      "faq.a2": "Remiser sur le même côté avec le double. Comme on te paie le double de ta mise, si ça passe tu récupères tout ce que tu as perdu et gagnes 1 jeton.",
       "faq.q3": "Suis-je obligé de jouer les gales ?",
       "faq.a3": "Non. Si tu ne joues que la Directe, tu gagnes ou perds 1 jeton par signal, c'est tout. Mais garde en tête que notre efficacité compte les signaux gagnés à n'importe quelle étape, gales compris.",
       "faq.q4": "Que faire en cas d'égalité ?",
