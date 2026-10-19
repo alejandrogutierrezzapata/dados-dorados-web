@@ -341,6 +341,14 @@
   @media (max-width:720px){ .steps::before{display:none;} .dado3d.d1{width:64px; height:64px; padding:11px; top:-10px;} .dado3d.d1 .pip{width:10px; height:10px;} .dado3d.d2{width:54px; height:54px; padding:9px;} .dado3d.d2 .pip{width:8px; height:8px;} }
   @media (prefers-reduced-motion: reduce){ .dado3d, .final-logo{animation:none !important;} }
 
+  /* ---------- opiniones ---------- */
+  .opiniones{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px;}
+  .opinion{padding:24px 22px; display:flex; flex-direction:column; gap:14px;}
+  .opinion blockquote{color:var(--text); font-size:1rem; line-height:1.65;}
+  .opinion blockquote::before{content:"“"; display:block; font-family:'Cormorant Garamond', serif; font-size:3rem; line-height:.6; color:var(--gold);}
+  .opinion cite{font-style:normal; color:var(--gold-light); font-weight:700; font-size:0.9rem;}
+  .op-nota{text-align:center; color:var(--text-faint); font-size:0.8rem; margin-top:18px;}
+
   /* ---------- legal ---------- */
   .legales{display:flex; gap:8px 20px; flex-wrap:wrap; margin-top:18px;}
   .legales a{color:var(--text-dim); font-size:0.84rem;}
@@ -616,6 +624,18 @@
         <div class="card dash-card reveal"><div class="dash-label" data-i18n="dash.count">Señales</div><div class="dash-value gold-text" id="dashTotal">—</div></div>
       </div>
       <p class="stats-note" id="dashUpdated" data-i18n="dash.connecting">Conectando con los datos en vivo…</p>
+    </div>
+  </section>
+
+  <!-- OPINIONES (solo se muestra si hay comentarios aprobados) -->
+  <section id="opiniones" hidden>
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag" data-i18n="op.tag">Opiniones</span>
+        <h2 data-i18n="op.title">Lo que dicen en el VIP</h2>
+      </div>
+      <div class="opiniones" id="listaOpiniones"></div>
+      <p class="op-nota" data-i18n="op.note">Comentarios reales de usuarios, publicados con su permiso.</p>
     </div>
   </section>
 
@@ -929,7 +949,11 @@
       "age.legal": "Al entrar aceptas los Términos y la Política de privacidad.",
       "foot.terms": "Términos y condiciones",
       "foot.privacy": "Política de privacidad",
-      "foot.responsible": "Juego responsable"
+      "foot.responsible": "Juego responsable",
+      "op.tag": "Opiniones",
+      "op.title": "Lo que dicen en el VIP",
+      "op.anon": "Usuario del VIP",
+      "op.note": "Comentarios reales de usuarios, publicados con su permiso."
     },
     "en": {
       "meta.title": "Dados Dorados — Live Bac Bo signals on Telegram",
@@ -1133,7 +1157,11 @@
       "age.legal": "By entering you accept the Terms and the Privacy Policy.",
       "foot.terms": "Terms and conditions",
       "foot.privacy": "Privacy policy",
-      "foot.responsible": "Responsible gaming"
+      "foot.responsible": "Responsible gaming",
+      "op.tag": "Reviews",
+      "op.title": "What VIP members say",
+      "op.anon": "VIP member",
+      "op.note": "Real comments from users, published with their permission."
     }
   };
   var LOCALES = { es: "es-CO", en: "en-US" };
@@ -1662,6 +1690,41 @@
       el.textContent = parseInt(el.dataset.countTo, 10).toLocaleString(locale()) + (el.dataset.suffix || "");
     });
   }
+
+  // ---- Opiniones: comentarios aprobados (tabla testimonios; la clave anon solo ve esos) ----
+  var opiniones = [];
+  function pintarOpiniones() {
+    var cont = document.getElementById("listaOpiniones");
+    var seccion = document.getElementById("opiniones");
+    if (!cont || !seccion) return;
+    cont.innerHTML = "";
+    opiniones.forEach(function (o) {
+      var card = document.createElement("figure");
+      card.className = "card opinion";
+      var q = document.createElement("blockquote");
+      q.textContent = o.texto;
+      var c = document.createElement("cite");
+      c.textContent = "— " + (o.nombre || t("op.anon"));
+      card.appendChild(q);
+      card.appendChild(c);
+      cont.appendChild(card);
+    });
+    seccion.hidden = !opiniones.length;
+  }
+  (async function cargarOpiniones() {
+    try {
+      var res = await fetch(SUPABASE_URL + "/rest/v1/testimonios?select=nombre,texto,created_at&order=created_at.desc&limit=6", { headers: headers });
+      if (!res.ok) return;
+      var filas = await res.json();
+      if (Array.isArray(filas)) {
+        opiniones = filas.filter(function (o) { return o.texto; });
+        pintarOpiniones();
+      }
+    } catch (e) {}
+  })();
+  document.querySelectorAll(".lang-switch button").forEach(function (btn) {
+    btn.addEventListener("click", pintarOpiniones);
+  });
 })();
 </script>
 
