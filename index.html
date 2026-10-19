@@ -340,6 +340,20 @@
   @media (max-width:720px){ .steps::before{display:none;} .dado3d.d1{width:64px; height:64px; padding:11px; top:-10px;} .dado3d.d1 .pip{width:10px; height:10px;} .dado3d.d2{width:54px; height:54px; padding:9px;} .dado3d.d2 .pip{width:8px; height:8px;} }
   @media (prefers-reduced-motion: reduce){ .dado3d, .final-logo{animation:none !important;} }
 
+  /* ---------- legal ---------- */
+  .legales{display:flex; gap:8px 20px; flex-wrap:wrap; margin-top:18px;}
+  .legales a{color:var(--text-dim); font-size:0.84rem;}
+  .edad{position:fixed; inset:0; z-index:200; display:grid; place-items:center; padding:20px; background:rgba(5,4,3,0.86); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);}
+  .edad[hidden]{display:none;}
+  .edad-caja{max-width:420px; width:100%; text-align:center; padding:34px 28px; border-radius:22px; background:linear-gradient(180deg, var(--card-2), var(--card)); border:1px solid var(--gold-dim); box-shadow:0 30px 80px rgba(0,0,0,0.6);}
+  .edad-caja img{border-radius:50%; margin-bottom:14px;}
+  .edad-caja h2{font-size:2rem; margin-bottom:10px;}
+  .edad-caja p{color:var(--text-dim); margin-bottom:22px;}
+  .edad-botones{display:flex; flex-direction:column; gap:10px; margin-bottom:16px;}
+  .edad-botones button{border:0; cursor:pointer; font-family:'Inter', sans-serif;}
+  .edad-caja small{color:var(--text-faint); font-size:0.78rem;}
+  .edad-caja small a{color:var(--text-dim);}
+
   /* ---------- aparición al hacer scroll ---------- */
   .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s cubic-bezier(.16,.8,.24,1);}
   .reveal.is-visible{opacity:1; transform:none;}
@@ -682,9 +696,27 @@
         <a href="https://t.me/AGZ_Dice_Bot?start=web" target="_blank" rel="noopener">Telegram</a>
       </div>
     </div>
+    <div class="legales">
+      <a href="terminos.html" data-i18n="foot.terms">Términos y condiciones</a>
+      <a href="privacidad.html" data-i18n="foot.privacy">Política de privacidad</a>
+      <a href="juego-responsable.html" data-i18n="foot.responsible">Juego responsable</a>
+    </div>
     <p class="disclaimer" data-i18n="footer.disclaimer">Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados. Apostar implica riesgo real de perder dinero: juega con responsabilidad y solo lo que puedas permitirte perder. Servicio solo para mayores de 18 años. No estamos afiliados a Evolution Gaming ni a ningún casino.</p>
   </div>
 </footer>
+
+<div class="edad" id="avisoEdad" role="dialog" aria-modal="true" aria-labelledby="edadTitulo" hidden>
+  <div class="edad-caja">
+    <img src="logo-192.png" alt="" width="72" height="72">
+    <h2 id="edadTitulo" data-i18n="age.title">¿Eres mayor de 18 años?</h2>
+    <p data-i18n="age.text">Dados Dorados trata sobre apuestas en juegos de azar. Solo pueden entrar mayores de 18 años.</p>
+    <div class="edad-botones">
+      <button type="button" class="btn btn-gold" id="edadSi" data-i18n="age.yes">Sí, soy mayor de 18</button>
+      <a class="btn btn-ghost" href="https://www.google.com" rel="noopener" data-i18n="age.no">No, salir</a>
+    </div>
+    <small><span data-i18n="age.legal">Al entrar aceptas los Términos y la Política de privacidad.</span> <a href="terminos.html" data-i18n="foot.terms">Términos y condiciones</a> · <a href="privacidad.html" data-i18n="foot.privacy">Política de privacidad</a></small>
+  </div>
+</div>
 
 <script>
 (function () {
@@ -888,7 +920,15 @@
       "final.title": "¿Lo probamos?",
       "final.text": "7 días de VIP gratis, sin tarjeta. Si no te convence, te quedas en el canal gratis.",
       "final.cta": "🎁 Empezar mis 7 días gratis",
-      "footer.disclaimer": "Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados. Apostar implica riesgo real de perder dinero: juega con responsabilidad y solo lo que puedas permitirte perder. Servicio solo para mayores de 18 años. No estamos afiliados a Evolution Gaming ni a ningún casino."
+      "footer.disclaimer": "Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados. Apostar implica riesgo real de perder dinero: juega con responsabilidad y solo lo que puedas permitirte perder. Servicio solo para mayores de 18 años. No estamos afiliados a Evolution Gaming ni a ningún casino.",
+      "age.title": "¿Eres mayor de 18 años?",
+      "age.text": "Dados Dorados trata sobre apuestas en juegos de azar. Solo pueden entrar mayores de 18 años.",
+      "age.yes": "Sí, soy mayor de 18",
+      "age.no": "No, salir",
+      "age.legal": "Al entrar aceptas los Términos y la Política de privacidad.",
+      "foot.terms": "Términos y condiciones",
+      "foot.privacy": "Política de privacidad",
+      "foot.responsible": "Juego responsable"
     },
     "en": {
       "meta.title": "Dados Dorados — Live Bac Bo signals on Telegram",
@@ -1084,7 +1124,15 @@
       "final.title": "Shall we try it?",
       "final.text": "7 days of free VIP, no card. If it's not for you, you stay in the free channel.",
       "final.cta": "🎁 Start my 7 free days",
-      "footer.disclaimer": "Dados Dorados provides pattern analysis for live tables, with no guarantee of results. Betting involves a real risk of losing money: play responsibly and only with what you can afford to lose. Adults (18+) only. We are not affiliated with Evolution Gaming or any casino."
+      "footer.disclaimer": "Dados Dorados provides pattern analysis for live tables, with no guarantee of results. Betting involves a real risk of losing money: play responsibly and only with what you can afford to lose. Adults (18+) only. We are not affiliated with Evolution Gaming or any casino.",
+      "age.title": "Are you 18 or older?",
+      "age.text": "Dados Dorados is about betting on games of chance. Only people aged 18 or older may enter.",
+      "age.yes": "Yes, I'm 18 or older",
+      "age.no": "No, leave",
+      "age.legal": "By entering you accept the Terms and the Privacy Policy.",
+      "foot.terms": "Terms and conditions",
+      "foot.privacy": "Privacy policy",
+      "foot.responsible": "Responsible gaming"
     }
   };
   var LOCALES = { es: "es-CO", en: "en-US" };
@@ -1140,6 +1188,21 @@
     btn.addEventListener("click", function () { cambiarIdioma(btn.getAttribute("data-lang")); });
   });
   aplicarIdioma();
+
+  // ---- Aviso de mayoría de edad (una sola vez por navegador) ----
+  var CLAVE_EDAD = "dadosDorados.mayorDeEdad";
+  var avisoEdad = document.getElementById("avisoEdad");
+  var yaConfirmo = false;
+  try { yaConfirmo = localStorage.getItem(CLAVE_EDAD) === "si"; } catch (e) {}
+  if (avisoEdad && !yaConfirmo) {
+    avisoEdad.hidden = false;
+    document.body.style.overflow = "hidden";
+    document.getElementById("edadSi").addEventListener("click", function () {
+      try { localStorage.setItem(CLAVE_EDAD, "si"); } catch (e) {}
+      avisoEdad.hidden = true;
+      document.body.style.overflow = "";
+    });
+  }
 
   function emojiResultado(r) {
     return r === "Player" ? "🔵" : r === "Banker" ? "🔴" : "🟡";
