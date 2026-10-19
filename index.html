@@ -185,7 +185,12 @@
     margin:0 auto 40px;
     font-style:italic;
   }
-  .hero-ctas{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:56px;}
+  .hero-sub{
+    font-size:clamp(1rem, 2.1vw, 1.18rem); color:var(--text); max-width:620px;
+    margin:-22px auto 34px; line-height:1.55;
+  }
+  .hero-ctas{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:18px;}
+  .hero-age{color:var(--text-faint); font-size:0.82rem; margin:0 auto 40px;}
   .btn-primary{
     display:inline-flex; align-items:center; gap:10px;
     background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-dim) 100%);
@@ -406,6 +411,22 @@
   }
   .price-cta.gold:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(212,175,55,0.35), inset 0 1px 0 rgba(255,255,255,0.4);}
 
+  /* ---------- FAQ ---------- */
+  .faq{max-width:780px; margin:0 auto; display:flex; flex-direction:column; gap:12px;}
+  .faq details{
+    background:linear-gradient(180deg, var(--card), var(--bg-alt));
+    border:1px solid var(--card-border); border-radius:var(--radius); padding:0 22px;
+  }
+  .faq details[open]{border-color:var(--gold-dim);}
+  .faq summary{
+    cursor:pointer; list-style:none; padding:18px 28px 18px 0; position:relative;
+    font-weight:700; color:var(--text);
+  }
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary::after{content:"+"; position:absolute; right:0; top:14px; color:var(--gold); font-size:1.4rem;}
+  .faq details[open] summary::after{content:"–";}
+  .faq details p{color:var(--text-dim); padding:0 0 20px; line-height:1.65;}
+
   /* ---------- FINAL CTA ---------- */
   .final-cta{
     text-align:center;
@@ -471,7 +492,7 @@
         <button type="button" data-lang="fr" aria-pressed="false" title="Français">FR</button>
       </div>
       <a class="nav-cta" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener">
-        <span>✈️</span><span class="long" data-i18n="nav.cta">Unirme al canal</span><span style="display:none" class="short" data-i18n="nav.ctaShort">Unirme</span>
+        <span>✈️</span><span class="long" data-i18n="nav.cta">Probar gratis</span><span style="display:none" class="short" data-i18n="nav.ctaShort">Probar</span>
       </a>
     </div>
   </nav>
@@ -485,10 +506,12 @@
       <span class="eyebrow"><span class="bot-dot" id="eyebrowDot"></span><span id="eyebrowText">Análisis en vivo — mesas de Bac Bo</span></span>
       <h1><span class="gold-text">Dados Dorados</span></h1>
       <p class="slogan" data-i18n="hero.slogan">"Donde cada dado es una oportunidad de oro"</p>
+      <p class="hero-sub" data-i18n="hero.sub">Señales de Bac Bo en Telegram: te avisamos en qué apostar, cuándo hacerlo y hasta cuántos gales.</p>
       <div class="hero-ctas">
-        <a class="btn-primary" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="hero.cta">✈️ Unirme al canal gratis</a>
-        <a class="btn-secondary" href="#caracteristicas" data-i18n="hero.how">Ver cómo funciona ↓</a>
+        <a class="btn-primary" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="hero.cta">🎁 Probar VIP 7 días gratis</a>
+        <a class="btn-secondary" href="https://t.me/DadosDorados" target="_blank" rel="noopener" data-i18n="hero.free">✈️ Canal gratis</a>
       </div>
+      <p class="hero-age" data-i18n="hero.age">🔞 Solo mayores de 18 · Sin garantía de resultados · Juega con responsabilidad</p>
       <div class="live-bar">
         <div class="live-status" id="botStatus">
           <span class="bot-dot" id="botDot"></span>
@@ -567,8 +590,29 @@
     <div class="wrap">
       <div class="section-head reveal">
         <span class="tag"><span class="live-dot"></span> <span data-i18n="dash.tag">En vivo</span></span>
-        <h2 data-i18n="dash.title">Dashboard del día</h2>
-        <p data-i18n="dash.lead">Datos reales de las señales ya cerradas de hoy — se actualiza solo.</p>
+        <h2 data-i18n="dash.title">Resultados en vivo</h2>
+        <p data-i18n="dash.lead">Datos reales de las señales ya cerradas, del mes y de hoy — se actualiza solo.</p>
+      </div>
+      <div class="section-head reveal" style="margin-bottom:32px;">
+        <span class="tag" data-i18n="month.tag">Este mes</span>
+      </div>
+      <div class="dash-grid dash-grid-3">
+        <div class="dash-card reveal">
+          <div class="dash-label" data-i18n="month.rate">Efectividad del mes</div>
+          <div class="dash-value gold-text" id="dashMesEfectividad">—</div>
+        </div>
+        <div class="dash-card reveal">
+          <div class="dash-label" data-i18n="month.count">Señales del mes</div>
+          <div class="dash-value gold-text" id="dashMesTotal">—</div>
+        </div>
+        <div class="dash-card reveal">
+          <div class="dash-label" data-i18n="month.best">Mejor patrón del mes</div>
+          <div class="dash-value" id="dashMesPatron">—</div>
+          <div class="dash-sub" id="dashMesPatronSub"></div>
+        </div>
+      </div>
+      <div class="section-head reveal" style="margin-top:56px; margin-bottom:32px;">
+        <span class="tag" data-i18n="today.tag">Hoy</span>
       </div>
       <div class="dash-grid">
         <div class="dash-card reveal">
@@ -589,26 +633,6 @@
           <div class="dash-value gold-text" id="dashTotal">—</div>
         </div>
       </div>
-
-      <div class="section-head reveal" style="margin-top:56px; margin-bottom:32px;">
-        <span class="tag" data-i18n="month.tag">Este mes</span>
-      </div>
-      <div class="dash-grid dash-grid-3">
-        <div class="dash-card reveal">
-          <div class="dash-label" data-i18n="month.rate">Efectividad del mes</div>
-          <div class="dash-value gold-text" id="dashMesEfectividad">—</div>
-        </div>
-        <div class="dash-card reveal">
-          <div class="dash-label" data-i18n="month.count">Señales del mes</div>
-          <div class="dash-value gold-text" id="dashMesTotal">—</div>
-        </div>
-        <div class="dash-card reveal">
-          <div class="dash-label" data-i18n="month.best">Mejor patrón del mes</div>
-          <div class="dash-value" id="dashMesPatron">—</div>
-          <div class="dash-sub" id="dashMesPatronSub"></div>
-        </div>
-      </div>
-
       <p class="stats-note" id="dashUpdated" data-i18n="dash.connecting">Conectando con el panel en vivo…</p>
     </div>
   </section>
@@ -658,6 +682,25 @@
   </section>
 
   <!-- FINAL CTA -->
+  <!-- FAQ -->
+  <section id="preguntas">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="tag" data-i18n="faq.tag">Preguntas frecuentes</span>
+        <h2 data-i18n="faq.title">Lo que más nos preguntan</h2>
+      </div>
+      <div class="faq">
+        <details class="reveal"><summary data-i18n="faq.q1"></summary><p data-i18n="faq.a1"></p></details>
+        <details class="reveal"><summary data-i18n="faq.q2"></summary><p data-i18n="faq.a2"></p></details>
+        <details class="reveal"><summary data-i18n="faq.q3"></summary><p data-i18n="faq.a3"></p></details>
+        <details class="reveal"><summary data-i18n="faq.q4"></summary><p data-i18n="faq.a4"></p></details>
+        <details class="reveal"><summary data-i18n="faq.q5"></summary><p data-i18n="faq.a5"></p></details>
+        <details class="reveal"><summary data-i18n="faq.q6"></summary><p data-i18n="faq.a6"></p></details>
+        <details class="reveal"><summary data-i18n="faq.q7"></summary><p data-i18n="faq.a7"></p></details>
+      </div>
+    </div>
+  </section>
+
   <section class="final-cta">
     <div class="wrap">
       <h2><span class="gold-text" data-i18n="final.title">¿Listo para decidir con ventaja?</span></h2>
@@ -673,7 +716,8 @@
     <div class="links">
       <a href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener">Telegram</a>
       <a href="#caracteristicas" data-i18n="footer.features">Características</a>
-      <a href="#dashboard">Dashboard</a>
+      <a href="#dashboard" data-i18n="footer.results">Resultados</a>
+        <a href="#preguntas" data-i18n="footer.faq">Preguntas</a>
       <a href="#precios" data-i18n="footer.pricing">Precios</a>
     </div>
   </div>
@@ -692,11 +736,36 @@
       "meta.title": "Dados Dorados — Análisis en vivo para Bac Bo",
       "meta.description": "Dados Dorados: análisis de patrones en tiempo real para mesas de Bac Bo en vivo, con gestión de gales incluida. Donde cada dado es una oportunidad de oro.",
       "nav.langLabel": "Idioma",
-      "nav.cta": "Unirme al canal",
-      "nav.ctaShort": "Unirme",
+      "nav.cta": "Probar gratis",
+      "nav.ctaShort": "Probar",
       "hero.eyebrow": "Análisis en vivo — mesas de Bac Bo",
       "hero.slogan": "\"Donde cada dado es una oportunidad de oro\"",
-      "hero.cta": "✈️ Unirme al canal gratis",
+      "hero.sub": "Señales de Bac Bo en Telegram: te avisamos en qué apostar, cuándo hacerlo y hasta cuántos gales.",
+      "hero.free": "✈️ Canal gratis",
+      "hero.age": "🔞 Solo mayores de 18 · Sin garantía de resultados · Juega con responsabilidad",
+      "ticker.agoH": "hace {h} h",
+      "ticker.agoD": "hace {d} días",
+      "ticker.agoD1": "hace 1 día",
+      "today.tag": "Hoy",
+      "footer.results": "Resultados",
+      "footer.faq": "Preguntas",
+      "faq.tag": "Preguntas frecuentes",
+      "faq.title": "Lo que más nos preguntan",
+      "faq.q1": "¿Qué es un gale?",
+      "faq.a1": "Si la entrada no sale, el gale es repetir la apuesta en el mismo lado, doblando el monto, en la ronda siguiente. Cada señal te dice cuántos gales tiene (1 o 2). Ten en cuenta que si llega al Gale 2, en total arriesgas 7 veces tu apuesta inicial (1 + 2 + 4).",
+      "faq.q2": "¿Qué pasa si sale empate?",
+      "faq.a2": "El empate no cuenta como fallo: repites la misma apuesta, sin doblar, y la señal sigue en el mismo paso.",
+      "faq.q3": "¿En qué casino juego?",
+      "faq.a3": "Las señales son para la mesa en vivo Bac Bo de Evolution, que es la misma en todos los casinos que la ofrecen. Juega solo en un casino legal en tu país.",
+      "faq.q4": "¿Cómo funciona la prueba gratis?",
+      "faq.a4": "Son 7 días de VIP completo, una prueba por número de celular de Colombia, Brasil, España o Francia. Solo verificas tu número en el bot de Telegram: no pedimos tarjeta.",
+      "faq.q5": "¿Cómo pago y cuándo se activa?",
+      "faq.a5": "En Colombia, con Bre-B (100.000 COP al mes). Desde cualquier país, con 27 USDT por la red Polygon. Envías la captura del comprobante por el bot y, apenas lo confirmamos, te llega el acceso al VIP.",
+      "faq.q6": "¿Se cobra solo cada mes?",
+      "faq.a6": "No. No hay cobros automáticos: pagas mes a mes, solo si quieres renovar. Si no renuevas, sales del VIP y sigues en el canal gratis.",
+      "faq.q7": "¿Las señales ganan siempre?",
+      "faq.a7": "No. Ninguna señal es segura: Bac Bo es un juego de azar y también se pierde. Por eso el bot entra en pausa tras dos pérdidas seguidas. Apuesta solo lo que estés dispuesto a perder.",
+      "hero.cta": "🎁 Probar VIP 7 días gratis",
       "hero.how": "Ver cómo funciona ↓",
       "bot.checking": "Consultando estado del bot…",
       "bot.active": "Bot activo — analizando la mesa en vivo",
@@ -718,8 +787,8 @@
       "f4.title": "Modo pausa automático",
       "f4.text": "Tras pérdidas seguidas, el sistema entra en modo pausa y analiza en silencio hasta recuperar precisión.",
       "dash.tag": "En vivo",
-      "dash.title": "Dashboard del día",
-      "dash.lead": "Datos reales de las señales ya cerradas de hoy — se actualiza solo.",
+      "dash.title": "Resultados en vivo",
+      "dash.lead": "Datos reales de las señales ya cerradas, del mes y de hoy — se actualiza solo.",
       "dash.last": "Última señal cerrada",
       "dash.loading": "Cargando…",
       "dash.rate": "Efectividad del día",
@@ -796,11 +865,36 @@
       "meta.title": "Dados Dorados — Live analysis for Bac Bo",
       "meta.description": "Dados Dorados: real-time pattern analysis for live Bac Bo tables, with gale management included. Where every die is a golden opportunity.",
       "nav.langLabel": "Language",
-      "nav.cta": "Join the channel",
-      "nav.ctaShort": "Join",
+      "nav.cta": "Try for free",
+      "nav.ctaShort": "Try",
       "hero.eyebrow": "Live analysis — Bac Bo tables",
       "hero.slogan": "\"Where every die is a golden opportunity\"",
-      "hero.cta": "✈️ Join the channel for free",
+      "hero.sub": "Bac Bo signals on Telegram: we tell you what to bet on, when to do it and how many gales to use.",
+      "hero.free": "✈️ Free channel",
+      "hero.age": "🔞 Adults only (18+) · No guaranteed results · Play responsibly",
+      "ticker.agoH": "{h} h ago",
+      "ticker.agoD": "{d} days ago",
+      "ticker.agoD1": "1 day ago",
+      "today.tag": "Today",
+      "footer.results": "Results",
+      "footer.faq": "FAQ",
+      "faq.tag": "FAQ",
+      "faq.title": "What people ask us most",
+      "faq.q1": "What is a gale?",
+      "faq.a1": "If the entry doesn't hit, a gale means repeating the bet on the same side, doubling the amount, in the next round. Each signal tells you how many gales it has (1 or 2). Keep in mind that if it reaches Gale 2, you risk 7 times your initial bet in total (1 + 2 + 4).",
+      "faq.q2": "What happens on a tie?",
+      "faq.a2": "A tie doesn't count as a miss: repeat the same bet, without doubling, and the signal stays on the same step.",
+      "faq.q3": "Which casino do I play at?",
+      "faq.a3": "The signals are for Evolution's live Bac Bo table, which is the same at every casino that offers it. Only play at a casino that is legal in your country.",
+      "faq.q4": "How does the free trial work?",
+      "faq.a4": "You get 7 days of full VIP, one trial per mobile number from Colombia, Brazil, Spain or France. You just verify your number in the Telegram bot: no card needed.",
+      "faq.q5": "How do I pay and when is it activated?",
+      "faq.a5": "In Colombia, with Bre-B (100,000 COP per month). From any country, with 27 USDT on the Polygon network. Send a screenshot of the receipt through the bot and, as soon as we confirm it, you get access to the VIP.",
+      "faq.q6": "Am I charged automatically every month?",
+      "faq.a6": "No. There are no automatic charges: you pay month by month, only if you want to renew. If you don't renew, you leave the VIP and stay in the free channel.",
+      "faq.q7": "Do the signals always win?",
+      "faq.a7": "No. No signal is a sure thing: Bac Bo is a game of chance and you can lose. That's why the bot pauses after two losses in a row. Only bet what you can afford to lose.",
+      "hero.cta": "🎁 Try VIP free for 7 days",
       "hero.how": "See how it works ↓",
       "bot.checking": "Checking bot status…",
       "bot.active": "Bot active — analyzing the live table",
@@ -822,8 +916,8 @@
       "f4.title": "Automatic pause mode",
       "f4.text": "After consecutive losses, the system enters pause mode and analyzes silently until it regains accuracy.",
       "dash.tag": "Live",
-      "dash.title": "Today's dashboard",
-      "dash.lead": "Real data from today's closed signals — updates automatically.",
+      "dash.title": "Live results",
+      "dash.lead": "Real data from closed signals, this month and today — updates automatically.",
       "dash.last": "Last closed signal",
       "dash.loading": "Loading…",
       "dash.rate": "Today's accuracy",
@@ -900,11 +994,36 @@
       "meta.title": "Dados Dorados — Analyse en direct pour Bac Bo",
       "meta.description": "Dados Dorados : analyse de tendances en temps réel pour les tables de Bac Bo en direct, avec gestion des gales incluse. Là où chaque dé est une opportunité en or.",
       "nav.langLabel": "Langue",
-      "nav.cta": "Rejoindre le canal",
-      "nav.ctaShort": "Rejoindre",
+      "nav.cta": "Essai gratuit",
+      "nav.ctaShort": "Essai",
       "hero.eyebrow": "Analyse en direct — tables de Bac Bo",
       "hero.slogan": "« Là où chaque dé est une opportunité en or »",
-      "hero.cta": "✈️ Rejoindre le canal gratuitement",
+      "hero.sub": "Signaux de Bac Bo sur Telegram : on te dit sur quoi miser, quand le faire et jusqu'à combien de gales.",
+      "hero.free": "✈️ Canal gratuit",
+      "hero.age": "🔞 Réservé aux 18 ans et plus · Aucun résultat garanti · Joue de façon responsable",
+      "ticker.agoH": "il y a {h} h",
+      "ticker.agoD": "il y a {d} jours",
+      "ticker.agoD1": "il y a 1 jour",
+      "today.tag": "Aujourd'hui",
+      "footer.results": "Résultats",
+      "footer.faq": "FAQ",
+      "faq.tag": "Questions fréquentes",
+      "faq.title": "Ce qu'on nous demande le plus",
+      "faq.q1": "Qu'est-ce qu'un gale ?",
+      "faq.a1": "Si l'entrée ne passe pas, le gale consiste à répéter la mise du même côté, en doublant le montant, au tour suivant. Chaque signal indique combien de gales il comporte (1 ou 2). Attention : s'il va jusqu'au Gale 2, tu risques au total 7 fois ta mise initiale (1 + 2 + 4).",
+      "faq.q2": "Que se passe-t-il en cas d'égalité ?",
+      "faq.a2": "L'égalité ne compte pas comme un échec : tu répètes la même mise, sans doubler, et le signal reste à la même étape.",
+      "faq.q3": "Dans quel casino jouer ?",
+      "faq.a3": "Les signaux sont pour la table en direct Bac Bo d'Evolution, la même dans tous les casinos qui la proposent. Joue uniquement dans un casino légal dans ton pays.",
+      "faq.q4": "Comment fonctionne l'essai gratuit ?",
+      "faq.a4": "Ce sont 7 jours de VIP complet, un essai par numéro de mobile de Colombie, du Brésil, d'Espagne ou de France. Tu vérifies simplement ton numéro dans le bot Telegram : aucune carte demandée.",
+      "faq.q5": "Comment payer et quand est-ce activé ?",
+      "faq.a5": "En Colombie, avec Bre-B (100 000 COP par mois). Depuis n'importe quel pays, avec 27 USDT sur le réseau Polygon. Tu envoies la capture du reçu via le bot et, dès qu'on le confirme, tu reçois l'accès au VIP.",
+      "faq.q6": "Suis-je prélevé automatiquement chaque mois ?",
+      "faq.a6": "Non. Aucun prélèvement automatique : tu paies mois par mois, seulement si tu veux renouveler. Si tu ne renouvelles pas, tu quittes le VIP et restes dans le canal gratuit.",
+      "faq.q7": "Les signaux gagnent-ils toujours ?",
+      "faq.a7": "Non. Aucun signal n'est sûr : le Bac Bo est un jeu de hasard et on peut perdre. C'est pourquoi le bot se met en pause après deux pertes d'affilée. Ne mise que ce que tu es prêt à perdre.",
+      "hero.cta": "🎁 Essayer le VIP 7 jours gratuits",
       "hero.how": "Voir comment ça marche ↓",
       "bot.checking": "Vérification de l'état du bot…",
       "bot.active": "Bot actif — analyse de la table en direct",
@@ -926,8 +1045,8 @@
       "f4.title": "Mode pause automatique",
       "f4.text": "Après plusieurs pertes consécutives, le système passe en mode pause et analyse en silence jusqu'à retrouver sa précision.",
       "dash.tag": "En direct",
-      "dash.title": "Tableau de bord du jour",
-      "dash.lead": "Données réelles des signaux clôturés aujourd'hui — mise à jour automatique.",
+      "dash.title": "Résultats en direct",
+      "dash.lead": "Données réelles des signaux clôturés, du mois et d'aujourd'hui — mise à jour automatique.",
       "dash.last": "Dernier signal clôturé",
       "dash.loading": "Chargement…",
       "dash.rate": "Efficacité du jour",
@@ -1406,6 +1525,13 @@
 
   // ---- Ticker de última señal — rota entre las últimas 5 señales reales,
   // obtenidas de Supabase por cargarTicker() cada 30s (junto al resto del panel).
+  function haceCuanto(mins) {
+    if (mins < 60) return t("ticker.ago", { m: mins });
+    if (mins < 60 * 24) return t("ticker.agoH", { h: Math.round(mins / 60) });
+    var d = Math.round(mins / (60 * 24));
+    return d === 1 ? t("ticker.agoD1") : t("ticker.agoD", { d: d });
+  }
+
   function actualizarTicker() {
     var el = document.getElementById("tickerText");
     if (!el) return;
@@ -1422,7 +1548,7 @@
     var minsAtras = fechaSenal
       ? Math.max(0, Math.round((Date.now() - fechaSenal.getTime()) / 60000))
       : null;
-    var haceTexto = minsAtras === null ? "" : " · " + t("ticker.ago", { m: minsAtras });
+    var haceTexto = minsAtras === null ? "" : " · " + haceCuanto(minsAtras);
     var horaTexto = fechaSenal ? " · " + horaCorta(s.created_at) : "";
 
     el.style.opacity = 0;
