@@ -283,6 +283,63 @@
   .foot a:hover{color:var(--gold-light);}
   .disclaimer{margin-top:22px; padding-top:18px; border-top:1px solid var(--line-soft); color:var(--text-faint); font-size:0.78rem; line-height:1.65;}
 
+  /* ---------- estética ---------- */
+  body::after{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:100; opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+  .head .tag::before, .head .tag::after{content:""; width:26px; height:1px; background:linear-gradient(90deg, transparent, var(--gold));}
+  .head .tag::after{transform:scaleX(-1);}
+  .card{transition:transform .3s cubic-bezier(.16,.8,.24,1), border-color .3s ease, box-shadow .3s ease;}
+  .card:hover{border-color:rgba(212,175,55,0.45); box-shadow:0 18px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(212,175,55,0.08);}
+  .step.reveal:hover, .feat.reveal:hover, .rung.reveal:hover{transform:translateY(-4px);}
+
+  /* dados 3D del inicio */
+  .hero-visual{position:relative;}
+  .dado3d{
+    position:absolute; z-index:2; width:84px; height:84px; padding:14px; border-radius:20px;
+    display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(3, 1fr);
+    background:linear-gradient(145deg, #f7e19a, #d9b443 45%, #9c7a22);
+    box-shadow:inset 0 2px 0 rgba(255,255,255,0.55), inset 0 -8px 14px rgba(0,0,0,0.28), 0 24px 44px rgba(0,0,0,0.55);
+  }
+  .dado3d.d1{top:-18px; left:-6px; transform:rotate(-16deg); animation:flota1 7s ease-in-out infinite;}
+  .dado3d.d2{bottom:24px; right:-14px; width:70px; height:70px; padding:12px; border-radius:17px; transform:rotate(14deg); animation:flota2 8s ease-in-out infinite;}
+  .pip{width:13px; height:13px; border-radius:50%; align-self:center; justify-self:center; background:radial-gradient(circle at 38% 32%, #4a3d24, #0d0b07 70%); box-shadow:inset 0 1px 2px rgba(0,0,0,0.6);}
+  .dado3d.d2 .pip{width:11px; height:11px;}
+  .pip.tl{grid-area:1/1;} .pip.tr{grid-area:1/3;} .pip.ml{grid-area:2/1;} .pip.c{grid-area:2/2;}
+  .pip.mr{grid-area:2/3;} .pip.bl{grid-area:3/1;} .pip.br{grid-area:3/3;}
+  @keyframes flota1{0%,100%{transform:translateY(0) rotate(-16deg)} 50%{transform:translateY(-12px) rotate(-11deg)}}
+  @keyframes flota2{0%,100%{transform:translateY(0) rotate(14deg)} 50%{transform:translateY(10px) rotate(19deg)}}
+
+  /* íconos dorados */
+  .feat .ico{
+    width:48px; height:48px; border-radius:14px; display:grid; place-items:center; margin-bottom:16px;
+    color:var(--gold-light); background:linear-gradient(145deg, rgba(212,175,55,0.18), rgba(212,175,55,0.04));
+    border:1px solid rgba(212,175,55,0.35);
+  }
+  .feat .ico svg{width:24px; height:24px;}
+
+  /* pasos unidos por una línea */
+  .steps{position:relative;}
+  .steps::before{
+    content:""; position:absolute; top:58px; left:14%; right:14%; height:1px; z-index:0;
+    background:linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  }
+  .step{position:relative; z-index:1;}
+  .step .num{
+    width:62px; height:62px; border-radius:50%; display:grid; place-items:center; font-size:2rem;
+    background:var(--bg-alt); border:1px solid var(--gold-dim); box-shadow:0 0 0 6px var(--bg-alt), 0 0 30px rgba(212,175,55,0.15);
+    margin-bottom:16px;
+  }
+
+  /* cierre */
+  .final-logo{width:132px; height:132px; border-radius:50%; margin:0 auto 22px; display:block; box-shadow:0 0 60px rgba(212,175,55,0.25); animation:flota1b 6s ease-in-out infinite;}
+  @keyframes flota1b{0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}}
+
+  @media (max-width:980px){ .dado3d.d1{left:6%;} .dado3d.d2{right:6%;} }
+  @media (max-width:720px){ .steps::before{display:none;} .dado3d.d1{width:64px; height:64px; padding:11px; top:-10px;} .dado3d.d1 .pip{width:10px; height:10px;} .dado3d.d2{width:54px; height:54px; padding:9px;} .dado3d.d2 .pip{width:8px; height:8px;} }
+  @media (prefers-reduced-motion: reduce){ .dado3d, .final-logo{animation:none !important;} }
+
   /* ---------- aparición al hacer scroll ---------- */
   .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s cubic-bezier(.16,.8,.24,1);}
   .reveal.is-visible{opacity:1; transform:none;}
@@ -356,6 +413,9 @@
           <div class="kpi"><b data-i18n="hero.k3">Sin tarjeta</b><span data-i18n="hero.k3t">para empezar</span></div>
         </div>
       </div>
+      <div class="hero-visual">
+        <div class="dado3d d1" aria-hidden="true"><i class="pip tl"></i><i class="pip tr"></i><i class="pip ml"></i><i class="pip mr"></i><i class="pip bl"></i><i class="pip br"></i></div>
+        <div class="dado3d d2" aria-hidden="true"><i class="pip tl"></i><i class="pip tr"></i><i class="pip c"></i><i class="pip bl"></i><i class="pip br"></i></div>
       <div class="phone" aria-hidden="true">
         <div class="screen">
           <div class="screen-top"><img src="logo-192.png" alt=""><div><b data-i18n="phone.name">Dados Dorados VIP 👑</b><small data-i18n="phone.sub">canal · señal de ejemplo</small></div></div>
@@ -366,6 +426,7 @@
             <div class="msg"><strong data-i18n="m4.a">✅ ¡GANAMOS! 🍀 · Gale 1</strong><span data-i18n="m4.b">🎯 Salió 🔴 BANKER</span></div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </section>
@@ -408,9 +469,9 @@
         <h2 data-i18n="how.title">Tres pasos, sin complicaciones</h2>
       </div>
       <div class="steps">
-        <div class="card step reveal"><span class="num gold-text">1</span><h3 data-i18n="how.s1t">Entra al bot</h3><p data-i18n="how.s1">Toca «Probar VIP 7 días gratis», verifica tu número en Telegram y listo: no pedimos tarjeta.</p></div>
-        <div class="card step reveal"><span class="num gold-text">2</span><h3 data-i18n="how.s2t">Abre la mesa y espera</h3><p data-i18n="how.s2">Ten abierta la mesa de Bac Bo en tu casino. En el VIP primero llega «Posible entrada»: es para que estés listo.</p></div>
-        <div class="card step reveal"><span class="num gold-text">3</span><h3 data-i18n="how.s3t">Apuesta y sigue los pasos</h3><p data-i18n="how.s3">Con «Entrada confirmada» apuestas en la siguiente ronda. Si no sale, el bot te dice exactamente qué hacer.</p></div>
+        <div class="card step reveal"><span class="num"><span class="gold-text">1</span></span><h3 data-i18n="how.s1t">Entra al bot</h3><p data-i18n="how.s1">Toca «Probar VIP 7 días gratis», verifica tu número en Telegram y listo: no pedimos tarjeta.</p></div>
+        <div class="card step reveal"><span class="num"><span class="gold-text">2</span></span><h3 data-i18n="how.s2t">Abre la mesa y espera</h3><p data-i18n="how.s2">Ten abierta la mesa de Bac Bo en tu casino. En el VIP primero llega «Posible entrada»: es para que estés listo.</p></div>
+        <div class="card step reveal"><span class="num"><span class="gold-text">3</span></span><h3 data-i18n="how.s3t">Apuesta y sigue los pasos</h3><p data-i18n="how.s3">Con «Entrada confirmada» apuestas en la siguiente ronda. Si no sale, el bot te dice exactamente qué hacer.</p></div>
       </div>
     </div>
   </section>
@@ -483,10 +544,10 @@
         <h2 data-i18n="feat.title">Hecho para que no tengas que adivinar</h2>
       </div>
       <div class="feats">
-        <div class="card feat reveal"><span class="ico">⚡</span><h3 data-i18n="f1.title">Lectura en vivo</h3><p data-i18n="f1.text">Conectados a la mesa: cada ronda se analiza al instante.</p></div>
-        <div class="card feat reveal"><span class="ico">🎯</span><h3 data-i18n="f2.title">Patrones confirmados</h3><p data-i18n="f2.text">Solo avisamos cuando un patrón se confirma, no en cada ronda.</p></div>
-        <div class="card feat reveal"><span class="ico">🛡️</span><h3 data-i18n="f3.title">Pausa que te cuida</h3><p data-i18n="f3.text">Tras 2 señales perdidas seguidas, paramos y volvemos cuando la mesa se ordena.</p></div>
-        <div class="card feat reveal"><span class="ico">💬</span><h3 data-i18n="f4.title">Soporte de verdad</h3><p data-i18n="f4.text">Te responde una persona, en privado, por el mismo bot.</p></div>
+        <div class="card feat reveal"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></span><h3 data-i18n="f1.title">Lectura en vivo</h3><p data-i18n="f1.text">Conectados a la mesa: cada ronda se analiza al instante.</p></div>
+        <div class="card feat reveal"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><h3 data-i18n="f2.title">Patrones confirmados</h3><p data-i18n="f2.text">Solo avisamos cuando un patrón se confirma, no en cada ronda.</p></div>
+        <div class="card feat reveal"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v6c0 4.4 3 7.6 7 9 4-1.4 7-4.6 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/></svg></span><h3 data-i18n="f3.title">Pausa que te cuida</h3><p data-i18n="f3.text">Tras 2 señales perdidas seguidas, paramos y volvemos cuando la mesa se ordena.</p></div>
+        <div class="card feat reveal"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span><h3 data-i18n="f4.title">Soporte de verdad</h3><p data-i18n="f4.text">Te responde una persona, en privado, por el mismo bot.</p></div>
       </div>
     </div>
   </section>
@@ -600,6 +661,7 @@
   <!-- FINAL -->
   <section class="final">
     <div class="wrap">
+      <img class="final-logo" src="logo-512.png" alt="" width="132" height="132">
       <h2 class="gold-text" data-i18n="final.title">¿Lo probamos?</h2>
       <p data-i18n="final.text">7 días de VIP gratis, sin tarjeta. Si no te convence, te quedas en el canal gratis.</p>
       <a class="btn btn-gold" href="https://t.me/AGZ_Dice_Bot?start=web" target="_blank" rel="noopener" data-i18n="final.cta">🎁 Empezar mis 7 días gratis</a>
