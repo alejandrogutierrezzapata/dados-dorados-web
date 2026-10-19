@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<meta name="theme-color" content="#0a0908">
-<title>Dados Dorados — Análisis en vivo para Bac Bo</title>
-<meta name="description" content="Dados Dorados: análisis de patrones en tiempo real para mesas de Bac Bo en vivo, con gestión de gales incluida. Donde cada dado es una oportunidad de oro.">
+<meta name="theme-color" content="#0b0a08">
+<title>Dados Dorados — Señales de Bac Bo en vivo por Telegram</title>
+<meta name="description" content="Señales de Bac Bo en tiempo real por Telegram: en qué apostar, cuándo y con cuántos gales, explicado fácil. 7 días de VIP gratis.">
 <!-- Dominio oficial: dadosdorados.vip (ver CNAME) -->
 <link rel="canonical" href="https://dadosdorados.vip/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Dados Dorados">
 <meta property="og:url" content="https://dadosdorados.vip/">
-<meta property="og:title" content="Dados Dorados — Análisis en vivo para Bac Bo">
-<meta property="og:description" content="Análisis de patrones en tiempo real para mesas de Bac Bo en vivo, con gestión de gales incluida. Donde cada dado es una oportunidad de oro.">
+<meta property="og:title" content="Dados Dorados — Señales de Bac Bo en vivo por Telegram">
+<meta property="og:description" content="Señales de Bac Bo en tiempo real por Telegram: en qué apostar, cuándo y con cuántos gales, explicado fácil. 7 días de VIP gratis.">
 <meta property="og:locale" content="es_CO">
 <meta property="og:image" content="https://dadosdorados.vip/logo-512.png">
 <meta property="og:image:width" content="512">
@@ -36,447 +36,284 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0a0908;
-    --bg-alt:#131110;
-    --card:#18150f;
-    --card-border:#2c2413;
-    --gold:#d4af37;
-    --gold-light:#f3d47b;
-    --gold-dim:#8a7128;
-    --text:#f2ede1;
-    --text-dim:#b7ad98;
-    --text-faint:#7d7462;
-    --green:#4caf7d;
-    --radius:16px;
-    --max:1140px;
+    --bg:#0b0a08; --bg-alt:#12100c; --card:#17140f; --card-2:#1d1913; --line:#2c2416; --line-soft:rgba(242,237,225,0.07);
+    --gold:#d4af37; --gold-light:#f3d47b; --gold-dim:#8a7128;
+    --text:#f2ede1; --text-dim:#b9af99; --text-faint:#7f7663;
+    --player:#4c8dff; --banker:#ef5350; --green:#4caf7d; --amber:#e0a43a;
+    --radius:18px; --max:1160px;
   }
-
   *{box-sizing:border-box; margin:0; padding:0;}
-
-  html{scroll-behavior:smooth;}
-
+  html{scroll-behavior:smooth; scroll-padding-top:76px;}
   body{
-    background:
-      radial-gradient(ellipse 900px 520px at 18% -8%, rgba(212,175,55,0.16), transparent 60%),
-      radial-gradient(ellipse 700px 500px at 92% 12%, rgba(212,175,55,0.09), transparent 55%),
-      radial-gradient(ellipse 900px 620px at 50% 105%, rgba(212,175,55,0.06), transparent 60%),
-      linear-gradient(180deg, var(--bg) 0%, #0d0b08 50%, var(--bg) 100%);
-    color:var(--text);
-    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    background:var(--bg); color:var(--text);
+    font-family:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; line-height:1.6;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  h1, h2, h3{font-family:'Cormorant Garamond', Georgia, serif; font-weight:700; line-height:1.1;}
+  a{color:inherit;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 20px;}
+  .gold-text{
+    background:linear-gradient(120deg, var(--gold-light), var(--gold) 45%, #b8892a 80%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  section{padding:96px 0;}
+  .alt{background:var(--bg-alt); border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft);}
+  .head{text-align:center; max-width:680px; margin:0 auto 52px;}
+  .tag{
+    display:inline-flex; align-items:center; gap:8px; color:var(--gold); font-weight:700;
+    font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:14px;
+  }
+  .head h2{font-size:clamp(2.1rem, 4.6vw, 3.1rem); margin-bottom:14px;}
+  .head p{color:var(--text-dim); font-size:1.06rem;}
+  .card{
+    background:linear-gradient(180deg, var(--card-2), var(--card)); border:1px solid var(--line);
+    border-radius:var(--radius);
   }
 
-  h1,h2,h3, .headline{
-    font-family:'Cormorant Garamond', Georgia, serif;
-    font-weight:700;
-    letter-spacing:-0.01em;
+  /* ---------- botones ---------- */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px; text-decoration:none;
+    font-weight:800; font-size:1rem; padding:15px 28px; border-radius:999px;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .btn-gold{
+    background:linear-gradient(135deg, var(--gold-light), var(--gold) 55%, var(--gold-dim));
+    color:#151007; box-shadow:0 10px 30px rgba(212,175,55,0.28), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .btn-gold:hover{transform:translateY(-2px); box-shadow:0 14px 36px rgba(212,175,55,0.38), inset 0 1px 0 rgba(255,255,255,0.4);}
+  .btn-ghost{border:1px solid var(--line); color:var(--text); background:rgba(255,255,255,0.02);}
+  .btn-ghost:hover{border-color:var(--gold-dim); transform:translateY(-2px);}
+
+  /* ---------- navegación ---------- */
+  header{position:sticky; top:0; z-index:50; background:rgba(11,10,8,0.82); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--line-soft);}
+  nav{max-width:var(--max); margin:0 auto; padding:12px 20px; display:flex; align-items:center; gap:22px;}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.3rem;}
+  .brand img{width:30px; height:30px;}
+  .nav-links{display:flex; gap:22px; margin-left:auto;}
+  .nav-links a{color:var(--text-dim); text-decoration:none; font-size:0.9rem; font-weight:500;}
+  .nav-links a:hover{color:var(--gold-light);}
+  .lang-switch{display:flex; border:1px solid var(--line); border-radius:999px; padding:3px;}
+  .lang-switch button{
+    background:none; border:0; color:var(--text-faint); font:700 0.72rem 'Inter', sans-serif;
+    padding:5px 9px; border-radius:999px; cursor:pointer;
+  }
+  .lang-switch button[aria-pressed="true"]{background:var(--gold); color:#151007;}
+  .nav-cta{padding:10px 18px; font-size:0.88rem;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:72px 0 64px; position:relative; overflow:hidden;}
+  .hero::before{
+    content:""; position:absolute; inset:-30% -10% auto auto; width:780px; height:780px; pointer-events:none;
+    background:radial-gradient(circle, rgba(212,175,55,0.14), transparent 62%);
+  }
+  .hero-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center; position:relative;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:9px; border:1px solid var(--line); border-radius:999px;
+    padding:6px 14px; font-size:0.78rem; font-weight:600; color:var(--text-dim); margin-bottom:22px;
+  }
+  .hero h1{font-size:clamp(2.7rem, 6vw, 4.6rem); margin-bottom:20px; letter-spacing:-0.01em;}
+  .hero h1 span{display:block;}
+  .hero-sub{color:var(--text-dim); font-size:1.12rem; max-width:560px; margin-bottom:30px;}
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px;}
+  .hero-age{color:var(--text-faint); font-size:0.82rem; margin-bottom:34px;}
+  .kpis{display:flex; gap:30px; flex-wrap:wrap;}
+  .kpi b{display:block; font-family:'Cormorant Garamond', serif; font-size:1.9rem; line-height:1; color:var(--gold-light);}
+  .kpi span{color:var(--text-faint); font-size:0.84rem;}
+
+  /* teléfono con la señal de ejemplo */
+  .phone{
+    width:100%; max-width:350px; margin:0 auto; border-radius:34px; padding:10px;
+    background:linear-gradient(160deg, #3a3122, #15120d 40%, #2a2318); box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.18);
+  }
+  .screen{background:#0e1621; border-radius:26px; overflow:hidden; min-height:520px; display:flex; flex-direction:column;}
+  .screen-top{display:flex; align-items:center; gap:10px; padding:14px 16px; background:#17212b;}
+  .screen-top img{width:36px; height:36px; border-radius:50%;}
+  .screen-top b{display:block; font-size:0.9rem; color:#fff;}
+  .screen-top small{color:#7f91a4; font-size:0.74rem;}
+  .chat{flex:1; padding:14px 12px; display:flex; flex-direction:column; gap:10px; justify-content:flex-start;}
+  .msg{
+    background:#182533; color:#e9eef3; border-radius:14px 14px 14px 4px; padding:10px 12px;
+    font-size:0.84rem; line-height:1.5; max-width:92%; box-shadow:0 1px 0 rgba(0,0,0,0.3);
+  }
+  .msg strong{display:block; color:#fff; margin-bottom:2px;}
+  .msg span{display:block;}
+  @keyframes m1{0%,2%{opacity:0; transform:translateY(10px)} 6%,92%{opacity:1; transform:none} 97%,100%{opacity:0}}
+  @keyframes m2{0%,22%{opacity:0; transform:translateY(10px)} 26%,92%{opacity:1; transform:none} 97%,100%{opacity:0}}
+  @keyframes m3{0%,44%{opacity:0; transform:translateY(10px)} 48%,92%{opacity:1; transform:none} 97%,100%{opacity:0}}
+  @keyframes m4{0%,64%{opacity:0; transform:translateY(10px)} 68%,92%{opacity:1; transform:none} 97%,100%{opacity:0}}
+  .msg:nth-child(1){animation:m1 16s infinite;}
+  .msg:nth-child(2){animation:m2 16s infinite;}
+  .msg:nth-child(3){animation:m3 16s infinite;}
+  .msg:nth-child(4){animation:m4 16s infinite;}
+
+  /* barra en vivo */
+  .live{border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); background:var(--bg-alt);}
+  .live .wrap{display:flex; gap:14px 28px; align-items:center; justify-content:center; flex-wrap:wrap; padding-top:14px; padding-bottom:14px;}
+  .live-item{display:flex; align-items:center; gap:9px; color:var(--text-dim); font-size:0.88rem;}
+  #tickerText{transition:opacity .25s ease;}
+  .bot-dot{width:8px; height:8px; border-radius:50%; background:var(--text-faint); flex:none;}
+  .bot-dot.on{background:var(--green); box-shadow:0 0 0 0 rgba(76,175,125,0.6); animation:latido 2s infinite;}
+  .bot-dot.wait{background:var(--amber);}
+  @keyframes latido{0%{box-shadow:0 0 0 0 rgba(76,175,125,0.55)} 70%{box-shadow:0 0 0 9px rgba(76,175,125,0)} 100%{box-shadow:0 0 0 0 rgba(76,175,125,0)}}
+
+  /* ---------- Bac Bo en 30 s ---------- */
+  .duel{display:grid; grid-template-columns:1fr auto 1fr; gap:18px; align-items:center; max-width:760px; margin:0 auto 40px;}
+  .side{padding:26px; text-align:center; border-radius:var(--radius); border:1px solid;}
+  .side.player{border-color:rgba(76,141,255,0.45); background:linear-gradient(180deg, rgba(76,141,255,0.14), rgba(76,141,255,0.03));}
+  .side.banker{border-color:rgba(239,83,80,0.45); background:linear-gradient(180deg, rgba(239,83,80,0.14), rgba(239,83,80,0.03));}
+  .side b{display:block; font-size:1.1rem; letter-spacing:0.12em; margin-bottom:6px;}
+  .side.player b{color:var(--player);} .side.banker b{color:var(--banker);}
+  .side .dados{font-size:2.6rem; line-height:1; letter-spacing:6px;}
+  .side small{display:block; color:var(--text-faint); margin-top:8px;}
+  .vs{text-align:center; color:var(--text-faint); font-weight:700; text-transform:uppercase; font-size:0.8rem; letter-spacing:0.15em;}
+  .rules{display:grid; grid-template-columns:repeat(2, 1fr); gap:14px; max-width:860px; margin:0 auto;}
+  .rule{padding:18px 20px; display:flex; gap:14px; align-items:flex-start; color:var(--text-dim);}
+  .rule i{
+    flex:none; width:30px; height:30px; border-radius:50%; display:grid; place-items:center; font-style:normal;
+    font-weight:800; font-size:0.85rem; color:#151007; background:var(--gold);
   }
 
+  /* ---------- pasos ---------- */
+  .steps{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px;}
+  .step{padding:28px 26px;}
+  .step .num{font-family:'Cormorant Garamond', serif; font-size:3rem; line-height:1; margin-bottom:10px; display:block;}
+  .step h3{font-size:1.5rem; margin-bottom:8px;}
+  .step p{color:var(--text-dim);}
+
+  /* ---------- leer una señal ---------- */
+  .read-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:44px; align-items:center;}
+  .signal{background:#182533; border-radius:18px; padding:22px 22px 18px; color:#e9eef3; font-size:1rem; line-height:1.9; box-shadow:0 20px 50px rgba(0,0,0,0.45);}
+  .signal strong{display:block; color:#fff; font-size:1.05rem; margin-bottom:6px;}
+  .signal .linea{display:flex; align-items:center; gap:10px;}
+  .pin{
+    flex:none; width:24px; height:24px; border-radius:50%; background:var(--gold); color:#151007;
+    font-weight:800; font-size:0.78rem; display:grid; place-items:center;
+  }
+  .explica{display:flex; flex-direction:column; gap:14px;}
+  .explica .card{padding:18px 20px; display:flex; gap:14px;}
+  .explica h3{font-family:'Inter', sans-serif; font-size:1.02rem; font-weight:800; margin-bottom:4px;}
+  .explica p{color:var(--text-dim); font-size:0.97rem;}
+
+  /* ---------- gales ---------- */
+  .ladder{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-bottom:18px; position:relative;}
+  .rung{padding:24px 22px; text-align:center;}
+  .rung .n{color:var(--gold); font-weight:800; text-transform:uppercase; letter-spacing:0.14em; font-size:0.76rem;}
+  .fichas{display:flex; justify-content:center; gap:5px; margin:14px 0 10px; min-height:30px; align-items:center;}
+  .ficha{width:26px; height:26px; border-radius:50%; background:radial-gradient(circle at 35% 35%, var(--gold-light), var(--gold) 55%, #8a6a1e); box-shadow:inset 0 0 0 3px rgba(255,255,255,0.18), 0 2px 6px rgba(0,0,0,0.4);}
+  .rung b{display:block; font-size:1.1rem; margin-bottom:6px;}
+  .rung p{color:var(--text-dim); font-size:0.94rem;}
+  .arrow{color:var(--text-faint); font-size:0.8rem;}
+  .banner{padding:16px 20px; border-radius:14px; display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; font-weight:600;}
+  .banner.win{background:rgba(76,175,125,0.12); border:1px solid rgba(76,175,125,0.4); color:#bfe7d0;}
+  .banner.loss{background:rgba(239,83,80,0.10); border:1px solid rgba(239,83,80,0.4); color:#f3c2c1;}
+  .banner.info{background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.3); color:var(--text-dim); font-weight:500;}
+  .tips{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:22px;}
+  .tips .card{padding:22px;}
+  .tips h3{font-family:'Inter', sans-serif; font-size:1.02rem; font-weight:800; margin-bottom:6px;}
+  .tips p{color:var(--text-dim);}
+
+  /* ---------- ventajas ---------- */
+  .feats{display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;}
+  .feat{padding:24px 22px;}
+  .feat .ico{font-size:1.5rem; margin-bottom:12px; display:block;}
+  .feat h3{font-family:'Inter', sans-serif; font-size:1.02rem; font-weight:800; margin-bottom:6px;}
+  .feat p{color:var(--text-dim); font-size:0.94rem;}
+
+  /* ---------- horario ---------- */
+  .tz-switch{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:26px;}
+  .tz-switch button{
+    border:1px solid var(--line); background:none; color:var(--text-dim); border-radius:999px;
+    padding:7px 15px; font:600 0.84rem 'Inter', sans-serif; cursor:pointer;
+  }
+  .tz-switch button[aria-pressed="true"]{border-color:var(--gold); color:var(--gold-light); background:rgba(212,175,55,0.08);}
+  .hours-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:760px; margin:0 auto;}
+  .hours-card{padding:26px; text-align:center;}
+  .hours-card.vip{border-color:var(--gold-dim);}
+  .hours-label{display:block; color:var(--gold); font-weight:800; font-size:0.76rem; letter-spacing:0.16em; text-transform:uppercase;}
+  .hours-range{font-family:'Cormorant Garamond', serif; font-size:clamp(2rem, 5vw, 2.6rem); font-weight:700; margin:8px 0 4px; transition:opacity .25s ease;}
+  .hours-range.cambiando{opacity:0;}
+  .hours-range sup{font-family:'Inter', sans-serif; font-size:0.72rem; color:var(--text-faint); margin-left:4px;}
+  .hours-sub{display:block; color:var(--text-faint); font-size:0.86rem;}
+  .hours-state{display:inline-block; margin-top:10px; font-size:0.8rem; color:var(--text-faint);}
+  .hours-state.on{color:var(--green);}
+  .hours-now{text-align:center; color:var(--text-faint); font-size:0.84rem; margin-top:18px;}
+
+  /* ---------- resultados ---------- */
+  .subhead{text-align:center; color:var(--gold); font-weight:800; font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase; margin:0 0 18px;}
+  .dash-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:14px;}
+  .dash-grid-3{grid-template-columns:repeat(3, 1fr);}
+  .dash-card{padding:22px 18px; text-align:center;}
+  .dash-label{color:var(--text-faint); font-size:0.76rem; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:8px;}
+  .dash-value{font-family:'Cormorant Garamond', serif; font-size:2rem; font-weight:700; line-height:1.15;}
+  .dash-sub{color:var(--text-faint); font-size:0.82rem; margin-top:6px;}
+  .stats-note{text-align:center; color:var(--text-faint); font-size:0.8rem; margin-top:22px;}
+
+  /* ---------- planes ---------- */
+  .pricing{display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:880px; margin:0 auto;}
+  .price-card{padding:32px 30px; display:flex; flex-direction:column;}
+  .price-card.featured{border-color:var(--gold); box-shadow:0 20px 60px rgba(212,175,55,0.1);}
+  .price-badge{align-self:flex-start; background:rgba(212,175,55,0.14); color:var(--gold-light); border:1px solid var(--gold-dim); border-radius:999px; padding:4px 12px; font-size:0.78rem; font-weight:700; margin-bottom:12px;}
+  .price-card h3{font-family:'Inter', sans-serif; font-size:0.9rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-dim);}
+  .price-amount{margin:10px 0 18px; color:var(--text-faint); font-size:0.88rem;}
+  .price-amount .gold-text{font-family:'Cormorant Garamond', serif; font-size:2.8rem; font-weight:700; margin-right:6px;}
+  .price-list{list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:26px; flex:1;}
+  .price-list li{padding-left:26px; position:relative; color:var(--text-dim); font-size:0.95rem;}
+  .price-list li::before{content:"✓"; position:absolute; left:0; color:var(--gold); font-weight:800;}
+  .price-card .btn{width:100%;}
+  .price-note{text-align:center; color:var(--text-faint); font-size:0.84rem; margin-top:18px;}
+
+  /* ---------- preguntas ---------- */
+  .faq{max-width:800px; margin:0 auto; display:flex; flex-direction:column; gap:10px;}
+  .faq details{padding:0 22px;}
+  .faq details[open]{border-color:var(--gold-dim);}
+  .faq summary{cursor:pointer; list-style:none; padding:18px 30px 18px 0; position:relative; font-weight:700;}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary::after{content:"+"; position:absolute; right:0; top:13px; color:var(--gold); font-size:1.45rem; font-weight:400;}
+  .faq details[open] summary::after{content:"–";}
+  .faq details p{color:var(--text-dim); padding:0 0 20px; line-height:1.7;}
+
+  /* ---------- final y pie ---------- */
+  .final{text-align:center; background:radial-gradient(ellipse at center, rgba(212,175,55,0.1), transparent 65%);}
+  .final h2{font-size:clamp(2.3rem, 5vw, 3.4rem); margin-bottom:12px;}
+  .final p{color:var(--text-dim); max-width:520px; margin:0 auto 28px;}
+  footer{border-top:1px solid var(--line-soft); padding:36px 0 30px;}
+  .foot{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+  .foot .links{display:flex; gap:20px; flex-wrap:wrap;}
+  .foot a{color:var(--text-dim); text-decoration:none; font-size:0.88rem;}
+  .foot a:hover{color:var(--gold-light);}
+  .disclaimer{margin-top:22px; padding-top:18px; border-top:1px solid var(--line-soft); color:var(--text-faint); font-size:0.78rem; line-height:1.65;}
+
+  /* ---------- aparición al hacer scroll ---------- */
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s cubic-bezier(.16,.8,.24,1);}
+  .reveal.is-visible{opacity:1; transform:none;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .nav-links{display:none;}
+    .lang-switch{margin-left:auto;}
+    .hero-grid, .read-grid{grid-template-columns:1fr;}
+    .hero{padding-top:48px;}
+    .feats{grid-template-columns:1fr 1fr;}
+    .dash-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:720px){
+    section{padding:72px 0;}
+    .steps, .ladder, .tips, .rules, .pricing, .hours-grid{grid-template-columns:1fr;}
+    .dash-grid-3{grid-template-columns:1fr;}
+    .duel{grid-template-columns:1fr; gap:10px;}
+    .kpis{gap:22px;}
+    .nav-cta{display:none;}
+    .screen{min-height:470px;}
+  }
+  @media (max-width:420px){
+    .feats, .dash-grid{grid-template-columns:1fr;}
+    .hero-ctas .btn{width:100%;}
+  }
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
-    *, *::before, *::after{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
-  }
-
-  .gold-text{
-    background:linear-gradient(120deg, var(--gold-dim), var(--gold-light) 45%, var(--gold));
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-
-  .wrap{max-width:var(--max); margin:0 auto; padding:0 24px;}
-
-  /* ---------- NAV ---------- */
-  header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(10,9,8,0.82);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(212,175,55,0.12);
-  }
-  nav{
-    display:flex; align-items:center; justify-content:space-between;
-    max-width:var(--max); margin:0 auto; padding:16px 24px;
-  }
-  .brand{display:flex; align-items:center; gap:10px; font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.4rem;}
-  .brand .dice{font-size:1.5rem;}
-  .nav-cta{
-    display:inline-flex; align-items:center; gap:8px;
-    background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-dim) 100%);
-    color:#141008; font-weight:700; font-size:0.9rem;
-    padding:10px 20px; border-radius:999px; text-decoration:none;
-    box-shadow:0 4px 18px rgba(212,175,55,0.25), inset 0 1px 0 rgba(255,255,255,0.35);
-    transition:transform .15s ease, box-shadow .15s ease;
-    white-space:nowrap;
-  }
-  .nav-cta:hover{transform:translateY(-1px); box-shadow:0 6px 22px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.35);}
-  .nav-right{display:flex; align-items:center; gap:14px;}
-
-  /* ---------- SELECTOR DE IDIOMA ---------- */
-  .lang-switch{
-    display:inline-flex; align-items:center; gap:2px;
-    padding:3px; border-radius:999px;
-    background:rgba(212,175,55,0.05);
-    border:1px solid rgba(212,175,55,0.22);
-  }
-  .lang-switch button{
-    appearance:none; border:0; background:transparent; cursor:pointer;
-    font:600 0.72rem/1 'Inter', sans-serif; letter-spacing:0.08em;
-    color:var(--text-faint);
-    padding:7px 10px; border-radius:999px;
-    transition:color .15s ease, background .2s ease, box-shadow .2s ease;
-  }
-  .lang-switch button + button{position:relative;}
-  .lang-switch button + button::before{
-    content:""; position:absolute; left:-1px; top:30%; bottom:30%; width:1px;
-    background:rgba(212,175,55,0.2);
-  }
-  .lang-switch button:hover{color:var(--gold-light);}
-  .lang-switch button[aria-pressed="true"]{
-    color:#141008;
-    background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 60%, var(--gold-dim) 100%);
-    box-shadow:0 2px 10px rgba(212,175,55,0.25), inset 0 1px 0 rgba(255,255,255,0.35);
-  }
-  .lang-switch button[aria-pressed="true"]::before,
-  .lang-switch button[aria-pressed="true"] + button::before{opacity:0;}
-  .lang-switch button:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
-
-  /* ---------- HERO ---------- */
-  .hero{
-    padding:96px 24px 80px;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero .wrap{position:relative; z-index:1;}
-  .hero-particles{position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden;}
-  .particle{
-    position:absolute; bottom:-40px; opacity:0;
-    color:var(--gold-dim);
-    filter:drop-shadow(0 0 6px rgba(212,175,55,0.25));
-    animation:floatUp linear infinite;
-  }
-  @keyframes floatUp{
-    0%{transform:translateY(0) rotate(0deg); opacity:0;}
-    10%{opacity:0.55;}
-    90%{opacity:0.35;}
-    100%{transform:translateY(-640px) rotate(360deg); opacity:0;}
-  }
-  .hero .eyebrow{
-    display:inline-flex; align-items:center; gap:8px;
-    color:var(--gold);
-    background:rgba(212,175,55,0.08);
-    border:1px solid rgba(212,175,55,0.25);
-    padding:6px 16px; border-radius:999px;
-    font-size:0.8rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
-    margin-bottom:28px;
-  }
-  .hero h1{
-    font-size:clamp(3rem, 8.5vw, 5.4rem);
-    line-height:1.03;
-    letter-spacing:-0.02em;
-    margin-bottom:20px;
-  }
-  .hero .slogan{
-    font-size:clamp(1.05rem, 2.4vw, 1.35rem);
-    color:var(--text-dim);
-    max-width:640px;
-    margin:0 auto 40px;
-    font-style:italic;
-  }
-  .hero-sub{
-    font-size:clamp(1rem, 2.1vw, 1.18rem); color:var(--text); max-width:620px;
-    margin:-22px auto 34px; line-height:1.55;
-  }
-  .hero-ctas{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:18px;}
-  .hero-age{color:var(--text-faint); font-size:0.82rem; margin:0 auto 40px;}
-  .btn-primary{
-    display:inline-flex; align-items:center; gap:10px;
-    background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-dim) 100%);
-    color:#141008; font-weight:800; font-size:1.05rem;
-    padding:16px 34px; border-radius:999px; text-decoration:none;
-    box-shadow:0 8px 30px rgba(212,175,55,0.3), inset 0 1px 0 rgba(255,255,255,0.35);
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 14px 40px rgba(212,175,55,0.5), inset 0 1px 0 rgba(255,255,255,0.4);}
-  .btn-secondary{
-    display:inline-flex; align-items:center; gap:8px;
-    color:var(--text); font-weight:600; font-size:1rem;
-    padding:16px 28px; border-radius:999px; text-decoration:none;
-    border:1px solid rgba(242,237,225,0.18);
-    transition:border-color .15s ease, background .15s ease;
-  }
-  .btn-secondary:hover{border-color:rgba(212,175,55,0.5); background:rgba(212,175,55,0.06);}
-
-  .dice-row{font-size:1.8rem; letter-spacing:0.5em; opacity:0.65;}
-
-  /* ---------- LIVE BAR (hero) ---------- */
-  .live-bar{
-    display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
-    gap:14px; margin-bottom:36px;
-  }
-  .live-status, .ticker-pill{
-    display:inline-flex; align-items:center; gap:9px;
-    background:rgba(212,175,55,0.05);
-    border:1px solid rgba(212,175,55,0.16);
-    padding:9px 18px; border-radius:999px;
-    font-size:0.85rem; color:var(--text-dim);
-  }
-  .bot-dot{
-    width:8px; height:8px; border-radius:50%; flex-shrink:0;
-    background:var(--text-faint);
-  }
-  .bot-dot.on{background:var(--green); animation:pulseGreen 1.7s infinite;}
-  .bot-dot.wait{background:#d4a537;}
-  @keyframes pulseGreen{
-    0%{box-shadow:0 0 0 0 rgba(76,175,125,0.5);}
-    70%{box-shadow:0 0 0 8px rgba(76,175,125,0);}
-    100%{box-shadow:0 0 0 0 rgba(76,175,125,0);}
-  }
-  .ticker-text{transition:opacity .25s ease;}
-
-  /* ---------- SECTION SHELL ---------- */
-  section{padding:88px 24px;}
-  .section-head{text-align:center; max-width:620px; margin:0 auto 56px;}
-  .section-head .tag{
-    color:var(--gold); font-size:0.8rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; display:block; margin-bottom:14px;
-  }
-  .section-head h2{font-size:clamp(2.1rem, 4.6vw, 3rem); letter-spacing:-0.015em; margin-bottom:16px;}
-  .section-head p{color:var(--text-dim); font-size:1.08rem;}
-
-  /* ---------- SCROLL REVEAL ---------- */
-  .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);}
-  .reveal.is-visible{opacity:1; transform:translateY(0);}
-
-  /* ---------- ELEGANT CARD HOVER (shared) ---------- */
-  .feature-card, .price-card, .dash-card{position:relative; isolation:isolate;}
-  .feature-card::before, .price-card::before, .dash-card::before{
-    content:""; position:absolute; inset:0; border-radius:inherit; padding:1px;
-    background:linear-gradient(135deg, rgba(212,175,55,0), rgba(212,175,55,0.65) 45%, rgba(212,175,55,0));
-    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite:xor; mask-composite:exclude;
-    opacity:0; transition:opacity .35s ease; pointer-events:none; z-index:1;
-  }
-  .feature-card:hover::before, .price-card:hover::before, .dash-card:hover::before{opacity:1;}
-
-  /* ---------- FEATURES ---------- */
-  .features{
-    display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;
-    max-width:var(--max); margin:0 auto;
-  }
-  .feature-card{
-    background:linear-gradient(180deg, var(--card), var(--bg-alt));
-    border:1px solid var(--card-border);
-    border-radius:var(--radius);
-    padding:32px 26px;
-    transition:transform .3s cubic-bezier(.16,.8,.24,1), box-shadow .3s ease, border-color .3s ease;
-  }
-  .feature-card:hover{
-    transform:translateY(-8px) scale(1.015);
-    border-color:rgba(212,175,55,0.4);
-    box-shadow:0 20px 45px rgba(0,0,0,0.35), 0 0 30px rgba(212,175,55,0.1);
-  }
-  .feature-icon{
-    width:52px; height:52px; border-radius:14px;
-    display:flex; align-items:center; justify-content:center;
-    background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.25);
-    font-size:1.5rem; margin-bottom:20px;
-    transition:transform .3s ease;
-  }
-  .feature-card:hover .feature-icon{transform:scale(1.1) rotate(-4deg);}
-  .feature-card h3{font-family:'Inter',sans-serif; font-weight:700; font-size:1.15rem; margin-bottom:10px; color:var(--text);}
-  .feature-card p{color:var(--text-dim); font-size:0.92rem; line-height:1.6;}
-
-  /* ---------- STATS ---------- */
-  .tz-switch{display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0 auto 30px;}
-  .tz-switch button{
-    background:var(--card); border:1px solid var(--card-border); color:var(--text-dim);
-    padding:8px 14px; border-radius:999px; font:600 0.85rem 'Inter',sans-serif; cursor:pointer;
-    transition:border-color .2s ease, color .2s ease, background .2s ease;
-  }
-  .tz-switch button:hover{color:var(--gold-light);}
-  .tz-switch button[aria-pressed="true"]{border-color:rgba(212,175,55,0.6); color:var(--gold-light); background:rgba(212,175,55,0.1);}
-  .hours-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; max-width:820px; margin:0 auto;}
-  .hours-card{background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius); padding:28px 24px; text-align:center;}
-  .hours-card.vip{border-color:rgba(212,175,55,0.55);}
-  .hours-label{display:block; font:700 0.78rem 'Inter',sans-serif; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-dim);}
-  .hours-range{
-    font-family:'Cormorant Garamond', serif; font-weight:700; font-size:clamp(2.2rem, 5vw, 3rem);
-    line-height:1.1; margin:12px 0 8px; transition:opacity .25s ease;
-  }
-  .hours-range.cambiando{opacity:0.15;}
-  .hours-range sup{font:600 0.75rem 'Inter',sans-serif; color:var(--text-faint); margin-left:6px; vertical-align:super;}
-  .hours-sub{display:block; color:var(--text-faint); font-size:0.85rem;}
-  .hours-state{display:inline-flex; align-items:center; gap:7px; margin-top:14px; font-size:0.85rem; color:var(--text-dim);}
-  .hours-state::before{content:""; width:8px; height:8px; border-radius:50%; background:#6b6b6b;}
-  .hours-state.on{color:#7be3a3;}
-  .hours-state.on::before{background:#3ddc84; box-shadow:0 0 8px #3ddc84;}
-  .hours-now{text-align:center; color:var(--text-faint); font-size:0.82rem; margin-top:22px;}
-  .price-desc{color:var(--text-dim); font-size:0.92rem; line-height:1.55; margin:-10px 0 22px;}
-  @media (max-width:620px){ .hours-grid{grid-template-columns:1fr;} }
-  .stats-section{background:var(--bg-alt); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);}
-  .stats-grid{
-    display:grid; grid-template-columns:repeat(4, 1fr); gap:24px;
-    max-width:var(--max); margin:0 auto;
-  }
-  .stat-card{text-align:center; padding:20px 10px;}
-  .stat-number{
-    font-family:'Cormorant Garamond', serif; font-weight:700;
-    font-size:clamp(2.4rem, 5vw, 3.2rem);
-    line-height:1;
-  }
-  .stat-label{color:var(--text-faint); font-size:0.85rem; margin-top:10px; letter-spacing:0.03em;}
-  .stats-note{
-    text-align:center; color:var(--text-faint); font-size:0.78rem; margin-top:36px;
-    max-width:520px; margin-left:auto; margin-right:auto;
-  }
-
-  /* ---------- DASHBOARD ---------- */
-  .dashboard-section .tag{display:inline-flex; align-items:center; gap:8px;}
-  .live-dot{
-    width:8px; height:8px; border-radius:50%; background:#ff4d4d; display:inline-block;
-    animation:pulse 1.8s infinite;
-  }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(255,77,77,0.5);}
-    70%{box-shadow:0 0 0 8px rgba(255,77,77,0);}
-    100%{box-shadow:0 0 0 0 rgba(255,77,77,0);}
-  }
-  .dash-grid{
-    display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;
-    max-width:var(--max); margin:0 auto;
-  }
-  .dash-grid-3{grid-template-columns:repeat(3, 1fr);}
-  .dash-card{
-    background:linear-gradient(180deg, var(--card), var(--bg-alt));
-    border:1px solid var(--card-border);
-    border-radius:var(--radius);
-    padding:26px 22px;
-    text-align:center;
-    transition:transform .3s cubic-bezier(.16,.8,.24,1), box-shadow .3s ease, border-color .3s ease;
-  }
-  .dash-card:hover{
-    transform:translateY(-6px);
-    border-color:rgba(212,175,55,0.35);
-    box-shadow:0 16px 36px rgba(0,0,0,0.3), 0 0 24px rgba(212,175,55,0.08);
-  }
-  .dash-label{color:var(--text-faint); font-size:0.78rem; letter-spacing:0.03em; margin-bottom:10px; text-transform:uppercase;}
-  .dash-value{font-family:'Cormorant Garamond', serif; font-weight:700; font-size:clamp(1.15rem, 2.4vw, 1.55rem); line-height:1.25;}
-  .dash-sub{color:var(--text-dim); font-size:0.78rem; margin-top:8px;}
-
-  /* ---------- PRICING ---------- */
-  .pricing-grid{
-    display:grid; grid-template-columns:repeat(2, 1fr); gap:24px;
-    max-width:820px; margin:0 auto;
-  }
-  .pricing-grid.single{grid-template-columns:1fr; max-width:480px;}
-  .price-card{
-    background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius);
-    padding:38px 32px; position:relative; overflow:hidden;
-    display:flex; flex-direction:column;
-    transition:transform .3s cubic-bezier(.16,.8,.24,1), box-shadow .3s ease;
-  }
-  .price-card:hover{transform:translateY(-6px); box-shadow:0 20px 45px rgba(0,0,0,0.35);}
-  .price-card.featured{border-color:rgba(212,175,55,0.55); box-shadow:0 0 0 1px rgba(212,175,55,0.15), 0 20px 50px rgba(212,175,55,0.08);}
-  .price-card.featured:hover{box-shadow:0 0 0 1px rgba(212,175,55,0.25), 0 26px 60px rgba(212,175,55,0.16);}
-  .price-badge{
-    position:absolute; top:18px; right:18px;
-    background:linear-gradient(135deg, rgba(212,175,55,0.28), rgba(212,175,55,0.12)); color:var(--gold-light);
-    font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
-    padding:5px 12px; border-radius:999px; border:1px solid rgba(212,175,55,0.3);
-  }
-  .price-badge.inline{position:static; align-self:flex-start; margin-bottom:18px; text-transform:none; letter-spacing:0.02em; font-size:0.78rem;}
-  .price-note{text-align:center; margin-top:18px; color:var(--text-faint); font-size:0.85rem;}
-  .price-card h3{font-family:'Inter',sans-serif; font-size:1.1rem; font-weight:700; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;}
-  .price-amount{font-family:'Cormorant Garamond', serif; font-size:3.2rem; font-weight:700; letter-spacing:-0.02em; margin:12px 0 24px;}
-  .price-amount span{font-size:1rem; color:var(--text-faint); font-family:'Inter',sans-serif; font-weight:500;}
-  .price-amount .gold-text{font:inherit; color:transparent;}
-  .price-list{list-style:none; margin-bottom:28px; flex:1;}
-  .price-list li{
-    display:flex; align-items:flex-start; gap:10px;
-    color:var(--text-dim); font-size:0.92rem; margin-bottom:12px;
-  }
-  .price-list li::before{content:"✦"; color:var(--gold); flex-shrink:0;}
-  .price-cta{
-    display:block; text-align:center; width:100%;
-    padding:14px; border-radius:999px; text-decoration:none; font-weight:700; font-size:0.95rem;
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .price-cta.outline{border:1px solid rgba(212,175,55,0.45); color:var(--gold-light);}
-  .price-cta.outline:hover{transform:translateY(-2px); background:rgba(212,175,55,0.08);}
-  .price-cta.gold{
-    background:linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-dim) 100%);
-    color:#141008; box-shadow:inset 0 1px 0 rgba(255,255,255,0.35);
-  }
-  .price-cta.gold:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(212,175,55,0.35), inset 0 1px 0 rgba(255,255,255,0.4);}
-
-  /* ---------- FAQ ---------- */
-  .faq{max-width:780px; margin:0 auto; display:flex; flex-direction:column; gap:12px;}
-  .faq details{
-    background:linear-gradient(180deg, var(--card), var(--bg-alt));
-    border:1px solid var(--card-border); border-radius:var(--radius); padding:0 22px;
-  }
-  .faq details[open]{border-color:var(--gold-dim);}
-  .faq summary{
-    cursor:pointer; list-style:none; padding:18px 28px 18px 0; position:relative;
-    font-weight:700; color:var(--text);
-  }
-  .faq summary::-webkit-details-marker{display:none;}
-  .faq summary::after{content:"+"; position:absolute; right:0; top:14px; color:var(--gold); font-size:1.4rem;}
-  .faq details[open] summary::after{content:"–";}
-  .faq details p{color:var(--text-dim); padding:0 0 20px; line-height:1.65;}
-
-  /* ---------- FINAL CTA ---------- */
-  .final-cta{
-    text-align:center;
-    background:linear-gradient(180deg, transparent, rgba(212,175,55,0.06));
-  }
-  .final-cta h2{font-size:clamp(2rem, 4.5vw, 2.8rem); margin-bottom:16px;}
-  .final-cta p{color:var(--text-dim); margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto;}
-
-  /* ---------- FOOTER ---------- */
-  footer{border-top:1px solid var(--card-border); padding:40px 24px 32px;}
-  .footer-inner{
-    max-width:var(--max); margin:0 auto;
-    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
-  }
-  .footer-brand{display:flex; align-items:center; gap:8px; font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.15rem;}
-  footer .links{display:flex; gap:22px;}
-  footer a{color:var(--text-dim); text-decoration:none; font-size:0.9rem;}
-  footer a:hover{color:var(--gold);}
-  .disclaimer{
-    max-width:var(--max); margin:24px auto 0; padding-top:20px; border-top:1px solid rgba(242,237,225,0.06);
-    color:var(--text-faint); font-size:0.78rem; line-height:1.6;
-  }
-
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width:900px){
-    .features{grid-template-columns:repeat(2, 1fr);}
-    .stats-grid{grid-template-columns:repeat(2, 1fr);}
-    .dash-grid{grid-template-columns:repeat(2, 1fr);}
-    .dash-grid-3{grid-template-columns:repeat(2, 1fr);}
-  }
-  @media (max-width:620px){
-    .features{grid-template-columns:1fr;}
-    .dash-grid{grid-template-columns:1fr;}
-    .dash-grid-3{grid-template-columns:1fr;}
-    .pricing-grid{grid-template-columns:1fr;}
-    .hero{padding:64px 20px 56px;}
-    section{padding:64px 20px;}
-    .nav-cta span.long{display:none;}
-    nav{padding:12px 16px;}
-    .brand{font-size:1.2rem; gap:6px;}
-    .nav-right{gap:8px;}
-    .nav-cta{padding:10px 14px;}
-    .lang-switch button{padding:7px 8px;}
-    .brand{white-space:nowrap;}
-  }
-  @media (max-width:360px){
-    .brand{font-size:1.05rem;}
-    .brand .dice{font-size:1.2rem;}
-    .lang-switch button{padding:7px 6px;}
-    .footer-inner{flex-direction:column; text-align:center;}
+    .msg{animation:none !important; opacity:1;}
+    .reveal{opacity:1; transform:none; transition:none;}
+    .bot-dot.on{animation:none;}
   }
 </style>
 </head>
@@ -484,97 +321,193 @@
 
 <header>
   <nav>
-    <div class="brand"><span class="dice">🎲</span> <span class="gold-text">Dados Dorados</span></div>
-    <div class="nav-right">
-      <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-aria="nav.langLabel">
-        <button type="button" data-lang="es" aria-pressed="true" title="Español">ES</button>
-        <button type="button" data-lang="en" aria-pressed="false" title="English">EN</button>
-        <button type="button" data-lang="fr" aria-pressed="false" title="Français">FR</button>
-      </div>
-      <a class="nav-cta" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener">
-        <span>✈️</span><span class="long" data-i18n="nav.cta">Probar gratis</span><span style="display:none" class="short" data-i18n="nav.ctaShort">Probar</span>
-      </a>
+    <a class="brand" href="#"><img src="favicon.svg" alt=""><span class="gold-text">Dados Dorados</span></a>
+    <div class="nav-links">
+      <a href="#como" data-i18n="nav.how">Cómo funciona</a>
+      <a href="#gales" data-i18n="nav.gales">Gales</a>
+      <a href="#resultados" data-i18n="nav.results">Resultados</a>
+      <a href="#planes" data-i18n="nav.plans">Planes</a>
+      <a href="#preguntas" data-i18n="nav.faq">Preguntas</a>
     </div>
+    <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-aria="nav.langLabel">
+      <button type="button" data-lang="es" aria-pressed="true" title="Español">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false" title="English">EN</button>
+      <button type="button" data-lang="fr" aria-pressed="false" title="Français">FR</button>
+    </div>
+    <a class="btn btn-gold nav-cta" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="nav.cta">Probar gratis</a>
   </nav>
 </header>
 
 <main>
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
-    <div class="wrap">
-      <span class="eyebrow"><span class="bot-dot" id="eyebrowDot"></span><span id="eyebrowText">Análisis en vivo — mesas de Bac Bo</span></span>
-      <h1><span class="gold-text">Dados Dorados</span></h1>
-      <p class="slogan" data-i18n="hero.slogan">"Donde cada dado es una oportunidad de oro"</p>
-      <p class="hero-sub" data-i18n="hero.sub">Señales de Bac Bo en Telegram: te avisamos en qué apostar, cuándo hacerlo y hasta cuántos gales.</p>
-      <div class="hero-ctas">
-        <a class="btn-primary" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="hero.cta">🎁 Probar VIP 7 días gratis</a>
-        <a class="btn-secondary" href="https://t.me/DadosDorados" target="_blank" rel="noopener" data-i18n="hero.free">✈️ Canal gratis</a>
-      </div>
-      <p class="hero-age" data-i18n="hero.age">🔞 Solo mayores de 18 · Sin garantía de resultados · Juega con responsabilidad</p>
-      <div class="live-bar">
-        <div class="live-status" id="botStatus">
-          <span class="bot-dot" id="botDot"></span>
-          <span id="botStatusText" data-i18n="bot.checking">Consultando estado del bot…</span>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow"><span class="bot-dot" id="eyebrowDot"></span><span id="eyebrowText" data-i18n="hero.eyebrow">En vivo — leyendo la mesa de Bac Bo</span></span>
+        <h1><span data-i18n="hero.title1">Señales de Bac Bo,</span><span class="gold-text" data-i18n="hero.title2">en vivo y en tu Telegram</span></h1>
+        <p class="hero-sub" data-i18n="hero.sub">Leemos la mesa ronda por ronda y te avisamos en qué apostar, cuándo hacerlo y qué hacer si no sale. Sin saber nada de apuestas: te lo explicamos todo aquí.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-gold" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="hero.cta">🎁 Probar VIP 7 días gratis</a>
+          <a class="btn btn-ghost" href="https://t.me/DadosDorados" target="_blank" rel="noopener" data-i18n="hero.free">Canal gratis</a>
         </div>
-        <div class="ticker-pill">
-          <span class="ticker-text" id="tickerText" data-i18n="ticker.loading">🎲 Última señal: cargando…</span>
+        <p class="hero-age" data-i18n="hero.age">🔞 Solo mayores de 18 · Ninguna señal es segura · Juega con responsabilidad</p>
+        <div class="kpis">
+          <div class="kpi"><b data-i18n="hero.k1">17 h</b><span data-i18n="hero.k1t">de señales al día</span></div>
+          <div class="kpi"><b data-i18n="hero.k2">7 días</b><span data-i18n="hero.k2t">de VIP gratis</span></div>
+          <div class="kpi"><b data-i18n="hero.k3">Sin tarjeta</b><span data-i18n="hero.k3t">para empezar</span></div>
         </div>
       </div>
-      <div class="dice-row">⚀ ⚁ ⚂ ⚃ ⚄ ⚅</div>
+      <div class="phone" aria-hidden="true">
+        <div class="screen">
+          <div class="screen-top"><img src="logo-192.png" alt=""><div><b data-i18n="phone.name">Dados Dorados VIP 👑</b><small data-i18n="phone.sub">canal · señal de ejemplo</small></div></div>
+          <div class="chat">
+            <div class="msg"><strong data-i18n="m1.a">👀 POSIBLE ENTRADA 🔎</strong><span data-i18n="m1.b">Patrón: Zigzag</span><span data-i18n="m1.c">Prepárate: si se confirma, te aviso.</span></div>
+            <div class="msg"><strong data-i18n="m2.a">✅ ENTRADA CONFIRMADA ✅</strong><span data-i18n="m2.b">🔥 Apuesta en 🔴 BANKER</span><span data-i18n="m2.c">⏱ Apostar después de: 🔵 PLAYER</span><span data-i18n="m2.d">🔄 Gales: 2</span></div>
+            <div class="msg"><strong data-i18n="m3.a">⚠️ GALE 1 DE 2</strong><span data-i18n="m3.b">No salió la Directa. Dobla tu apuesta y repite en 🔴 BANKER</span></div>
+            <div class="msg"><strong data-i18n="m4.a">✅ ¡GANAMOS! 🍀 · Gale 1</strong><span data-i18n="m4.b">🎯 Salió 🔴 BANKER</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- FEATURES -->
-  <section id="caracteristicas">
+  <!-- EN VIVO -->
+  <div class="live">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="tag" data-i18n="features.tag">Qué ofrecemos</span>
-        <h2 data-i18n="features.title">Todo lo que necesitas para decidir con criterio</h2>
-        <p data-i18n="features.lead">Un sistema construido para leer la mesa en tiempo real y avisarte en el momento justo.</p>
+      <div class="live-item" id="botStatus"><span class="bot-dot" id="botDot"></span><span id="botStatusText" data-i18n="bot.checking">Consultando la mesa…</span></div>
+      <div class="live-item"><span id="tickerText" data-i18n="ticker.loading">🎲 Última señal: cargando…</span></div>
+    </div>
+  </div>
+
+  <!-- BAC BO EN 30 SEGUNDOS -->
+  <section id="bacbo">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag" data-i18n="bb.tag">Paso 0</span>
+        <h2 data-i18n="bb.title">Bac Bo en 30 segundos</h2>
+        <p data-i18n="bb.lead">Si nunca lo has jugado, esto es todo lo que necesitas saber.</p>
       </div>
-      <div class="features">
-        <div class="feature-card reveal">
-          <div class="feature-icon">⚡</div>
-          <h3 data-i18n="f1.title">Alertas en tiempo real</h3>
-          <p data-i18n="f1.text">Conexión directa a la mesa de Bac Bo en vivo. Cada ronda se procesa al instante, sin retrasos.</p>
+      <div class="duel reveal">
+        <div class="side player"><b data-i18n="bb.player">PLAYER</b><div class="dados">⚄ ⚃</div><small>5 + 4 = 9</small></div>
+        <span class="vs" data-i18n="bb.vs">contra</span>
+        <div class="side banker"><b data-i18n="bb.banker">BANKER</b><div class="dados">⚅ ⚅</div><small>6 + 6 = 12 🏆</small></div>
+      </div>
+      <div class="rules">
+        <div class="card rule reveal"><i>1</i><p data-i18n="bb.p1">Hay dos lados: Player (azul) y Banker (rojo). Cada uno tira dos dados.</p></div>
+        <div class="card rule reveal"><i>2</i><p data-i18n="bb.p2">Gana el lado que sume más. Tú apuestas a cuál va a ganar.</p></div>
+        <div class="card rule reveal"><i>3</i><p data-i18n="bb.p3">Si aciertas, te pagan lo mismo que apostaste: apuestas 1 y recibes 1 de ganancia.</p></div>
+        <div class="card rule reveal"><i>4</i><p data-i18n="bb.p4">Si los dos suman igual es empate: el casino te devuelve el 90 % de lo que pusiste en Player o Banker.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section id="como" class="alt">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag" data-i18n="how.tag">Cómo funciona</span>
+        <h2 data-i18n="how.title">Tres pasos, sin complicaciones</h2>
+      </div>
+      <div class="steps">
+        <div class="card step reveal"><span class="num gold-text">1</span><h3 data-i18n="how.s1t">Entra al bot</h3><p data-i18n="how.s1">Toca «Probar VIP 7 días gratis», verifica tu número en Telegram y listo: no pedimos tarjeta.</p></div>
+        <div class="card step reveal"><span class="num gold-text">2</span><h3 data-i18n="how.s2t">Abre la mesa y espera</h3><p data-i18n="how.s2">Ten abierta la mesa de Bac Bo en tu casino. En el VIP primero llega «Posible entrada»: es para que estés listo.</p></div>
+        <div class="card step reveal"><span class="num gold-text">3</span><h3 data-i18n="how.s3t">Apuesta y sigue los pasos</h3><p data-i18n="how.s3">Con «Entrada confirmada» apuestas en la siguiente ronda. Si no sale, el bot te dice exactamente qué hacer.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO SE LEE UNA SEÑAL -->
+  <section id="senal">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag" data-i18n="read.tag">La señal, por partes</span>
+        <h2 data-i18n="read.title">Cómo se lee una señal</h2>
+        <p data-i18n="read.lead">Cada «Entrada confirmada» trae tres datos. Con esto ya sabes jugarla.</p>
+      </div>
+      <div class="read-grid">
+        <div class="signal reveal" aria-hidden="true">
+          <strong data-i18n="m2.a">✅ ENTRADA CONFIRMADA ✅</strong>
+          <div class="linea"><span class="pin">1</span><span data-i18n="m2.b">🔥 Apuesta en 🔴 BANKER</span></div>
+          <div class="linea"><span class="pin">2</span><span data-i18n="m2.c">⏱ Apostar después de: 🔵 PLAYER</span></div>
+          <div class="linea"><span class="pin">3</span><span data-i18n="m2.d">🔄 Gales: 2</span></div>
         </div>
-        <div class="feature-card reveal">
-          <div class="feature-icon">📊</div>
-          <h3 data-i18n="f2.title">Análisis de patrones</h3>
-          <p data-i18n="f2.text">Detectamos rachas y tendencias históricas antes de sugerir una entrada, con confirmación previa.</p>
+        <div class="explica">
+          <div class="card reveal"><span class="pin">1</span><div><h3 data-i18n="read.1t">Apuesta en</h3><p data-i18n="read.1">El lado al que le apuestas. Aquí: Banker, el rojo.</p></div></div>
+          <div class="card reveal"><span class="pin">2</span><div><h3 data-i18n="read.2t">Apostar después de</h3><p data-i18n="read.2">Es el resultado que acaba de salir en la mesa. Si en tu pantalla el último fue ese, apuesta ya, en la ronda que viene. Si ya pasó otra ronda, llegaste tarde: no entres a mitad, espera la próxima señal.</p></div></div>
+          <div class="card reveal"><span class="pin">3</span><div><h3 data-i18n="read.3t">Gales</h3><p data-i18n="read.3">Cuántos intentos extra tiene la señal si el primero falla: 1 o 2. Abajo te explicamos cómo funcionan.</p></div></div>
         </div>
-        <div class="feature-card reveal">
-          <div class="feature-icon">🎯</div>
-          <h3 data-i18n="f3.title">Gestión de gales</h3>
-          <p data-i18n="f3.text">Cada alerta incluye su plan de gales — sabes exactamente cuánto arriesgar y hasta dónde llegar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALES -->
+  <section id="gales" class="alt">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag" data-i18n="gal.tag">Lo más importante</span>
+        <h2 data-i18n="gal.title">Los gales, explicados fácil</h2>
+        <p data-i18n="gal.lead">Un gale es volver a intentarlo doblando la apuesta. Piensa en «fichas»: tú decides cuánto vale una (por ejemplo, 1 ficha = la apuesta más pequeña que te sientas cómodo perdiendo).</p>
+      </div>
+      <div class="ladder">
+        <div class="card rung reveal">
+          <span class="n" data-i18n="gal.s1n">Directa</span>
+          <div class="fichas"><span class="ficha"></span></div>
+          <b data-i18n="gal.s1b">Apuestas 1 ficha</b><p data-i18n="gal.s1">Si sale, ganas 1 ficha. Fin de la señal.</p>
         </div>
-        <div class="feature-card reveal">
-          <div class="feature-icon">🛡️</div>
-          <h3 data-i18n="f4.title">Modo pausa automático</h3>
-          <p data-i18n="f4.text">Tras pérdidas seguidas, el sistema entra en modo pausa y analiza en silencio hasta recuperar precisión.</p>
+        <div class="card rung reveal">
+          <span class="n" data-i18n="gal.s2n">Gale 1</span>
+          <div class="fichas"><span class="ficha"></span><span class="ficha"></span></div>
+          <b data-i18n="gal.s2b">Apuestas 2 fichas</b><p data-i18n="gal.s2">Solo si falló la Directa. Si sale, recuperas la ficha perdida y ganas 1.</p>
         </div>
+        <div class="card rung reveal">
+          <span class="n" data-i18n="gal.s3n">Gale 2</span>
+          <div class="fichas"><span class="ficha"></span><span class="ficha"></span><span class="ficha"></span><span class="ficha"></span></div>
+          <b data-i18n="gal.s3b">Apuestas 4 fichas</b><p data-i18n="gal.s3">Solo si falló el Gale 1. Si sale, recuperas las 3 perdidas y ganas 1.</p>
+        </div>
+      </div>
+      <div class="banner win reveal">✅ <span data-i18n="gal.win">Ganes en el paso que ganes, terminas con +1 ficha.</span></div>
+      <div class="banner loss reveal">⚠️ <span data-i18n="gal.loss">Si fallan los tres pasos, pierdes 1 + 2 + 4 = 7 fichas. Por eso tu ficha debe ser pequeña.</span></div>
+      <div class="banner info reveal">ℹ️ <span data-i18n="gal.one">¿La señal dice «Gales: 1»? Entonces solo hay Directa y Gale 1: lo máximo que arriesgas son 3 fichas.</span></div>
+      <div class="tips">
+        <div class="card reveal"><h3>🟡 <span data-i18n="gal.tieT">¿Y si sale empate en medio?</span></h3><p data-i18n="gal.tie">No cuenta como fallo. Repites la misma apuesta, sin doblar. Solo pierdes el 10 % de esa apuesta (el casino te devuelve el 90 %).</p></div>
+        <div class="card reveal"><h3>🛡️ <span data-i18n="gal.tipT">Regla de oro</span></h3><p data-i18n="gal.tip">Si tienes 100 fichas, apuesta 1 o 2 por señal. Así una mala racha no te saca del juego. Y si el bot entra en pausa, haz pausa tú también.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VENTAJAS -->
+  <section id="ventajas">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag" data-i18n="feat.tag">Qué te damos</span>
+        <h2 data-i18n="feat.title">Hecho para que no tengas que adivinar</h2>
+      </div>
+      <div class="feats">
+        <div class="card feat reveal"><span class="ico">⚡</span><h3 data-i18n="f1.title">Lectura en vivo</h3><p data-i18n="f1.text">Conectados a la mesa: cada ronda se analiza al instante.</p></div>
+        <div class="card feat reveal"><span class="ico">🎯</span><h3 data-i18n="f2.title">Patrones confirmados</h3><p data-i18n="f2.text">Solo avisamos cuando un patrón se confirma, no en cada ronda.</p></div>
+        <div class="card feat reveal"><span class="ico">🛡️</span><h3 data-i18n="f3.title">Pausa que te cuida</h3><p data-i18n="f3.text">Tras 2 señales perdidas seguidas, paramos y volvemos cuando la mesa se ordena.</p></div>
+        <div class="card feat reveal"><span class="ico">💬</span><h3 data-i18n="f4.title">Soporte de verdad</h3><p data-i18n="f4.text">Te responde una persona, en privado, por el mismo bot.</p></div>
       </div>
     </div>
   </section>
 
   <!-- HORARIO -->
-  <section class="stats-section" id="horario">
+  <section id="horario" class="alt">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="head reveal">
         <span class="tag" data-i18n="hours.tag">Horario</span>
-        <h2 data-i18n="hours.title">Operamos en estos horarios</h2>
-        <p data-i18n="hours.lead">Elige tu país o deja que rote: el horario se ajusta solo a cada zona.</p>
+        <h2 data-i18n="hours.title">¿A qué hora hay señales?</h2>
+        <p data-i18n="hours.lead">Elige tu país o deja que rote: la hora se ajusta sola.</p>
       </div>
-      <div class="tz-switch reveal" id="tzSwitch" role="group" data-i18n-aria="hours.tzLabel" aria-label="Zona horaria"></div>
+      <div class="tz-switch reveal" id="tzSwitch" role="group" aria-label="Zona horaria" data-i18n-aria="hours.tzLabel"></div>
       <div class="hours-grid">
-        <div class="hours-card vip reveal">
+        <div class="card hours-card vip reveal">
           <span class="hours-label" data-i18n="hours.vip">VIP Premium</span>
           <div class="hours-range" id="hoursVip"><span class="gold-text">08:00 – 01:00</span></div>
-          <span class="hours-sub" data-i18n="hours.vipSub">Todos los días · 17 horas de señales</span>
+          <span class="hours-sub" data-i18n="hours.vipSub">Todos los días · todas las señales</span>
           <span class="hours-state" id="stateVip"></span>
         </div>
-        <div class="hours-card reveal">
+        <div class="card hours-card reveal">
           <span class="hours-label" data-i18n="hours.free">Canal gratis</span>
           <div class="hours-range" id="hoursFree"><span class="gold-text">08:00 – 22:00</span></div>
           <span class="hours-sub" data-i18n="hours.freeSub">Todos los días · 1 de cada 5 señales</span>
@@ -585,143 +518,110 @@
     </div>
   </section>
 
-  <!-- DASHBOARD -->
-  <section id="dashboard" class="dashboard-section">
+  <!-- RESULTADOS -->
+  <section id="resultados">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="tag"><span class="live-dot"></span> <span data-i18n="dash.tag">En vivo</span></span>
-        <h2 data-i18n="dash.title">Resultados en vivo</h2>
-        <p data-i18n="dash.lead">Datos reales de las señales ya cerradas, del mes y de hoy — se actualiza solo.</p>
+      <div class="head reveal">
+        <span class="tag"><span class="bot-dot on"></span> <span data-i18n="dash.tag">En vivo</span></span>
+        <h2 data-i18n="dash.title">Resultados reales</h2>
+        <p data-i18n="dash.lead">Salen solos de las señales ya cerradas. No los escribimos a mano.</p>
       </div>
-      <div class="section-head reveal" style="margin-bottom:32px;">
-        <span class="tag" data-i18n="month.tag">Este mes</span>
-      </div>
+      <p class="subhead" data-i18n="month.tag">Este mes</p>
       <div class="dash-grid dash-grid-3">
-        <div class="dash-card reveal">
-          <div class="dash-label" data-i18n="month.rate">Efectividad del mes</div>
-          <div class="dash-value gold-text" id="dashMesEfectividad">—</div>
-        </div>
-        <div class="dash-card reveal">
-          <div class="dash-label" data-i18n="month.count">Señales del mes</div>
-          <div class="dash-value gold-text" id="dashMesTotal">—</div>
-        </div>
-        <div class="dash-card reveal">
-          <div class="dash-label" data-i18n="month.best">Mejor patrón del mes</div>
-          <div class="dash-value" id="dashMesPatron">—</div>
-          <div class="dash-sub" id="dashMesPatronSub"></div>
-        </div>
+        <div class="card dash-card reveal"><div class="dash-label" data-i18n="month.rate">Efectividad</div><div class="dash-value gold-text" id="dashMesEfectividad">—</div></div>
+        <div class="card dash-card reveal"><div class="dash-label" data-i18n="month.count">Señales</div><div class="dash-value gold-text" id="dashMesTotal">—</div></div>
+        <div class="card dash-card reveal"><div class="dash-label" data-i18n="month.best">Mejor patrón</div><div class="dash-value" id="dashMesPatron">—</div><div class="dash-sub" id="dashMesPatronSub"></div></div>
       </div>
-      <div class="section-head reveal" style="margin-top:56px; margin-bottom:32px;">
-        <span class="tag" data-i18n="today.tag">Hoy</span>
-      </div>
+      <p class="subhead" style="margin-top:44px" data-i18n="today.tag">Hoy</p>
       <div class="dash-grid">
-        <div class="dash-card reveal">
-          <div class="dash-label" data-i18n="dash.last">Última señal cerrada</div>
-          <div class="dash-value" id="dashUltima">—</div>
-          <div class="dash-sub" id="dashUltimaSub" data-i18n="dash.loading">Cargando…</div>
-        </div>
-        <div class="dash-card reveal">
-          <div class="dash-label" data-i18n="dash.rate">Efectividad del día</div>
-          <div class="dash-value gold-text" id="dashEfectividad">—</div>
-        </div>
-        <div class="dash-card reveal">
-          <div class="dash-label" data-i18n="dash.streak">Racha actual</div>
-          <div class="dash-value" id="dashRacha">—</div>
-        </div>
-        <div class="dash-card reveal">
-          <div class="dash-label" data-i18n="dash.count">Señales del día</div>
-          <div class="dash-value gold-text" id="dashTotal">—</div>
-        </div>
+        <div class="card dash-card reveal"><div class="dash-label" data-i18n="dash.last">Última señal</div><div class="dash-value" id="dashUltima">—</div><div class="dash-sub" id="dashUltimaSub" data-i18n="dash.loading">Cargando…</div></div>
+        <div class="card dash-card reveal"><div class="dash-label" data-i18n="dash.rate">Efectividad</div><div class="dash-value gold-text" id="dashEfectividad">—</div></div>
+        <div class="card dash-card reveal"><div class="dash-label" data-i18n="dash.streak">Racha actual</div><div class="dash-value" id="dashRacha">—</div></div>
+        <div class="card dash-card reveal"><div class="dash-label" data-i18n="dash.count">Señales</div><div class="dash-value gold-text" id="dashTotal">—</div></div>
       </div>
-      <p class="stats-note" id="dashUpdated" data-i18n="dash.connecting">Conectando con el panel en vivo…</p>
+      <p class="stats-note" id="dashUpdated" data-i18n="dash.connecting">Conectando con los datos en vivo…</p>
     </div>
   </section>
 
-  <!-- PRICING -->
-  <section id="precios">
+  <!-- PLANES -->
+  <section id="planes" class="alt">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="head reveal">
         <span class="tag" data-i18n="price.tag">Planes</span>
-        <h2 data-i18n="price.title">Elige cómo empezar</h2>
-        <p data-i18n="price.lead">Empieza gratis en el canal o prueba el VIP 7 días sin pagar nada.</p>
+        <h2 data-i18n="price.title">Empieza gratis</h2>
+        <p data-i18n="price.lead">Mira cómo funciona en el canal gratis, o prueba el VIP completo 7 días sin pagar.</p>
       </div>
-      <div class="pricing-grid">
-        <div class="price-card reveal">
+      <div class="pricing">
+        <div class="card price-card reveal">
           <h3 data-i18n="pricef.name">Canal gratis</h3>
-          <div class="price-amount"><span class="gold-text" data-i18n="pricef.amount">$0</span> <span data-i18n="pricef.period">para siempre</span></div>
-          <p class="price-desc" data-i18n="pricef.desc">Ideal para conocer el método y ver resultados reales antes de decidir.</p>
+          <div class="price-amount"><span class="gold-text" data-i18n="pricef.amount">$0</span><span data-i18n="pricef.period">para siempre</span></div>
           <ul class="price-list">
-            <li data-i18n="pricef.b1">1 de cada 5 señales, completa: entrada, gales y resultado</li>
-            <li data-i18n="pricef.b2">De 8:00 AM a 10:00 PM (hora Colombia), todos los días</li>
-            <li data-i18n="pricef.b3">Bienvenida cada mañana y reporte del día en la noche</li>
-            <li data-i18n="pricef.b4">Alertas cuando el bot va en racha ganadora</li>
-            <li data-i18n="pricef.b5">Adelanto de cómo va el VIP durante el día</li>
+            <li data-i18n="pricef.b1">1 de cada 5 señales, completa</li><li data-i18n="pricef.b2">De 8:00 AM a 10:00 PM (hora Colombia)</li><li data-i18n="pricef.b3">Reporte del día en la noche</li><li data-i18n="pricef.b4">Aviso cuando el VIP va en racha</li>
           </ul>
-          <a class="price-cta outline" href="https://t.me/DadosDorados" target="_blank" rel="noopener" data-i18n="pricef.cta">Unirme gratis</a>
+          <a class="btn btn-ghost" href="https://t.me/DadosDorados" target="_blank" rel="noopener" data-i18n="pricef.cta">Unirme gratis</a>
         </div>
-        <div class="price-card featured reveal">
-          <span class="price-badge inline" data-i18n="price.badge">🎁 Pruébalo 7 días gratis</span>
+        <div class="card price-card featured reveal">
+          <span class="price-badge" data-i18n="price.badge">🎁 7 días gratis</span>
           <h3 data-i18n="price.name">VIP Premium</h3>
-          <div class="price-amount"><span class="gold-text" data-i18n="price.amount">$100.000</span> <span data-i18n="price.period">COP / mes · o 27 USDT</span></div>
-          <p class="price-desc" data-i18n="price.desc">Todas las señales del día, al instante, para que no se te escape ninguna oportunidad.</p>
+          <div class="price-amount"><span class="gold-text" data-i18n="price.amount">$100.000</span><span data-i18n="price.period">COP / mes · o 27 USDT</span></div>
           <ul class="price-list">
-            <li data-i18n="price.b1">Todas las señales en tiempo real, cada una con su plan de gales</li>
-            <li data-i18n="price.b2">17 horas diarias: de 8:00 AM a 1:00 AM (hora Colombia)</li>
-            <li data-i18n="price.b3">Aviso «analizando» antes de cada entrada, para que estés listo</li>
-            <li data-i18n="price.b4">Alertas de rachas y aviso cuando el bot pausa para protegerte de malas rachas</li>
-            <li data-i18n="price.b5">Reporte del día con la efectividad real</li>
-            <li data-i18n="price.b6">Canal privado con contenido protegido</li>
-            <li data-i18n="price.b7">Soporte directo y personal por Telegram</li>
-            <li data-i18n="price.b8">Pago fácil: Bre-B en Colombia o USDT desde cualquier país</li>
+            <li data-i18n="price.b1">Todas las señales, al instante</li><li data-i18n="price.b2">17 horas al día: 8:00 AM a 1:00 AM (hora Colombia)</li><li data-i18n="price.b3">Aviso «Posible entrada» para que estés listo</li>
+            <li data-i18n="price.b4">Aviso de pausa y de rachas</li><li data-i18n="price.b5">Soporte personal por Telegram</li><li data-i18n="price.b6">Paga con Bre-B (Colombia) o USDT (cualquier país)</li>
           </ul>
-          <a class="price-cta gold" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="price.cta">Empezar mis 7 días gratis</a>
+          <a class="btn btn-gold" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="price.cta">Empezar mis 7 días gratis</a>
         </div>
       </div>
-      <p class="price-note reveal" data-i18n="price.note">Prueba gratis: una por número de celular de Colombia, Brasil, España o Francia. No pedimos tarjeta: si te gusta, sigues con el Premium.</p>
+      <p class="price-note reveal" data-i18n="price.note">Prueba gratis: una por número de celular de Colombia, Brasil, España o Francia. No se cobra nada automático.</p>
     </div>
   </section>
 
-  <!-- FINAL CTA -->
-  <!-- FAQ -->
+  <!-- PREGUNTAS -->
   <section id="preguntas">
     <div class="wrap">
-      <div class="section-head reveal">
+      <div class="head reveal">
         <span class="tag" data-i18n="faq.tag">Preguntas frecuentes</span>
-        <h2 data-i18n="faq.title">Lo que más nos preguntan</h2>
+        <h2 data-i18n="faq.title">Dudas, resueltas en simple</h2>
       </div>
       <div class="faq">
-        <details class="reveal"><summary data-i18n="faq.q1"></summary><p data-i18n="faq.a1"></p></details>
-        <details class="reveal"><summary data-i18n="faq.q2"></summary><p data-i18n="faq.a2"></p></details>
-        <details class="reveal"><summary data-i18n="faq.q3"></summary><p data-i18n="faq.a3"></p></details>
-        <details class="reveal"><summary data-i18n="faq.q4"></summary><p data-i18n="faq.a4"></p></details>
-        <details class="reveal"><summary data-i18n="faq.q5"></summary><p data-i18n="faq.a5"></p></details>
-        <details class="reveal"><summary data-i18n="faq.q6"></summary><p data-i18n="faq.a6"></p></details>
-        <details class="reveal"><summary data-i18n="faq.q7"></summary><p data-i18n="faq.a7"></p></details>
+        <details class="card reveal"><summary data-i18n="faq.q1">¿Necesito saber de apuestas?</summary><p data-i18n="faq.a1">No. Lee arriba «Bac Bo en 30 segundos», «Cómo se lee una señal» y «Los gales». Con eso ya puedes seguir cualquier señal: el bot te dice qué apostar y qué hacer en cada paso.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q2">¿Qué es un gale, en una frase?</summary><p data-i18n="faq.a2">Volver a apostar al mismo lado con el doble, para que si sale recuperes lo perdido y ganes 1 ficha.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q3">¿Estoy obligado a hacer los gales?</summary><p data-i18n="faq.a3">No. Si solo juegas la Directa, en cada señal ganas o pierdes 1 ficha y listo. Pero ten en cuenta que nuestra efectividad cuenta las señales ganadas en cualquier paso, con gales incluidos.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q4">¿Qué hago si sale empate?</summary><p data-i18n="faq.a4">Nada especial: el casino te devuelve el 90 % y repites la misma apuesta, sin doblar. El bot te lo recuerda con un mensaje.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q5">¿Y si veo la señal tarde?</summary><p data-i18n="faq.a5">Si ya pasó la ronda en la que tocaba apostar, no entres a mitad. Espera la siguiente señal: siempre vienen más.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q6">¿En qué casino juego?</summary><p data-i18n="faq.a6">En cualquiera que tenga la mesa en vivo Bac Bo de Evolution: es la misma mesa en todos. Juega solo en casinos legales en tu país.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q7">¿Cómo funciona la prueba gratis?</summary><p data-i18n="faq.a7">Son 7 días de VIP completo. Solo verificas tu número en el bot de Telegram (para que sea una prueba por persona). Vale para números de Colombia, Brasil, España y Francia.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q8">¿Cómo pago y cuándo se activa?</summary><p data-i18n="faq.a8">En Colombia, con Bre-B: 100.000 pesos al mes. Desde cualquier país, con 27 USDT por la red Polygon. Le mandas al bot la captura del comprobante y, apenas lo confirmamos, te llega el acceso.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q9">¿Se cobra solo cada mes?</summary><p data-i18n="faq.a9">No. Nada se cobra automático: pagas mes a mes, solo si quieres seguir. Si no renuevas, sales del VIP y sigues en el canal gratis.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q10">¿Las señales ganan siempre?</summary><p data-i18n="faq.a10">No, y nadie te lo puede prometer: Bac Bo es azar. Hay días buenos y días malos. Por eso el bot hace pausa tras 2 pérdidas seguidas. Apuesta solo lo que estés dispuesto a perder.</p></details>
       </div>
     </div>
   </section>
 
-  <section class="final-cta">
+  <!-- FINAL -->
+  <section class="final">
     <div class="wrap">
-      <h2><span class="gold-text" data-i18n="final.title">¿Listo para decidir con ventaja?</span></h2>
-      <p data-i18n="final.text">Únete a Dados Dorados y recibe el próximo análisis directo en tu Telegram.</p>
-      <a class="btn-primary" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="final.cta">✈️ Empezar en el bot — 🎲 Dados Dorados Bot</a>
+      <h2 class="gold-text" data-i18n="final.title">¿Lo probamos?</h2>
+      <p data-i18n="final.text">7 días de VIP gratis, sin tarjeta. Si no te convence, te quedas en el canal gratis.</p>
+      <a class="btn btn-gold" href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener" data-i18n="final.cta">🎁 Empezar mis 7 días gratis</a>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand"><span>🎲</span> <span class="gold-text">Dados Dorados</span></div>
-    <div class="links">
-      <a href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener">Telegram</a>
-      <a href="#caracteristicas" data-i18n="footer.features">Características</a>
-      <a href="#dashboard" data-i18n="footer.results">Resultados</a>
-        <a href="#preguntas" data-i18n="footer.faq">Preguntas</a>
-      <a href="#precios" data-i18n="footer.pricing">Precios</a>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="#"><img src="favicon.svg" alt=""><span class="gold-text">Dados Dorados</span></a>
+      <div class="links">
+        <a href="#como" data-i18n="nav.how">Cómo funciona</a>
+        <a href="#gales" data-i18n="nav.gales">Gales</a>
+        <a href="#resultados" data-i18n="nav.results">Resultados</a>
+        <a href="#planes" data-i18n="nav.plans">Planes</a>
+        <a href="#preguntas" data-i18n="nav.faq">Preguntas</a>
+        <a href="https://t.me/AGZ_Dice_Bot" target="_blank" rel="noopener">Telegram</a>
+      </div>
     </div>
+    <p class="disclaimer" data-i18n="footer.disclaimer">Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados. Apostar implica riesgo real de perder dinero: juega con responsabilidad y solo lo que puedas permitirte perder. Servicio solo para mayores de 18 años. No estamos afiliados a Evolution Gaming ni a ningún casino.</p>
   </div>
-  <p class="disclaimer" data-i18n="footer.disclaimer">Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados; implica riesgo real de dinero, así que participa con responsabilidad. Servicio para mayores de edad, no afiliado a Evolution Gaming ni a los operadores mencionados.</p>
 </footer>
 
 <script>
@@ -732,392 +632,587 @@
 
   // ---- Idiomas (ES / EN / FR) ----
   var TRADUCCIONES = {
-    es: {
-      "meta.title": "Dados Dorados — Análisis en vivo para Bac Bo",
-      "meta.description": "Dados Dorados: análisis de patrones en tiempo real para mesas de Bac Bo en vivo, con gestión de gales incluida. Donde cada dado es una oportunidad de oro.",
+    "es": {
+      "meta.title": "Dados Dorados — Señales de Bac Bo en vivo por Telegram",
+      "meta.description": "Señales de Bac Bo en tiempo real por Telegram: en qué apostar, cuándo y con cuántos gales, explicado fácil. 7 días de VIP gratis.",
       "nav.langLabel": "Idioma",
+      "nav.how": "Cómo funciona",
+      "nav.gales": "Gales",
+      "nav.results": "Resultados",
+      "nav.plans": "Planes",
+      "nav.faq": "Preguntas",
       "nav.cta": "Probar gratis",
-      "nav.ctaShort": "Probar",
-      "hero.eyebrow": "Análisis en vivo — mesas de Bac Bo",
-      "hero.slogan": "\"Donde cada dado es una oportunidad de oro\"",
-      "hero.sub": "Señales de Bac Bo en Telegram: te avisamos en qué apostar, cuándo hacerlo y hasta cuántos gales.",
-      "hero.free": "✈️ Canal gratis",
-      "hero.age": "🔞 Solo mayores de 18 · Sin garantía de resultados · Juega con responsabilidad",
-      "ticker.agoH": "hace {h} h",
-      "ticker.agoD": "hace {d} días",
-      "ticker.agoD1": "hace 1 día",
-      "today.tag": "Hoy",
-      "footer.results": "Resultados",
-      "footer.faq": "Preguntas",
-      "faq.tag": "Preguntas frecuentes",
-      "faq.title": "Lo que más nos preguntan",
-      "faq.q1": "¿Qué es un gale?",
-      "faq.a1": "Si la entrada no sale, el gale es repetir la apuesta en el mismo lado, doblando el monto, en la ronda siguiente. Cada señal te dice cuántos gales tiene (1 o 2). Ten en cuenta que si llega al Gale 2, en total arriesgas 7 veces tu apuesta inicial (1 + 2 + 4).",
-      "faq.q2": "¿Qué pasa si sale empate?",
-      "faq.a2": "El empate no cuenta como fallo: repites la misma apuesta, sin doblar, y la señal sigue en el mismo paso.",
-      "faq.q3": "¿En qué casino juego?",
-      "faq.a3": "Las señales son para la mesa en vivo Bac Bo de Evolution, que es la misma en todos los casinos que la ofrecen. Juega solo en un casino legal en tu país.",
-      "faq.q4": "¿Cómo funciona la prueba gratis?",
-      "faq.a4": "Son 7 días de VIP completo, una prueba por número de celular de Colombia, Brasil, España o Francia. Solo verificas tu número en el bot de Telegram: no pedimos tarjeta.",
-      "faq.q5": "¿Cómo pago y cuándo se activa?",
-      "faq.a5": "En Colombia, con Bre-B (100.000 COP al mes). Desde cualquier país, con 27 USDT por la red Polygon. Envías la captura del comprobante por el bot y, apenas lo confirmamos, te llega el acceso al VIP.",
-      "faq.q6": "¿Se cobra solo cada mes?",
-      "faq.a6": "No. No hay cobros automáticos: pagas mes a mes, solo si quieres renovar. Si no renuevas, sales del VIP y sigues en el canal gratis.",
-      "faq.q7": "¿Las señales ganan siempre?",
-      "faq.a7": "No. Ninguna señal es segura: Bac Bo es un juego de azar y también se pierde. Por eso el bot entra en pausa tras dos pérdidas seguidas. Apuesta solo lo que estés dispuesto a perder.",
+      "hero.eyebrow": "En vivo — leyendo la mesa de Bac Bo",
+      "hero.eyebrowOff": "Mesa de Bac Bo — fuera de línea ahora",
+      "hero.title1": "Señales de Bac Bo,",
+      "hero.title2": "en vivo y en tu Telegram",
+      "hero.sub": "Leemos la mesa ronda por ronda y te avisamos en qué apostar, cuándo hacerlo y qué hacer si no sale. Sin saber nada de apuestas: te lo explicamos todo aquí.",
       "hero.cta": "🎁 Probar VIP 7 días gratis",
-      "hero.how": "Ver cómo funciona ↓",
-      "bot.checking": "Consultando estado del bot…",
-      "bot.active": "Bot activo — analizando la mesa en vivo",
+      "hero.free": "Canal gratis",
+      "hero.age": "🔞 Solo mayores de 18 · Ninguna señal es segura · Juega con responsabilidad",
+      "hero.k1": "17 h",
+      "hero.k1t": "de señales al día",
+      "hero.k2": "7 días",
+      "hero.k2t": "de VIP gratis",
+      "hero.k3": "Sin tarjeta",
+      "hero.k3t": "para empezar",
+      "phone.name": "Dados Dorados VIP 👑",
+      "phone.sub": "canal · señal de ejemplo",
+      "m1.a": "👀 POSIBLE ENTRADA 🔎",
+      "m1.b": "Patrón: Zigzag",
+      "m1.c": "Prepárate: si se confirma, te aviso.",
+      "m2.a": "✅ ENTRADA CONFIRMADA ✅",
+      "m2.b": "🔥 Apuesta en 🔴 BANKER",
+      "m2.c": "⏱ Apostar después de: 🔵 PLAYER",
+      "m2.d": "🔄 Gales: 2",
+      "m3.a": "⚠️ GALE 1 DE 2",
+      "m3.b": "No salió la Directa. Dobla tu apuesta y repite en 🔴 BANKER",
+      "m4.a": "✅ ¡GANAMOS! 🍀 · Gale 1",
+      "m4.b": "🎯 Salió 🔴 BANKER",
+      "bot.checking": "Consultando la mesa…",
+      "bot.active": "Bot activo — leyendo la mesa en vivo",
       "bot.paused": "Bot en pausa — volvemos en breve",
-      "hero.eyebrowOff": "Análisis en pausa — mesas de Bac Bo",
-      "bot.startsIn": "El bot arranca en {h}h {m}m",
+      "bot.startsIn": "El bot arranca en {h} h {m} min",
       "ticker.loading": "🎲 Última señal: cargando…",
       "ticker.prefix": "🎲 Última señal: ",
       "ticker.ago": "hace {m} min",
-      "features.tag": "Qué ofrecemos",
-      "features.title": "Todo lo que necesitas para decidir con criterio",
-      "features.lead": "Un sistema construido para leer la mesa en tiempo real y avisarte en el momento justo.",
-      "f1.title": "Alertas en tiempo real",
-      "f1.text": "Conexión directa a la mesa de Bac Bo en vivo. Cada ronda se procesa al instante, sin retrasos.",
-      "f2.title": "Análisis de patrones",
-      "f2.text": "Detectamos rachas y tendencias históricas antes de sugerir una entrada, con confirmación previa.",
-      "f3.title": "Gestión de gales",
-      "f3.text": "Cada alerta incluye su plan de gales — sabes exactamente cuánto arriesgar y hasta dónde llegar.",
-      "f4.title": "Modo pausa automático",
-      "f4.text": "Tras pérdidas seguidas, el sistema entra en modo pausa y analiza en silencio hasta recuperar precisión.",
-      "dash.tag": "En vivo",
-      "dash.title": "Resultados en vivo",
-      "dash.lead": "Datos reales de las señales ya cerradas, del mes y de hoy — se actualiza solo.",
-      "dash.last": "Última señal cerrada",
-      "dash.loading": "Cargando…",
-      "dash.rate": "Efectividad del día",
-      "dash.streak": "Racha actual",
-      "dash.count": "Señales del día",
-      "dash.connecting": "Conectando con el panel en vivo…",
-      "dash.notConfigured": "Panel en vivo no configurado.",
-      "dash.empty": "Aún no hay señales cerradas hoy",
-      "dash.updated": "Actualizado {t}",
-      "dash.error": "No se pudo conectar con el panel en vivo — reintentando…",
+      "ticker.agoH": "hace {h} h",
+      "ticker.agoD": "hace {d} días",
+      "ticker.agoD1": "hace 1 día",
       "result.win": "Ganada ✅",
       "result.loss": "Perdida ❌",
-      "streak.win": "ganadas ✅",
-      "streak.loss": "perdidas ❌",
+      "bb.tag": "Paso 0",
+      "bb.title": "Bac Bo en 30 segundos",
+      "bb.lead": "Si nunca lo has jugado, esto es todo lo que necesitas saber.",
+      "bb.player": "PLAYER",
+      "bb.banker": "BANKER",
+      "bb.vs": "contra",
+      "bb.p1": "Hay dos lados: Player (azul) y Banker (rojo). Cada uno tira dos dados.",
+      "bb.p2": "Gana el lado que sume más. Tú apuestas a cuál va a ganar.",
+      "bb.p3": "Si aciertas, te pagan lo mismo que apostaste: apuestas 1 y recibes 1 de ganancia.",
+      "bb.p4": "Si los dos suman igual es empate: el casino te devuelve el 90 % de lo que pusiste en Player o Banker.",
+      "how.tag": "Cómo funciona",
+      "how.title": "Tres pasos, sin complicaciones",
+      "how.s1t": "Entra al bot",
+      "how.s1": "Toca «Probar VIP 7 días gratis», verifica tu número en Telegram y listo: no pedimos tarjeta.",
+      "how.s2t": "Abre la mesa y espera",
+      "how.s2": "Ten abierta la mesa de Bac Bo en tu casino. En el VIP primero llega «Posible entrada»: es para que estés listo.",
+      "how.s3t": "Apuesta y sigue los pasos",
+      "how.s3": "Con «Entrada confirmada» apuestas en la siguiente ronda. Si no sale, el bot te dice exactamente qué hacer.",
+      "read.tag": "La señal, por partes",
+      "read.title": "Cómo se lee una señal",
+      "read.lead": "Cada «Entrada confirmada» trae tres datos. Con esto ya sabes jugarla.",
+      "read.1t": "Apuesta en",
+      "read.1": "El lado al que le apuestas. Aquí: Banker, el rojo.",
+      "read.2t": "Apostar después de",
+      "read.2": "Es el resultado que acaba de salir en la mesa. Si en tu pantalla el último fue ese, apuesta ya, en la ronda que viene. Si ya pasó otra ronda, llegaste tarde: no entres a mitad, espera la próxima señal.",
+      "read.3t": "Gales",
+      "read.3": "Cuántos intentos extra tiene la señal si el primero falla: 1 o 2. Abajo te explicamos cómo funcionan.",
+      "gal.tag": "Lo más importante",
+      "gal.title": "Los gales, explicados fácil",
+      "gal.lead": "Un gale es volver a intentarlo doblando la apuesta. Piensa en «fichas»: tú decides cuánto vale una (por ejemplo, 1 ficha = la apuesta más pequeña que te sientas cómodo perdiendo).",
+      "gal.s1n": "Directa",
+      "gal.s1b": "Apuestas 1 ficha",
+      "gal.s1": "Si sale, ganas 1 ficha. Fin de la señal.",
+      "gal.s2n": "Gale 1",
+      "gal.s2b": "Apuestas 2 fichas",
+      "gal.s2": "Solo si falló la Directa. Si sale, recuperas la ficha perdida y ganas 1.",
+      "gal.s3n": "Gale 2",
+      "gal.s3b": "Apuestas 4 fichas",
+      "gal.s3": "Solo si falló el Gale 1. Si sale, recuperas las 3 perdidas y ganas 1.",
+      "gal.win": "Ganes en el paso que ganes, terminas con +1 ficha.",
+      "gal.loss": "Si fallan los tres pasos, pierdes 1 + 2 + 4 = 7 fichas. Por eso tu ficha debe ser pequeña.",
+      "gal.one": "¿La señal dice «Gales: 1»? Entonces solo hay Directa y Gale 1: lo máximo que arriesgas son 3 fichas.",
+      "gal.tieT": "¿Y si sale empate en medio?",
+      "gal.tie": "No cuenta como fallo. Repites la misma apuesta, sin doblar. Solo pierdes el 10 % de esa apuesta (el casino te devuelve el 90 %).",
+      "gal.tipT": "Regla de oro",
+      "gal.tip": "Si tienes 100 fichas, apuesta 1 o 2 por señal. Así una mala racha no te saca del juego. Y si el bot entra en pausa, haz pausa tú también.",
+      "feat.tag": "Qué te damos",
+      "feat.title": "Hecho para que no tengas que adivinar",
+      "f1.title": "Lectura en vivo",
+      "f1.text": "Conectados a la mesa: cada ronda se analiza al instante.",
+      "f2.title": "Patrones confirmados",
+      "f2.text": "Solo avisamos cuando un patrón se confirma, no en cada ronda.",
+      "f3.title": "Pausa que te cuida",
+      "f3.text": "Tras 2 señales perdidas seguidas, paramos y volvemos cuando la mesa se ordena.",
+      "f4.title": "Soporte de verdad",
+      "f4.text": "Te responde una persona, en privado, por el mismo bot.",
+      "hours.tag": "Horario",
+      "hours.title": "¿A qué hora hay señales?",
+      "hours.lead": "Elige tu país o deja que rote: la hora se ajusta sola.",
+      "hours.tzLabel": "Zona horaria",
+      "hours.vip": "VIP Premium",
+      "hours.vipSub": "Todos los días · todas las señales",
+      "hours.free": "Canal gratis",
+      "hours.freeSub": "Todos los días · 1 de cada 5 señales",
+      "hours.open": "Abierto ahora",
+      "hours.closed": "Cerrado · abre a las {h}",
+      "hours.nextDay": "+1 día",
+      "hours.now": "Hora actual en {zona}: {h}",
+      "tz.co": "Colombia",
+      "tz.br": "Brasil",
+      "tz.es": "España",
+      "tz.fr": "Francia",
+      "tz.utc": "UTC",
+      "dash.tag": "En vivo",
+      "dash.title": "Resultados reales",
+      "dash.lead": "Salen solos de las señales ya cerradas. No los escribimos a mano.",
       "month.tag": "Este mes",
-      "month.rate": "Efectividad del mes",
-      "month.count": "Señales del mes",
-      "month.best": "Mejor patrón del mes",
+      "month.rate": "Efectividad",
+      "month.count": "Señales",
+      "month.best": "Mejor patrón",
       "month.empty": "Aún sin señales este mes",
       "month.bestSub": "{pct}% efectividad · {total} señales",
+      "today.tag": "Hoy",
+      "dash.last": "Última señal",
+      "dash.rate": "Efectividad",
+      "dash.streak": "Racha actual",
+      "dash.count": "Señales",
+      "dash.loading": "Cargando…",
+      "dash.empty": "Aún no hay señales cerradas hoy",
+      "dash.connecting": "Conectando con los datos en vivo…",
+      "dash.notConfigured": "Datos en vivo no configurados.",
+      "dash.updated": "Actualizado {t} · «efectividad» = señales ganadas en cualquier paso (Directa, Gale 1 o Gale 2)",
+      "dash.error": "No se pudo conectar con los datos en vivo — reintentando…",
+      "streak.win": "ganadas ✅",
+      "streak.loss": "perdidas ❌",
       "price.tag": "Planes",
-      "price.desc": "Todas las señales del día, al instante, para que no se te escape ninguna oportunidad.",
-      "pricef.b5": "Adelanto de cómo va el VIP durante el día",
-      "pricef.desc": "Ideal para conocer el método y ver resultados reales antes de decidir.",
-      "tz.utc": "UTC",
-      "tz.fr": "Francia",
-      "tz.es": "España",
-      "tz.br": "Brasil",
-      "tz.co": "Colombia",
-      "hours.now": "Hora actual en {zona}: {h}",
-      "hours.nextDay": "+1 día",
-      "hours.closed": "Cerrado · abre a las {h}",
-      "hours.open": "Abierto ahora",
-      "hours.freeSub": "Todos los días · 1 de cada 5 señales",
-      "hours.free": "Canal gratis",
-      "hours.vipSub": "Todos los días · 17 horas de señales",
-      "hours.vip": "VIP Premium",
-      "hours.tzLabel": "Zona horaria",
-      "hours.lead": "Elige tu país o deja que rote: el horario se ajusta solo a cada zona.",
-      "hours.title": "Operamos en estos horarios",
-      "hours.tag": "Horario",
-      "pricef.cta": "Unirme gratis",
-      "pricef.b4": "Alertas cuando el bot va en racha ganadora",
-      "pricef.b3": "Bienvenida cada mañana y reporte del día en la noche",
-      "pricef.b2": "De 8:00 AM a 10:00 PM (hora Colombia), todos los días",
-      "pricef.b1": "1 de cada 5 señales, completa: entrada, gales y resultado",
-      "pricef.period": "para siempre",
-      "pricef.amount": "$0",
+      "price.title": "Empieza gratis",
+      "price.lead": "Mira cómo funciona en el canal gratis, o prueba el VIP completo 7 días sin pagar.",
       "pricef.name": "Canal gratis",
-      "price.title": "Elige cómo empezar",
-      "price.lead": "Empieza gratis en el canal o prueba el VIP 7 días sin pagar nada.",
-      "price.badge": "🎁 Pruébalo 7 días gratis",
+      "pricef.amount": "$0",
+      "pricef.period": "para siempre",
+      "pricef.b1": "1 de cada 5 señales, completa",
+      "pricef.b2": "De 8:00 AM a 10:00 PM (hora Colombia)",
+      "pricef.b3": "Reporte del día en la noche",
+      "pricef.b4": "Aviso cuando el VIP va en racha",
+      "pricef.cta": "Unirme gratis",
+      "price.badge": "🎁 7 días gratis",
       "price.name": "VIP Premium",
       "price.amount": "$100.000",
       "price.period": "COP / mes · o 27 USDT",
-      "price.b1": "Todas las señales en tiempo real, cada una con su plan de gales",
-      "price.b2": "17 horas diarias: de 8:00 AM a 1:00 AM (hora Colombia)",
-      "price.b3": "Aviso «analizando» antes de cada entrada, para que estés listo",
-      "price.b4": "Alertas de rachas y aviso cuando el bot pausa para protegerte de malas rachas",
-      "price.b5": "Reporte del día con la efectividad real",
-      "price.b6": "Canal privado con contenido protegido",
-      "price.b7": "Soporte directo y personal por Telegram",
-      "price.b8": "Pago fácil: Bre-B en Colombia o USDT desde cualquier país",
+      "price.b1": "Todas las señales, al instante",
+      "price.b2": "17 horas al día: 8:00 AM a 1:00 AM (hora Colombia)",
+      "price.b3": "Aviso «Posible entrada» para que estés listo",
+      "price.b4": "Aviso de pausa y de rachas",
+      "price.b5": "Soporte personal por Telegram",
+      "price.b6": "Paga con Bre-B (Colombia) o USDT (cualquier país)",
       "price.cta": "Empezar mis 7 días gratis",
-      "price.note": "Prueba gratis: una por número de celular de Colombia, Brasil, España o Francia. No pedimos tarjeta: si te gusta, sigues con el Premium.",
-      "final.title": "¿Listo para decidir con ventaja?",
-      "final.text": "Únete a Dados Dorados y recibe el próximo análisis directo en tu Telegram.",
-      "final.cta": "✈️ Empezar en el bot — 🎲 Dados Dorados Bot",
-      "footer.features": "Características",
-      "footer.pricing": "Precios",
-      "footer.disclaimer": "Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados; implica riesgo real de dinero, así que participa con responsabilidad. Servicio para mayores de edad, no afiliado a Evolution Gaming ni a los operadores mencionados."
+      "price.note": "Prueba gratis: una por número de celular de Colombia, Brasil, España o Francia. No se cobra nada automático.",
+      "faq.tag": "Preguntas frecuentes",
+      "faq.title": "Dudas, resueltas en simple",
+      "faq.q1": "¿Necesito saber de apuestas?",
+      "faq.a1": "No. Lee arriba «Bac Bo en 30 segundos», «Cómo se lee una señal» y «Los gales». Con eso ya puedes seguir cualquier señal: el bot te dice qué apostar y qué hacer en cada paso.",
+      "faq.q2": "¿Qué es un gale, en una frase?",
+      "faq.a2": "Volver a apostar al mismo lado con el doble, para que si sale recuperes lo perdido y ganes 1 ficha.",
+      "faq.q3": "¿Estoy obligado a hacer los gales?",
+      "faq.a3": "No. Si solo juegas la Directa, en cada señal ganas o pierdes 1 ficha y listo. Pero ten en cuenta que nuestra efectividad cuenta las señales ganadas en cualquier paso, con gales incluidos.",
+      "faq.q4": "¿Qué hago si sale empate?",
+      "faq.a4": "Nada especial: el casino te devuelve el 90 % y repites la misma apuesta, sin doblar. El bot te lo recuerda con un mensaje.",
+      "faq.q5": "¿Y si veo la señal tarde?",
+      "faq.a5": "Si ya pasó la ronda en la que tocaba apostar, no entres a mitad. Espera la siguiente señal: siempre vienen más.",
+      "faq.q6": "¿En qué casino juego?",
+      "faq.a6": "En cualquiera que tenga la mesa en vivo Bac Bo de Evolution: es la misma mesa en todos. Juega solo en casinos legales en tu país.",
+      "faq.q7": "¿Cómo funciona la prueba gratis?",
+      "faq.a7": "Son 7 días de VIP completo. Solo verificas tu número en el bot de Telegram (para que sea una prueba por persona). Vale para números de Colombia, Brasil, España y Francia.",
+      "faq.q8": "¿Cómo pago y cuándo se activa?",
+      "faq.a8": "En Colombia, con Bre-B: 100.000 pesos al mes. Desde cualquier país, con 27 USDT por la red Polygon. Le mandas al bot la captura del comprobante y, apenas lo confirmamos, te llega el acceso.",
+      "faq.q9": "¿Se cobra solo cada mes?",
+      "faq.a9": "No. Nada se cobra automático: pagas mes a mes, solo si quieres seguir. Si no renuevas, sales del VIP y sigues en el canal gratis.",
+      "faq.q10": "¿Las señales ganan siempre?",
+      "faq.a10": "No, y nadie te lo puede prometer: Bac Bo es azar. Hay días buenos y días malos. Por eso el bot hace pausa tras 2 pérdidas seguidas. Apuesta solo lo que estés dispuesto a perder.",
+      "final.title": "¿Lo probamos?",
+      "final.text": "7 días de VIP gratis, sin tarjeta. Si no te convence, te quedas en el canal gratis.",
+      "final.cta": "🎁 Empezar mis 7 días gratis",
+      "footer.disclaimer": "Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados. Apostar implica riesgo real de perder dinero: juega con responsabilidad y solo lo que puedas permitirte perder. Servicio solo para mayores de 18 años. No estamos afiliados a Evolution Gaming ni a ningún casino."
     },
-    en: {
-      "meta.title": "Dados Dorados — Live analysis for Bac Bo",
-      "meta.description": "Dados Dorados: real-time pattern analysis for live Bac Bo tables, with gale management included. Where every die is a golden opportunity.",
+    "en": {
+      "meta.title": "Dados Dorados — Live Bac Bo signals on Telegram",
+      "meta.description": "Real-time Bac Bo signals on Telegram: what to bet on, when, and how many gales, explained simply. 7 days of VIP free.",
       "nav.langLabel": "Language",
+      "nav.how": "How it works",
+      "nav.gales": "Gales",
+      "nav.results": "Results",
+      "nav.plans": "Plans",
+      "nav.faq": "FAQ",
       "nav.cta": "Try for free",
-      "nav.ctaShort": "Try",
-      "hero.eyebrow": "Live analysis — Bac Bo tables",
-      "hero.slogan": "\"Where every die is a golden opportunity\"",
-      "hero.sub": "Bac Bo signals on Telegram: we tell you what to bet on, when to do it and how many gales to use.",
-      "hero.free": "✈️ Free channel",
-      "hero.age": "🔞 Adults only (18+) · No guaranteed results · Play responsibly",
-      "ticker.agoH": "{h} h ago",
-      "ticker.agoD": "{d} days ago",
-      "ticker.agoD1": "1 day ago",
-      "today.tag": "Today",
-      "footer.results": "Results",
-      "footer.faq": "FAQ",
-      "faq.tag": "FAQ",
-      "faq.title": "What people ask us most",
-      "faq.q1": "What is a gale?",
-      "faq.a1": "If the entry doesn't hit, a gale means repeating the bet on the same side, doubling the amount, in the next round. Each signal tells you how many gales it has (1 or 2). Keep in mind that if it reaches Gale 2, you risk 7 times your initial bet in total (1 + 2 + 4).",
-      "faq.q2": "What happens on a tie?",
-      "faq.a2": "A tie doesn't count as a miss: repeat the same bet, without doubling, and the signal stays on the same step.",
-      "faq.q3": "Which casino do I play at?",
-      "faq.a3": "The signals are for Evolution's live Bac Bo table, which is the same at every casino that offers it. Only play at a casino that is legal in your country.",
-      "faq.q4": "How does the free trial work?",
-      "faq.a4": "You get 7 days of full VIP, one trial per mobile number from Colombia, Brazil, Spain or France. You just verify your number in the Telegram bot: no card needed.",
-      "faq.q5": "How do I pay and when is it activated?",
-      "faq.a5": "In Colombia, with Bre-B (100,000 COP per month). From any country, with 27 USDT on the Polygon network. Send a screenshot of the receipt through the bot and, as soon as we confirm it, you get access to the VIP.",
-      "faq.q6": "Am I charged automatically every month?",
-      "faq.a6": "No. There are no automatic charges: you pay month by month, only if you want to renew. If you don't renew, you leave the VIP and stay in the free channel.",
-      "faq.q7": "Do the signals always win?",
-      "faq.a7": "No. No signal is a sure thing: Bac Bo is a game of chance and you can lose. That's why the bot pauses after two losses in a row. Only bet what you can afford to lose.",
+      "hero.eyebrow": "Live — reading the Bac Bo table",
+      "hero.eyebrowOff": "Bac Bo table — offline right now",
+      "hero.title1": "Bac Bo signals,",
+      "hero.title2": "live on your Telegram",
+      "hero.sub": "We read the table round by round and tell you what to bet on, when to do it and what to do if it misses. No betting experience needed: we explain everything here.",
       "hero.cta": "🎁 Try VIP free for 7 days",
-      "hero.how": "See how it works ↓",
-      "bot.checking": "Checking bot status…",
-      "bot.active": "Bot active — analyzing the live table",
+      "hero.free": "Free channel",
+      "hero.age": "🔞 Adults only (18+) · No signal is guaranteed · Play responsibly",
+      "hero.k1": "17 h",
+      "hero.k1t": "of signals a day",
+      "hero.k2": "7 days",
+      "hero.k2t": "of free VIP",
+      "hero.k3": "No card",
+      "hero.k3t": "to get started",
+      "phone.name": "Dados Dorados VIP 👑",
+      "phone.sub": "channel · example signal",
+      "m1.a": "👀 POSSIBLE ENTRY 🔎",
+      "m1.b": "Pattern: Zigzag",
+      "m1.c": "Get ready: if it's confirmed, I'll tell you.",
+      "m2.a": "✅ ENTRY CONFIRMED ✅",
+      "m2.b": "🔥 Bet on 🔴 BANKER",
+      "m2.c": "⏱ Bet after: 🔵 PLAYER",
+      "m2.d": "🔄 Gales: 2",
+      "m3.a": "⚠️ GALE 1 OF 2",
+      "m3.b": "The Direct bet missed. Double your bet and repeat on 🔴 BANKER",
+      "m4.a": "✅ WE WON! 🍀 · Gale 1",
+      "m4.b": "🎯 Result: 🔴 BANKER",
+      "bot.checking": "Checking the table…",
+      "bot.active": "Bot active — reading the table live",
       "bot.paused": "Bot paused — back shortly",
-      "hero.eyebrowOff": "Analysis paused — Bac Bo tables",
-      "bot.startsIn": "The bot starts in {h}h {m}m",
+      "bot.startsIn": "The bot starts in {h} h {m} min",
       "ticker.loading": "🎲 Latest signal: loading…",
       "ticker.prefix": "🎲 Latest signal: ",
       "ticker.ago": "{m} min ago",
-      "features.tag": "What we offer",
-      "features.title": "Everything you need to decide wisely",
-      "features.lead": "A system built to read the table in real time and alert you at just the right moment.",
-      "f1.title": "Real-time alerts",
-      "f1.text": "Direct connection to the live Bac Bo table. Every round is processed instantly, with no delays.",
-      "f2.title": "Pattern analysis",
-      "f2.text": "We detect streaks and historical trends before suggesting an entry, with prior confirmation.",
-      "f3.title": "Gale management",
-      "f3.text": "Every alert includes its gale plan — you know exactly how much to risk and how far to go.",
-      "f4.title": "Automatic pause mode",
-      "f4.text": "After consecutive losses, the system enters pause mode and analyzes silently until it regains accuracy.",
-      "dash.tag": "Live",
-      "dash.title": "Live results",
-      "dash.lead": "Real data from closed signals, this month and today — updates automatically.",
-      "dash.last": "Last closed signal",
-      "dash.loading": "Loading…",
-      "dash.rate": "Today's accuracy",
-      "dash.streak": "Current streak",
-      "dash.count": "Today's signals",
-      "dash.connecting": "Connecting to the live panel…",
-      "dash.notConfigured": "Live panel not configured.",
-      "dash.empty": "No closed signals yet today",
-      "dash.updated": "Updated {t}",
-      "dash.error": "Couldn't connect to the live panel — retrying…",
+      "ticker.agoH": "{h} h ago",
+      "ticker.agoD": "{d} days ago",
+      "ticker.agoD1": "1 day ago",
       "result.win": "Won ✅",
       "result.loss": "Lost ❌",
+      "bb.tag": "Step 0",
+      "bb.title": "Bac Bo in 30 seconds",
+      "bb.lead": "If you've never played it, this is all you need to know.",
+      "bb.player": "PLAYER",
+      "bb.banker": "BANKER",
+      "bb.vs": "vs",
+      "bb.p1": "There are two sides: Player (blue) and Banker (red). Each one rolls two dice.",
+      "bb.p2": "The side with the higher total wins. You bet on which one will win.",
+      "bb.p3": "If you're right, you win the same amount you bet: bet 1, win 1.",
+      "bb.p4": "If both totals are equal, it's a tie: the casino returns 90% of your Player or Banker bet.",
+      "how.tag": "How it works",
+      "how.title": "Three steps, no hassle",
+      "how.s1t": "Open the bot",
+      "how.s1": "Tap «Try VIP free for 7 days», verify your number in Telegram and you're in: no card needed.",
+      "how.s2t": "Open the table and wait",
+      "how.s2": "Keep the Bac Bo table open at your casino. In the VIP you first get «Possible entry»: it's so you're ready.",
+      "how.s3t": "Bet and follow the steps",
+      "how.s3": "With «Entry confirmed» you bet on the next round. If it misses, the bot tells you exactly what to do.",
+      "read.tag": "The signal, piece by piece",
+      "read.title": "How to read a signal",
+      "read.lead": "Every «Entry confirmed» has three pieces of information. With this, you can play it.",
+      "read.1t": "Bet on",
+      "read.1": "The side you bet on. Here: Banker, the red one.",
+      "read.2t": "Bet after",
+      "read.2": "It's the result that just came out on the table. If the last one on your screen matches, bet now, on the coming round. If another round already went by, you're late: don't jump in halfway, wait for the next signal.",
+      "read.3t": "Gales",
+      "read.3": "How many extra tries the signal has if the first one misses: 1 or 2. We explain how they work below.",
+      "gal.tag": "The most important part",
+      "gal.title": "Gales, explained simply",
+      "gal.lead": "A gale means trying again with a doubled bet. Think in «chips»: you decide what one chip is worth (for example, 1 chip = the smallest bet you're comfortable losing).",
+      "gal.s1n": "Direct",
+      "gal.s1b": "You bet 1 chip",
+      "gal.s1": "If it hits, you win 1 chip. Signal over.",
+      "gal.s2n": "Gale 1",
+      "gal.s2b": "You bet 2 chips",
+      "gal.s2": "Only if the Direct bet missed. If it hits, you get back the lost chip and win 1.",
+      "gal.s3n": "Gale 2",
+      "gal.s3b": "You bet 4 chips",
+      "gal.s3": "Only if Gale 1 missed. If it hits, you get back the 3 lost chips and win 1.",
+      "gal.win": "Whichever step you win on, you end up +1 chip.",
+      "gal.loss": "If all three steps miss, you lose 1 + 2 + 4 = 7 chips. That's why your chip should be small.",
+      "gal.one": "Does the signal say «Gales: 1»? Then there's only Direct and Gale 1: the most you risk is 3 chips.",
+      "gal.tieT": "What if there's a tie in the middle?",
+      "gal.tie": "It doesn't count as a miss. Repeat the same bet, without doubling. You only lose 10% of that bet (the casino returns 90%).",
+      "gal.tipT": "Golden rule",
+      "gal.tip": "If you have 100 chips, bet 1 or 2 per signal. That way a bad run won't knock you out. And if the bot pauses, take a break too.",
+      "feat.tag": "What you get",
+      "feat.title": "Built so you don't have to guess",
+      "f1.title": "Live reading",
+      "f1.text": "Connected to the table: every round is analysed instantly.",
+      "f2.title": "Confirmed patterns",
+      "f2.text": "We only alert you when a pattern is confirmed, not every round.",
+      "f3.title": "A pause that protects you",
+      "f3.text": "After 2 lost signals in a row, we stop and come back when the table settles.",
+      "f4.title": "Real support",
+      "f4.text": "A real person answers you, privately, through the same bot.",
+      "hours.tag": "Schedule",
+      "hours.title": "When are there signals?",
+      "hours.lead": "Pick your country or let it rotate: the time adjusts automatically.",
+      "hours.tzLabel": "Time zone",
+      "hours.vip": "VIP Premium",
+      "hours.vipSub": "Every day · every signal",
+      "hours.free": "Free channel",
+      "hours.freeSub": "Every day · 1 in 5 signals",
+      "hours.open": "Open now",
+      "hours.closed": "Closed · opens at {h}",
+      "hours.nextDay": "+1 day",
+      "hours.now": "Current time in {zona}: {h}",
+      "tz.co": "Colombia",
+      "tz.br": "Brazil",
+      "tz.es": "Spain",
+      "tz.fr": "France",
+      "tz.utc": "UTC",
+      "dash.tag": "Live",
+      "dash.title": "Real results",
+      "dash.lead": "They come straight from closed signals. We don't type them by hand.",
+      "month.tag": "This month",
+      "month.rate": "Hit rate",
+      "month.count": "Signals",
+      "month.best": "Best pattern",
+      "month.empty": "No signals yet this month",
+      "month.bestSub": "{pct}% hit rate · {total} signals",
+      "today.tag": "Today",
+      "dash.last": "Latest signal",
+      "dash.rate": "Hit rate",
+      "dash.streak": "Current streak",
+      "dash.count": "Signals",
+      "dash.loading": "Loading…",
+      "dash.empty": "No closed signals yet today",
+      "dash.connecting": "Connecting to live data…",
+      "dash.notConfigured": "Live data not configured.",
+      "dash.updated": "Updated {t} · «hit rate» = signals won at any step (Direct, Gale 1 or Gale 2)",
+      "dash.error": "Couldn't connect to live data — retrying…",
       "streak.win": "won ✅",
       "streak.loss": "lost ❌",
-      "month.tag": "This month",
-      "month.rate": "Monthly accuracy",
-      "month.count": "Signals this month",
-      "month.best": "Best pattern this month",
-      "month.empty": "No signals yet this month",
-      "month.bestSub": "{pct}% accuracy · {total} signals",
       "price.tag": "Plans",
-      "price.desc": "Every signal of the day, instantly, so you never miss an opportunity.",
-      "pricef.b5": "Daily sneak peek of how the VIP is doing",
-      "pricef.desc": "Perfect to get to know the method and see real results before deciding.",
-      "tz.utc": "UTC",
-      "tz.fr": "France",
-      "tz.es": "Spain",
-      "tz.br": "Brazil",
-      "tz.co": "Colombia",
-      "hours.now": "Current time in {zona}: {h}",
-      "hours.nextDay": "+1 day",
-      "hours.closed": "Closed · opens at {h}",
-      "hours.open": "Open now",
-      "hours.freeSub": "Every day · 1 in 5 signals",
-      "hours.free": "Free channel",
-      "hours.vipSub": "Every day · 17 hours of signals",
-      "hours.vip": "VIP Premium",
-      "hours.tzLabel": "Time zone",
-      "hours.lead": "Pick your country or let it rotate — the hours adjust to each time zone.",
-      "hours.title": "Our operating hours",
-      "hours.tag": "Schedule",
-      "pricef.cta": "Join for free",
-      "pricef.b4": "Alerts when the bot is on a winning streak",
-      "pricef.b3": "Morning welcome and a daily report every night",
-      "pricef.b2": "8:00 AM to 10:00 PM (Colombia time), every day",
-      "pricef.b1": "1 in 5 signals, complete: entry, gales and result",
-      "pricef.period": "forever",
-      "pricef.amount": "$0",
+      "price.title": "Start for free",
+      "price.lead": "See how it works in the free channel, or try the full VIP for 7 days without paying.",
       "pricef.name": "Free channel",
-      "price.title": "Choose how to start",
-      "price.lead": "Start free in the channel or try the VIP for 7 days at no cost.",
-      "price.badge": "🎁 Try it free for 7 days",
+      "pricef.amount": "$0",
+      "pricef.period": "forever",
+      "pricef.b1": "1 in 5 signals, complete",
+      "pricef.b2": "8:00 AM to 10:00 PM (Colombia time)",
+      "pricef.b3": "Daily report every night",
+      "pricef.b4": "Alert when the VIP is on a streak",
+      "pricef.cta": "Join for free",
+      "price.badge": "🎁 7 days free",
       "price.name": "VIP Premium",
       "price.amount": "$100.000",
       "price.period": "COP / month · or 27 USDT",
-      "price.b1": "Every signal in real time, each with its gale plan",
+      "price.b1": "Every signal, instantly",
       "price.b2": "17 hours a day: 8:00 AM to 1:00 AM (Colombia time)",
-      "price.b3": "“Analyzing” heads-up before every entry so you're ready",
-      "price.b4": "Streak alerts, plus a notice when the bot pauses to protect you from bad runs",
-      "price.b5": "Daily report with the real win rate",
-      "price.b6": "Private channel with protected content",
-      "price.b7": "Direct, personal support on Telegram",
-      "price.b8": "Easy payment: Bre-B in Colombia or USDT from any country",
+      "price.b3": "«Possible entry» heads-up so you're ready",
+      "price.b4": "Pause and streak alerts",
+      "price.b5": "Personal support on Telegram",
+      "price.b6": "Pay with Bre-B (Colombia) or USDT (any country)",
       "price.cta": "Start my 7 free days",
-      "price.note": "Free trial: one per phone number from Colombia, Brazil, Spain or France. No card required — if you like it, continue with Premium.",
-      "final.title": "Ready to decide with an edge?",
-      "final.text": "Join Dados Dorados and get the next analysis straight to your Telegram.",
-      "final.cta": "✈️ Start with the bot — 🎲 Dados Dorados Bot",
-      "footer.features": "Features",
-      "footer.pricing": "Pricing",
-      "footer.disclaimer": "Dados Dorados provides pattern analysis for live tables, with no guarantee of results; it involves real financial risk, so please play responsibly. Adults only. Not affiliated with Evolution Gaming or the operators mentioned."
+      "price.note": "Free trial: one per mobile number from Colombia, Brazil, Spain or France. Nothing is charged automatically.",
+      "faq.tag": "FAQ",
+      "faq.title": "Questions, answered simply",
+      "faq.q1": "Do I need to know about betting?",
+      "faq.a1": "No. Read «Bac Bo in 30 seconds», «How to read a signal» and «Gales» above. That's enough to follow any signal: the bot tells you what to bet and what to do at each step.",
+      "faq.q2": "What's a gale, in one sentence?",
+      "faq.a2": "Betting on the same side again with double the amount, so that if it hits you get back what you lost and win 1 chip.",
+      "faq.q3": "Do I have to play the gales?",
+      "faq.a3": "No. If you only play the Direct bet, you win or lose 1 chip per signal and that's it. But keep in mind that our hit rate counts signals won at any step, gales included.",
+      "faq.q4": "What do I do on a tie?",
+      "faq.a4": "Nothing special: the casino returns 90% and you repeat the same bet, without doubling. The bot reminds you with a message.",
+      "faq.q5": "What if I see the signal late?",
+      "faq.a5": "If the round you were supposed to bet on already went by, don't jump in halfway. Wait for the next signal: more always come.",
+      "faq.q6": "Which casino do I play at?",
+      "faq.a6": "Any casino with Evolution's live Bac Bo table: it's the same table everywhere. Only play at casinos that are legal in your country.",
+      "faq.q7": "How does the free trial work?",
+      "faq.a7": "You get 7 days of full VIP. You just verify your number in the Telegram bot (so it's one trial per person). It's for numbers from Colombia, Brazil, Spain and France.",
+      "faq.q8": "How do I pay and when is it activated?",
+      "faq.a8": "In Colombia, with Bre-B: 100,000 pesos a month. From any country, with 27 USDT on the Polygon network. Send the bot a screenshot of the receipt and, as soon as we confirm it, you get access.",
+      "faq.q9": "Am I charged automatically every month?",
+      "faq.a9": "No. Nothing is charged automatically: you pay month by month, only if you want to continue. If you don't renew, you leave the VIP and stay in the free channel.",
+      "faq.q10": "Do the signals always win?",
+      "faq.a10": "No, and nobody can promise that: Bac Bo is chance. There are good days and bad days. That's why the bot pauses after 2 losses in a row. Only bet what you can afford to lose.",
+      "final.title": "Shall we try it?",
+      "final.text": "7 days of free VIP, no card. If it's not for you, you stay in the free channel.",
+      "final.cta": "🎁 Start my 7 free days",
+      "footer.disclaimer": "Dados Dorados provides pattern analysis for live tables, with no guarantee of results. Betting involves a real risk of losing money: play responsibly and only with what you can afford to lose. Adults (18+) only. We are not affiliated with Evolution Gaming or any casino."
     },
-    fr: {
-      "meta.title": "Dados Dorados — Analyse en direct pour Bac Bo",
-      "meta.description": "Dados Dorados : analyse de tendances en temps réel pour les tables de Bac Bo en direct, avec gestion des gales incluse. Là où chaque dé est une opportunité en or.",
+    "fr": {
+      "meta.title": "Dados Dorados — Signaux de Bac Bo en direct sur Telegram",
+      "meta.description": "Signaux de Bac Bo en temps réel sur Telegram : sur quoi miser, quand et avec combien de gales, expliqué simplement. 7 jours de VIP gratuits.",
       "nav.langLabel": "Langue",
+      "nav.how": "Fonctionnement",
+      "nav.gales": "Gales",
+      "nav.results": "Résultats",
+      "nav.plans": "Offres",
+      "nav.faq": "FAQ",
       "nav.cta": "Essai gratuit",
-      "nav.ctaShort": "Essai",
-      "hero.eyebrow": "Analyse en direct — tables de Bac Bo",
-      "hero.slogan": "« Là où chaque dé est une opportunité en or »",
-      "hero.sub": "Signaux de Bac Bo sur Telegram : on te dit sur quoi miser, quand le faire et jusqu'à combien de gales.",
-      "hero.free": "✈️ Canal gratuit",
-      "hero.age": "🔞 Réservé aux 18 ans et plus · Aucun résultat garanti · Joue de façon responsable",
-      "ticker.agoH": "il y a {h} h",
-      "ticker.agoD": "il y a {d} jours",
-      "ticker.agoD1": "il y a 1 jour",
-      "today.tag": "Aujourd'hui",
-      "footer.results": "Résultats",
-      "footer.faq": "FAQ",
-      "faq.tag": "Questions fréquentes",
-      "faq.title": "Ce qu'on nous demande le plus",
-      "faq.q1": "Qu'est-ce qu'un gale ?",
-      "faq.a1": "Si l'entrée ne passe pas, le gale consiste à répéter la mise du même côté, en doublant le montant, au tour suivant. Chaque signal indique combien de gales il comporte (1 ou 2). Attention : s'il va jusqu'au Gale 2, tu risques au total 7 fois ta mise initiale (1 + 2 + 4).",
-      "faq.q2": "Que se passe-t-il en cas d'égalité ?",
-      "faq.a2": "L'égalité ne compte pas comme un échec : tu répètes la même mise, sans doubler, et le signal reste à la même étape.",
-      "faq.q3": "Dans quel casino jouer ?",
-      "faq.a3": "Les signaux sont pour la table en direct Bac Bo d'Evolution, la même dans tous les casinos qui la proposent. Joue uniquement dans un casino légal dans ton pays.",
-      "faq.q4": "Comment fonctionne l'essai gratuit ?",
-      "faq.a4": "Ce sont 7 jours de VIP complet, un essai par numéro de mobile de Colombie, du Brésil, d'Espagne ou de France. Tu vérifies simplement ton numéro dans le bot Telegram : aucune carte demandée.",
-      "faq.q5": "Comment payer et quand est-ce activé ?",
-      "faq.a5": "En Colombie, avec Bre-B (100 000 COP par mois). Depuis n'importe quel pays, avec 27 USDT sur le réseau Polygon. Tu envoies la capture du reçu via le bot et, dès qu'on le confirme, tu reçois l'accès au VIP.",
-      "faq.q6": "Suis-je prélevé automatiquement chaque mois ?",
-      "faq.a6": "Non. Aucun prélèvement automatique : tu paies mois par mois, seulement si tu veux renouveler. Si tu ne renouvelles pas, tu quittes le VIP et restes dans le canal gratuit.",
-      "faq.q7": "Les signaux gagnent-ils toujours ?",
-      "faq.a7": "Non. Aucun signal n'est sûr : le Bac Bo est un jeu de hasard et on peut perdre. C'est pourquoi le bot se met en pause après deux pertes d'affilée. Ne mise que ce que tu es prêt à perdre.",
+      "hero.eyebrow": "En direct — lecture de la table de Bac Bo",
+      "hero.eyebrowOff": "Table de Bac Bo — hors ligne pour le moment",
+      "hero.title1": "Des signaux de Bac Bo,",
+      "hero.title2": "en direct sur ton Telegram",
+      "hero.sub": "On lit la table tour par tour et on te dit sur quoi miser, quand le faire et quoi faire si ça ne passe pas. Aucune expérience requise : on t'explique tout ici.",
       "hero.cta": "🎁 Essayer le VIP 7 jours gratuits",
-      "hero.how": "Voir comment ça marche ↓",
-      "bot.checking": "Vérification de l'état du bot…",
-      "bot.active": "Bot actif — analyse de la table en direct",
+      "hero.free": "Canal gratuit",
+      "hero.age": "🔞 Réservé aux 18 ans et plus · Aucun signal n'est garanti · Joue de façon responsable",
+      "hero.k1": "17 h",
+      "hero.k1t": "de signaux par jour",
+      "hero.k2": "7 jours",
+      "hero.k2t": "de VIP gratuits",
+      "hero.k3": "Sans carte",
+      "hero.k3t": "pour commencer",
+      "phone.name": "Dados Dorados VIP 👑",
+      "phone.sub": "canal · signal d'exemple",
+      "m1.a": "👀 ENTRÉE POSSIBLE 🔎",
+      "m1.b": "Motif : Zigzag",
+      "m1.c": "Prépare-toi : si c'est confirmé, je te préviens.",
+      "m2.a": "✅ ENTRÉE CONFIRMÉE ✅",
+      "m2.b": "🔥 Mise sur 🔴 BANKER",
+      "m2.c": "⏱ Miser après : 🔵 PLAYER",
+      "m2.d": "🔄 Gales : 2",
+      "m3.a": "⚠️ GALE 1 SUR 2",
+      "m3.b": "La Directe n'est pas passée. Double ta mise et répète sur 🔴 BANKER",
+      "m4.a": "✅ GAGNÉ ! 🍀 · Gale 1",
+      "m4.b": "🎯 Résultat : 🔴 BANKER",
+      "bot.checking": "Vérification de la table…",
+      "bot.active": "Bot actif — lecture de la table en direct",
       "bot.paused": "Bot en pause — retour sous peu",
-      "hero.eyebrowOff": "Analyse en pause — tables de Bac Bo",
       "bot.startsIn": "Le bot démarre dans {h} h {m} min",
       "ticker.loading": "🎲 Dernier signal : chargement…",
       "ticker.prefix": "🎲 Dernier signal : ",
       "ticker.ago": "il y a {m} min",
-      "features.tag": "Ce que nous offrons",
-      "features.title": "Tout ce qu'il faut pour décider en connaissance de cause",
-      "features.lead": "Un système conçu pour lire la table en temps réel et vous alerter au bon moment.",
-      "f1.title": "Alertes en temps réel",
-      "f1.text": "Connexion directe à la table de Bac Bo en direct. Chaque manche est traitée instantanément, sans délai.",
-      "f2.title": "Analyse des tendances",
-      "f2.text": "Nous détectons les séries et les tendances historiques avant de suggérer une entrée, avec confirmation préalable.",
-      "f3.title": "Gestion des gales",
-      "f3.text": "Chaque alerte inclut son plan de gales — vous savez exactement combien risquer et jusqu'où aller.",
-      "f4.title": "Mode pause automatique",
-      "f4.text": "Après plusieurs pertes consécutives, le système passe en mode pause et analyse en silence jusqu'à retrouver sa précision.",
-      "dash.tag": "En direct",
-      "dash.title": "Résultats en direct",
-      "dash.lead": "Données réelles des signaux clôturés, du mois et d'aujourd'hui — mise à jour automatique.",
-      "dash.last": "Dernier signal clôturé",
-      "dash.loading": "Chargement…",
-      "dash.rate": "Efficacité du jour",
-      "dash.streak": "Série en cours",
-      "dash.count": "Signaux du jour",
-      "dash.connecting": "Connexion au panneau en direct…",
-      "dash.notConfigured": "Panneau en direct non configuré.",
-      "dash.empty": "Aucun signal clôturé aujourd'hui pour l'instant",
-      "dash.updated": "Mis à jour à {t}",
-      "dash.error": "Impossible de se connecter au panneau en direct — nouvelle tentative…",
+      "ticker.agoH": "il y a {h} h",
+      "ticker.agoD": "il y a {d} jours",
+      "ticker.agoD1": "il y a 1 jour",
       "result.win": "Gagné ✅",
       "result.loss": "Perdu ❌",
+      "bb.tag": "Étape 0",
+      "bb.title": "Le Bac Bo en 30 secondes",
+      "bb.lead": "Si tu n'y as jamais joué, voici tout ce qu'il faut savoir.",
+      "bb.player": "PLAYER",
+      "bb.banker": "BANKER",
+      "bb.vs": "contre",
+      "bb.p1": "Il y a deux côtés : Player (bleu) et Banker (rouge). Chacun lance deux dés.",
+      "bb.p2": "Le côté avec le plus gros total gagne. Tu paries sur celui qui va gagner.",
+      "bb.p3": "Si tu as raison, tu gagnes autant que ta mise : tu mises 1, tu gagnes 1.",
+      "bb.p4": "Si les deux totaux sont égaux, c'est une égalité : le casino te rend 90 % de ta mise sur Player ou Banker.",
+      "how.tag": "Fonctionnement",
+      "how.title": "Trois étapes, sans complication",
+      "how.s1t": "Ouvre le bot",
+      "how.s1": "Touche «Essayer le VIP 7 jours gratuits», vérifie ton numéro sur Telegram et c'est parti : aucune carte demandée.",
+      "how.s2t": "Ouvre la table et attends",
+      "how.s2": "Garde la table de Bac Bo ouverte dans ton casino. Dans le VIP, tu reçois d'abord «Entrée possible» : c'est pour être prêt.",
+      "how.s3t": "Mise et suis les étapes",
+      "how.s3": "Avec «Entrée confirmée», tu mises au tour suivant. Si ça ne passe pas, le bot te dit exactement quoi faire.",
+      "read.tag": "Le signal, point par point",
+      "read.title": "Comment lire un signal",
+      "read.lead": "Chaque «Entrée confirmée» contient trois informations. Avec ça, tu sais la jouer.",
+      "read.1t": "Mise sur",
+      "read.1": "Le côté sur lequel tu mises. Ici : Banker, le rouge.",
+      "read.2t": "Miser après",
+      "read.2": "C'est le résultat qui vient de sortir sur la table. Si le dernier sur ton écran correspond, mise maintenant, au tour qui vient. Si un autre tour est déjà passé, tu es en retard : n'entre pas en cours de route, attends le prochain signal.",
+      "read.3t": "Gales",
+      "read.3": "Combien d'essais supplémentaires le signal a si le premier échoue : 1 ou 2. On t'explique leur fonctionnement plus bas.",
+      "gal.tag": "Le plus important",
+      "gal.title": "Les gales, expliqués simplement",
+      "gal.lead": "Un gale, c'est réessayer en doublant la mise. Pense en «jetons» : tu décides combien vaut un jeton (par exemple, 1 jeton = la plus petite mise que tu es prêt à perdre).",
+      "gal.s1n": "Directe",
+      "gal.s1b": "Tu mises 1 jeton",
+      "gal.s1": "Si ça passe, tu gagnes 1 jeton. Fin du signal.",
+      "gal.s2n": "Gale 1",
+      "gal.s2b": "Tu mises 2 jetons",
+      "gal.s2": "Seulement si la Directe a échoué. Si ça passe, tu récupères le jeton perdu et tu gagnes 1.",
+      "gal.s3n": "Gale 2",
+      "gal.s3b": "Tu mises 4 jetons",
+      "gal.s3": "Seulement si le Gale 1 a échoué. Si ça passe, tu récupères les 3 jetons perdus et tu gagnes 1.",
+      "gal.win": "Quelle que soit l'étape gagnante, tu finis à +1 jeton.",
+      "gal.loss": "Si les trois étapes échouent, tu perds 1 + 2 + 4 = 7 jetons. C'est pour ça que ton jeton doit être petit.",
+      "gal.one": "Le signal indique «Gales : 1» ? Alors il n'y a que Directe et Gale 1 : tu risques au maximum 3 jetons.",
+      "gal.tieT": "Et s'il y a une égalité en cours de route ?",
+      "gal.tie": "Ça ne compte pas comme un échec. Répète la même mise, sans doubler. Tu ne perds que 10 % de cette mise (le casino te rend 90 %).",
+      "gal.tipT": "Règle d'or",
+      "gal.tip": "Si tu as 100 jetons, mise 1 ou 2 par signal. Ainsi, une mauvaise série ne te sort pas du jeu. Et si le bot se met en pause, fais une pause aussi.",
+      "feat.tag": "Ce qu'on t'offre",
+      "feat.title": "Conçu pour que tu n'aies pas à deviner",
+      "f1.title": "Lecture en direct",
+      "f1.text": "Connectés à la table : chaque tour est analysé instantanément.",
+      "f2.title": "Motifs confirmés",
+      "f2.text": "On ne te prévient que lorsqu'un motif est confirmé, pas à chaque tour.",
+      "f3.title": "Une pause qui te protège",
+      "f3.text": "Après 2 signaux perdus d'affilée, on s'arrête et on revient quand la table se stabilise.",
+      "f4.title": "Un vrai support",
+      "f4.text": "Une vraie personne te répond, en privé, via le même bot.",
+      "hours.tag": "Horaires",
+      "hours.title": "À quelle heure y a-t-il des signaux ?",
+      "hours.lead": "Choisis ton pays ou laisse défiler : l'heure s'ajuste toute seule.",
+      "hours.tzLabel": "Fuseau horaire",
+      "hours.vip": "VIP Premium",
+      "hours.vipSub": "Tous les jours · tous les signaux",
+      "hours.free": "Canal gratuit",
+      "hours.freeSub": "Tous les jours · 1 signal sur 5",
+      "hours.open": "Ouvert maintenant",
+      "hours.closed": "Fermé · ouvre à {h}",
+      "hours.nextDay": "+1 jour",
+      "hours.now": "Heure actuelle en {zona} : {h}",
+      "tz.co": "Colombie",
+      "tz.br": "Brésil",
+      "tz.es": "Espagne",
+      "tz.fr": "France",
+      "tz.utc": "UTC",
+      "dash.tag": "En direct",
+      "dash.title": "Résultats réels",
+      "dash.lead": "Ils viennent directement des signaux clôturés. On ne les écrit pas à la main.",
+      "month.tag": "Ce mois-ci",
+      "month.rate": "Efficacité",
+      "month.count": "Signaux",
+      "month.best": "Meilleur motif",
+      "month.empty": "Pas encore de signaux ce mois-ci",
+      "month.bestSub": "{pct}% d'efficacité · {total} signaux",
+      "today.tag": "Aujourd'hui",
+      "dash.last": "Dernier signal",
+      "dash.rate": "Efficacité",
+      "dash.streak": "Série actuelle",
+      "dash.count": "Signaux",
+      "dash.loading": "Chargement…",
+      "dash.empty": "Pas encore de signaux clôturés aujourd'hui",
+      "dash.connecting": "Connexion aux données en direct…",
+      "dash.notConfigured": "Données en direct non configurées.",
+      "dash.updated": "Mis à jour {t} · «efficacité» = signaux gagnés à n'importe quelle étape (Directe, Gale 1 ou Gale 2)",
+      "dash.error": "Connexion aux données en direct impossible — nouvel essai…",
       "streak.win": "gagnés ✅",
       "streak.loss": "perdus ❌",
-      "month.tag": "Ce mois-ci",
-      "month.rate": "Efficacité du mois",
-      "month.count": "Signaux du mois",
-      "month.best": "Meilleure tendance du mois",
-      "month.empty": "Aucun signal ce mois-ci pour l'instant",
-      "month.bestSub": "{pct} % d'efficacité · {total} signaux",
-      "price.tag": "Formules",
-      "price.desc": "Tous les signaux du jour, instantanément, pour ne manquer aucune opportunité.",
-      "pricef.b5": "Aperçu quotidien des résultats du VIP",
-      "pricef.desc": "Idéal pour découvrir la méthode et voir de vrais résultats avant de décider.",
-      "tz.utc": "UTC",
-      "tz.fr": "France",
-      "tz.es": "Espagne",
-      "tz.br": "Brésil",
-      "tz.co": "Colombie",
-      "hours.now": "Heure actuelle — {zona} : {h}",
-      "hours.nextDay": "+1 jour",
-      "hours.closed": "Fermé · ouvre à {h}",
-      "hours.open": "Ouvert maintenant",
-      "hours.freeSub": "Tous les jours · 1 signal sur 5",
-      "hours.free": "Canal gratuit",
-      "hours.vipSub": "Tous les jours · 17 heures de signaux",
-      "hours.vip": "VIP Premium",
-      "hours.tzLabel": "Fuseau horaire",
-      "hours.lead": "Choisissez votre pays ou laissez défiler : les horaires s'adaptent à chaque fuseau.",
-      "hours.title": "Nos horaires d'ouverture",
-      "hours.tag": "Horaires",
-      "pricef.cta": "Rejoindre gratuitement",
-      "pricef.b4": "Alertes quand le bot enchaîne les gains",
-      "pricef.b3": "Message de bienvenue le matin et rapport du jour le soir",
-      "pricef.b2": "De 8h à 22h (heure de Colombie), tous les jours",
-      "pricef.b1": "1 signal sur 5, complet : entrée, gales et résultat",
-      "pricef.period": "pour toujours",
-      "pricef.amount": "$0",
+      "price.tag": "Offres",
+      "price.title": "Commence gratuitement",
+      "price.lead": "Découvre le fonctionnement sur le canal gratuit, ou essaie le VIP complet 7 jours sans payer.",
       "pricef.name": "Canal gratuit",
-      "price.title": "Choisissez comment commencer",
-      "price.lead": "Commencez gratuitement sur le canal ou essayez le VIP 7 jours sans payer.",
-      "price.badge": "🎁 Essayez-le 7 jours gratuits",
+      "pricef.amount": "0 $",
+      "pricef.period": "pour toujours",
+      "pricef.b1": "1 signal sur 5, complet",
+      "pricef.b2": "De 8h à 22h (heure de Colombie)",
+      "pricef.b3": "Rapport du jour le soir",
+      "pricef.b4": "Alerte quand le VIP est en série",
+      "pricef.cta": "Rejoindre gratuitement",
+      "price.badge": "🎁 7 jours gratuits",
       "price.name": "VIP Premium",
-      "price.amount": "$100.000",
+      "price.amount": "100 000 $",
       "price.period": "COP / mois · ou 27 USDT",
-      "price.b1": "Tous les signaux en temps réel, chacun avec son plan de gales",
-      "price.b2": "17 heures par jour : de 8h à 1h du matin (heure de Colombie)",
-      "price.b3": "Alerte « analyse en cours » avant chaque entrée, pour être prêt",
-      "price.b4": "Alertes de séries et avis quand le bot fait une pause pour vous protéger",
-      "price.b5": "Rapport du jour avec l'efficacité réelle",
-      "price.b6": "Canal privé au contenu protégé",
-      "price.b7": "Support direct et personnel sur Telegram",
-      "price.b8": "Paiement facile : Bre-B en Colombie ou USDT depuis n'importe quel pays",
+      "price.b1": "Tous les signaux, instantanément",
+      "price.b2": "17 heures par jour : de 8h à 1h (heure de Colombie)",
+      "price.b3": "Alerte «Entrée possible» pour être prêt",
+      "price.b4": "Alertes de pause et de séries",
+      "price.b5": "Support personnel sur Telegram",
+      "price.b6": "Paie avec Bre-B (Colombie) ou USDT (tout pays)",
       "price.cta": "Commencer mes 7 jours gratuits",
-      "price.note": "Essai gratuit : un par numéro de téléphone de Colombie, du Brésil, d'Espagne ou de France. Aucune carte demandée : si ça vous plaît, continuez avec le Premium.",
-      "final.title": "Prêt à décider avec un avantage ?",
-      "final.text": "Rejoignez Dados Dorados et recevez la prochaine analyse directement sur votre Telegram.",
-      "final.cta": "✈️ Commencer avec le bot — 🎲 Dados Dorados Bot",
-      "footer.features": "Fonctionnalités",
-      "footer.pricing": "Tarifs",
-      "footer.disclaimer": "Dados Dorados propose une analyse de tendances pour les tables en direct, sans garantie de résultats ; cela implique un risque financier réel, alors jouez de manière responsable. Service réservé aux adultes, non affilié à Evolution Gaming ni aux opérateurs mentionnés."
+      "price.note": "Essai gratuit : un par numéro de mobile de Colombie, du Brésil, d'Espagne ou de France. Rien n'est prélevé automatiquement.",
+      "faq.tag": "Questions fréquentes",
+      "faq.title": "Tes questions, en simple",
+      "faq.q1": "Faut-il s'y connaître en paris ?",
+      "faq.a1": "Non. Lis plus haut «Le Bac Bo en 30 secondes», «Comment lire un signal» et «Les gales». Ça suffit pour suivre n'importe quel signal : le bot te dit quoi miser et quoi faire à chaque étape.",
+      "faq.q2": "Un gale, en une phrase ?",
+      "faq.a2": "Remiser sur le même côté avec le double, pour que si ça passe tu récupères ce que tu as perdu et gagnes 1 jeton.",
+      "faq.q3": "Suis-je obligé de jouer les gales ?",
+      "faq.a3": "Non. Si tu ne joues que la Directe, tu gagnes ou perds 1 jeton par signal, c'est tout. Mais garde en tête que notre efficacité compte les signaux gagnés à n'importe quelle étape, gales compris.",
+      "faq.q4": "Que faire en cas d'égalité ?",
+      "faq.a4": "Rien de spécial : le casino te rend 90 % et tu répètes la même mise, sans doubler. Le bot te le rappelle par un message.",
+      "faq.q5": "Et si je vois le signal en retard ?",
+      "faq.a5": "Si le tour sur lequel il fallait miser est déjà passé, n'entre pas en cours de route. Attends le prochain signal : il y en a toujours d'autres.",
+      "faq.q6": "Dans quel casino jouer ?",
+      "faq.a6": "N'importe quel casino proposant la table en direct Bac Bo d'Evolution : c'est la même table partout. Joue uniquement dans des casinos légaux dans ton pays.",
+      "faq.q7": "Comment fonctionne l'essai gratuit ?",
+      "faq.a7": "Ce sont 7 jours de VIP complet. Tu vérifies simplement ton numéro dans le bot Telegram (un essai par personne). Valable pour les numéros de Colombie, du Brésil, d'Espagne et de France.",
+      "faq.q8": "Comment payer et quand est-ce activé ?",
+      "faq.a8": "En Colombie, avec Bre-B : 100 000 pesos par mois. Depuis n'importe quel pays, avec 27 USDT sur le réseau Polygon. Envoie au bot la capture du reçu et, dès qu'on le confirme, tu reçois l'accès.",
+      "faq.q9": "Suis-je prélevé automatiquement chaque mois ?",
+      "faq.a9": "Non. Rien n'est prélevé automatiquement : tu paies mois par mois, seulement si tu veux continuer. Si tu ne renouvelles pas, tu quittes le VIP et restes dans le canal gratuit.",
+      "faq.q10": "Les signaux gagnent-ils toujours ?",
+      "faq.a10": "Non, et personne ne peut te le promettre : le Bac Bo, c'est du hasard. Il y a de bons et de mauvais jours. C'est pourquoi le bot fait une pause après 2 pertes d'affilée. Ne mise que ce que tu es prêt à perdre.",
+      "final.title": "On essaie ?",
+      "final.text": "7 jours de VIP gratuits, sans carte. Si ça ne te convainc pas, tu restes sur le canal gratuit.",
+      "final.cta": "🎁 Commencer mes 7 jours gratuits",
+      "footer.disclaimer": "Dados Dorados propose une analyse de motifs pour les tables en direct, sans garantie de résultats. Parier comporte un risque réel de perte d'argent : joue de façon responsable et uniquement avec ce que tu peux te permettre de perdre. Réservé aux 18 ans et plus. Nous ne sommes affiliés ni à Evolution Gaming ni à aucun casino."
     }
   };
   var LOCALES = { es: "es-CO", en: "en-US", fr: "fr-FR" };
