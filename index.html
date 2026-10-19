@@ -283,6 +283,68 @@
   .foot a:hover{color:var(--gold-light);}
   .disclaimer{margin-top:22px; padding-top:18px; border-top:1px solid var(--line-soft); color:var(--text-faint); font-size:0.78rem; line-height:1.65;}
 
+  /* ---------- mesa en vivo ---------- */
+  .beads{display:inline-flex; gap:3px; flex-wrap:wrap; max-width:440px;}
+  .bead{width:11px; height:11px; border-radius:50%; display:inline-block;}
+  .bead.p{background:var(--player);} .bead.b{background:var(--banker);} .bead.t{background:#e8c547;}
+  .bead.nueva{animation:entra .5s ease;}
+  @keyframes entra{from{transform:scale(0)} to{transform:scale(1)}}
+  .mesa-viva small{color:var(--text-faint);}
+
+  /* ---------- calculadora ---------- */
+  .calc{margin-top:34px; padding:30px 28px;}
+  .calc-title{font-size:clamp(1.7rem, 3.4vw, 2.2rem); margin-bottom:6px;}
+  .calc-lead{color:var(--text-dim); margin-bottom:22px;}
+  .calc-inputs{display:grid; grid-template-columns:1fr 1fr auto; gap:16px; margin-bottom:20px; align-items:end;}
+  .calc-inputs label, .calc-gales{display:flex; flex-direction:column; gap:6px; color:var(--text-dim); font-size:0.86rem; font-weight:600;}
+  .calc-inputs input{
+    background:var(--bg); border:1px solid var(--line); border-radius:12px; color:var(--text);
+    font:700 1.05rem 'Inter', sans-serif; padding:12px 14px; width:100%;
+  }
+  .calc-inputs input:focus{outline:none; border-color:var(--gold);}
+  .seg{display:flex; border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .seg button{background:none; border:0; color:var(--text-dim); font:800 1rem 'Inter', sans-serif; padding:12px 20px; cursor:pointer;}
+  .seg button[aria-pressed="true"]{background:var(--gold); color:#151007;}
+  .desliza{overflow-x:auto;}
+  .calc-tabla{width:100%; border-collapse:collapse; font-size:0.95rem; min-width:520px;}
+  .calc-tabla th{color:var(--text-faint); font-weight:600; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.08em; text-align:right; padding:8px 10px; border-bottom:1px solid var(--line);}
+  .calc-tabla th:first-child, .calc-tabla td:first-child{text-align:left;}
+  .calc-tabla td{padding:12px 10px; text-align:right; border-bottom:1px solid var(--line-soft);}
+  .calc-tabla td.gana{color:var(--green); font-weight:800;}
+  .calc-risk{margin-top:16px; color:#f3c2c1; font-weight:600;}
+  .calc-consejo{margin-top:6px; color:var(--text-dim);}
+
+  /* ---------- práctica ---------- */
+  .sim{max-width:680px; margin:0 auto; padding:28px; text-align:center;}
+  .sim-signal{background:#182533; color:#e9eef3; border-radius:12px; padding:12px 14px; font-weight:700; font-size:0.92rem; margin-bottom:20px;}
+  .sim-mesa{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;}
+  .sim-lado{border-radius:14px; padding:16px; border:1px solid; transition:box-shadow .3s ease;}
+  .sim-lado.player{border-color:rgba(76,141,255,0.45); background:rgba(76,141,255,0.08);}
+  .sim-lado.banker{border-color:rgba(239,83,80,0.45); background:rgba(239,83,80,0.08);}
+  .sim-lado.player b{color:var(--player);} .sim-lado.banker b{color:var(--banker);}
+  .sim-lado b{letter-spacing:0.12em; font-size:0.9rem;}
+  .sim-lado.gana{box-shadow:0 0 0 2px var(--gold), 0 0 24px rgba(212,175,55,0.25);}
+  .sim-dados{font-size:3rem; line-height:1.1; letter-spacing:6px;}
+  .sim-dados.rodando{animation:rueda .12s linear infinite;}
+  @keyframes rueda{0%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} 100%{transform:rotate(-8deg)}}
+  .sim-lado small{color:var(--text-faint);}
+  .sim-pasos{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:10px;}
+  .sim-paso{border:1px solid var(--line); border-radius:999px; padding:5px 12px; font-size:0.8rem; color:var(--text-faint);}
+  .sim-paso.actual{border-color:var(--gold); color:var(--gold-light);}
+  .sim-paso.hecho{color:var(--banker); border-color:rgba(239,83,80,0.4); text-decoration:line-through;}
+  .sim-paso.ok{color:var(--green); border-color:rgba(76,175,125,0.5);}
+  .sim-estado{color:var(--text-dim); font-weight:600; margin-bottom:6px;}
+  .sim-msg{min-height:3.2em; font-weight:600; margin-bottom:16px;}
+  .sim-botones{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:16px;}
+  .sim-botones button{cursor:pointer; border:0; font-family:'Inter', sans-serif;}
+  .sim-botones .btn-ghost{border:1px solid var(--line);}
+  .sim-botones button:disabled{opacity:.45; cursor:default; transform:none;}
+  .sim-pie{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; color:var(--text-dim); font-size:0.9rem; border-top:1px solid var(--line-soft); padding-top:14px;}
+  .sim-pie b{color:var(--gold-light);}
+  .sim-nota{color:var(--text-faint); font-size:0.8rem; margin-top:12px;}
+  @media (max-width:720px){ .calc-inputs{grid-template-columns:1fr;} .calc{padding:24px 18px;} .sim{padding:22px 16px;} .sim-dados{font-size:2.4rem;} }
+  @media (prefers-reduced-motion: reduce){ .sim-dados.rodando, .bead.nueva{animation:none;} }
+
   /* ---------- aparición al hacer scroll ---------- */
   .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s cubic-bezier(.16,.8,.24,1);}
   .reveal.is-visible{opacity:1; transform:none;}
@@ -325,6 +387,7 @@
     <div class="nav-links">
       <a href="#como" data-i18n="nav.how">Cómo funciona</a>
       <a href="#gales" data-i18n="nav.gales">Gales</a>
+      <a href="#practica" data-i18n="nav.practice">Practicar</a>
       <a href="#resultados" data-i18n="nav.results">Resultados</a>
       <a href="#planes" data-i18n="nav.plans">Planes</a>
       <a href="#preguntas" data-i18n="nav.faq">Preguntas</a>
@@ -376,6 +439,7 @@
     <div class="wrap">
       <div class="live-item" id="botStatus"><span class="bot-dot" id="botDot"></span><span id="botStatusText" data-i18n="bot.checking">Consultando la mesa…</span></div>
       <div class="live-item"><span id="tickerText" data-i18n="ticker.loading">🎲 Última señal: cargando…</span></div>
+      <div class="live-item mesa-viva"><span data-i18n="live.table">Mesa en vivo:</span><span class="beads" id="beads" aria-hidden="true"></span><small id="beadsCount"></small></div>
     </div>
   </div>
 
@@ -473,11 +537,54 @@
         <div class="card reveal"><h3>🟡 <span data-i18n="gal.tieT">¿Y si sale empate en medio?</span></h3><p data-i18n="gal.tie">No cuenta como fallo. Repites la misma apuesta, sin doblar. Solo pierdes el 10 % de esa apuesta (el casino te devuelve el 90 %).</p></div>
         <div class="card reveal"><h3>🛡️ <span data-i18n="gal.tipT">Regla de oro</span></h3><p data-i18n="gal.tip">Si tienes 100 fichas, apuesta 1 o 2 por señal. Así una mala racha no te saca del juego. Y si el bot entra en pausa, haz pausa tú también.</p></div>
       </div>
+
+      <div class="calc card reveal" id="calculadora">
+        <span class="tag" data-i18n="calc.tag">Calculadora</span>
+        <h3 class="calc-title" data-i18n="calc.title">¿Cuánto arriesgo en una señal?</h3>
+        <p class="calc-lead" data-i18n="calc.lead">Pon el valor de tu ficha y tu banca: te mostramos cuánto apuestas en cada paso, cuánto recibes y cuánto ganas.</p>
+        <div class="calc-inputs">
+          <label><span data-i18n="calc.ficha">Valor de tu ficha</span><input type="number" id="calcFicha" min="1" step="any" value="5000" inputmode="decimal"></label>
+          <label><span data-i18n="calc.banca">Tu banca (todo lo que vas a usar)</span><input type="number" id="calcBanca" min="0" step="any" value="250000" inputmode="decimal"></label>
+          <div class="calc-gales"><span data-i18n="calc.gales">Gales de la señal</span>
+            <div class="seg" role="group"><button type="button" data-g="1" aria-pressed="false">1</button><button type="button" data-g="2" aria-pressed="true">2</button></div>
+          </div>
+        </div>
+        <div class="desliza"><table class="calc-tabla" id="calcTabla"></table></div>
+        <p class="calc-risk" id="calcRiesgo"></p>
+        <p class="calc-consejo" id="calcConsejo"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRÁCTICA -->
+  <section id="practica">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag" data-i18n="sim.tag">Práctica sin dinero</span>
+        <h2 data-i18n="sim.title">Juega una señal de práctica</h2>
+        <p data-i18n="sim.lead">Tira los dados y sigue la señal paso a paso. Es de mentira: sirve para entender los gales antes de jugar de verdad.</p>
+      </div>
+      <div class="sim card reveal">
+        <div class="sim-signal" data-i18n="sim.signal">✅ ENTRADA CONFIRMADA · Apuesta en 🔴 BANKER · Gales: 2</div>
+        <div class="sim-mesa">
+          <div class="sim-lado player" id="simLadoP"><b>PLAYER</b><div class="sim-dados" id="simDadosP">⚀ ⚀</div><small id="simSumaP">—</small></div>
+          <div class="sim-lado banker" id="simLadoB"><b>BANKER</b><div class="sim-dados" id="simDadosB">⚀ ⚀</div><small id="simSumaB">—</small></div>
+        </div>
+        <div class="sim-pasos" id="simPasos"></div>
+        <p class="sim-estado" id="simEstado"></p>
+        <p class="sim-msg" id="simMsg" aria-live="polite"></p>
+        <div class="sim-botones">
+          <button type="button" class="btn btn-gold" id="simTirar" data-i18n="sim.roll">🎲 Tirar dados</button>
+          <button type="button" class="btn btn-ghost" id="simNueva" data-i18n="sim.new">🔄 Nueva señal</button>
+        </div>
+        <div class="sim-pie"><span><span data-i18n="sim.balance">Tus fichas de práctica</span>: <b id="simSaldo">100</b></span><span id="simHist"></span></div>
+        <p class="sim-nota" data-i18n="sim.note">Los dados son al azar, como en la mesa real: a veces se pierde. Ninguna señal es segura.</p>
+      </div>
     </div>
   </section>
 
   <!-- VENTAJAS -->
-  <section id="ventajas">
+  <section id="ventajas" class="alt">
     <div class="wrap">
       <div class="head reveal">
         <span class="tag" data-i18n="feat.tag">Qué te damos</span>
@@ -493,7 +600,7 @@
   </section>
 
   <!-- HORARIO -->
-  <section id="horario" class="alt">
+  <section id="horario">
     <div class="wrap">
       <div class="head reveal">
         <span class="tag" data-i18n="hours.tag">Horario</span>
@@ -520,7 +627,7 @@
   </section>
 
   <!-- RESULTADOS -->
-  <section id="resultados">
+  <section id="resultados" class="alt">
     <div class="wrap">
       <div class="head reveal">
         <span class="tag"><span class="bot-dot on"></span> <span data-i18n="dash.tag">En vivo</span></span>
@@ -545,7 +652,7 @@
   </section>
 
   <!-- PLANES -->
-  <section id="planes" class="alt">
+  <section id="planes">
     <div class="wrap">
       <div class="head reveal">
         <span class="tag" data-i18n="price.tag">Planes</span>
@@ -577,7 +684,7 @@
   </section>
 
   <!-- PREGUNTAS -->
-  <section id="preguntas">
+  <section id="preguntas" class="alt">
     <div class="wrap">
       <div class="head reveal">
         <span class="tag" data-i18n="faq.tag">Preguntas frecuentes</span>
@@ -615,6 +722,7 @@
       <div class="links">
         <a href="#como" data-i18n="nav.how">Cómo funciona</a>
         <a href="#gales" data-i18n="nav.gales">Gales</a>
+        <a href="#practica" data-i18n="nav.practice">Practicar</a>
         <a href="#resultados" data-i18n="nav.results">Resultados</a>
         <a href="#planes" data-i18n="nav.plans">Planes</a>
         <a href="#preguntas" data-i18n="nav.faq">Preguntas</a>
@@ -826,7 +934,49 @@
       "final.title": "¿Lo probamos?",
       "final.text": "7 días de VIP gratis, sin tarjeta. Si no te convence, te quedas en el canal gratis.",
       "final.cta": "🎁 Empezar mis 7 días gratis",
-      "footer.disclaimer": "Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados. Apostar implica riesgo real de perder dinero: juega con responsabilidad y solo lo que puedas permitirte perder. Servicio solo para mayores de 18 años. No estamos afiliados a Evolution Gaming ni a ningún casino."
+      "footer.disclaimer": "Dados Dorados ofrece análisis de patrones para mesas en vivo, sin garantía de resultados. Apostar implica riesgo real de perder dinero: juega con responsabilidad y solo lo que puedas permitirte perder. Servicio solo para mayores de 18 años. No estamos afiliados a Evolution Gaming ni a ningún casino.",
+      "nav.practice": "Practicar",
+      "live.table": "Mesa en vivo:",
+      "live.counts": "últimas {n}: 🔵 {p} · 🔴 {b} · 🟡 {t}",
+      "calc.tag": "Calculadora",
+      "calc.title": "¿Cuánto arriesgo en una señal?",
+      "calc.lead": "Pon el valor de tu ficha y tu banca: te mostramos cuánto apuestas en cada paso, cuánto recibes y cuánto ganas.",
+      "calc.ficha": "Valor de tu ficha",
+      "calc.banca": "Tu banca (todo lo que vas a usar)",
+      "calc.gales": "Gales de la señal",
+      "calc.thStep": "Paso",
+      "calc.thBet": "Apuestas",
+      "calc.thGet": "Si sale, recibes",
+      "calc.thSpent": "Pusiste en total",
+      "calc.thWin": "Ganancia",
+      "calc.risk": "Si fallan todos los pasos pierdes {x}.",
+      "calc.lasts": "Con tu banca aguantas {n} señales perdidas completas seguidas.",
+      "calc.ok": "✅ Buena proporción: tu ficha es el {pct} % de tu banca.",
+      "calc.high": "⚠️ Tu ficha es muy grande para tu banca ({pct} %). Te recomendamos bajarla a {x} o menos (2 %).",
+      "sim.tag": "Práctica sin dinero",
+      "sim.title": "Juega una señal de práctica",
+      "sim.lead": "Tira los dados y sigue la señal paso a paso. Es de mentira: sirve para entender los gales antes de jugar de verdad.",
+      "sim.signal": "✅ ENTRADA CONFIRMADA · Apuesta en 🔴 BANKER · Gales: 2",
+      "sim.roll": "🎲 Tirar dados",
+      "sim.new": "🔄 Nueva señal",
+      "sim.balance": "Tus fichas de práctica",
+      "sim.step": "Ahora: {paso} · apuestas {f} {fichas} a Banker",
+      "sim.chip1": "ficha",
+      "sim.chipN": "fichas",
+      "sim.start": "Toca «Tirar dados» para jugar la Directa.",
+      "sim.win": "✅ ¡Salió Banker! Ganaste en {paso}: recibes {r}. La señal te deja +1 ficha.",
+      "sim.next": "❌ Salió Player. Tranquilo: vamos al {paso} y doblas a {f} fichas.",
+      "sim.tie": "🟡 Empate. No cuenta como fallo: te devuelven el 90 % y repites la misma apuesta.",
+      "sim.lost": "❌ Salió Player en el último paso. Señal perdida: −7 fichas. Por eso tu ficha debe ser pequeña.",
+      "sim.done": "Señal terminada. Toca «Nueva señal» para otra.",
+      "sim.history": "Señales de práctica: {g} ganadas · {p} perdidas",
+      "sim.note": "Los dados son al azar, como en la mesa real: a veces se pierde. Ninguna señal es segura.",
+      "step.0": "la Directa",
+      "step.1": "el Gale 1",
+      "step.2": "el Gale 2",
+      "stepName.0": "Directa",
+      "stepName.1": "Gale 1",
+      "stepName.2": "Gale 2"
     },
     "en": {
       "meta.title": "Dados Dorados — Live Bac Bo signals on Telegram",
@@ -1021,7 +1171,49 @@
       "final.title": "Shall we try it?",
       "final.text": "7 days of free VIP, no card. If it's not for you, you stay in the free channel.",
       "final.cta": "🎁 Start my 7 free days",
-      "footer.disclaimer": "Dados Dorados provides pattern analysis for live tables, with no guarantee of results. Betting involves a real risk of losing money: play responsibly and only with what you can afford to lose. Adults (18+) only. We are not affiliated with Evolution Gaming or any casino."
+      "footer.disclaimer": "Dados Dorados provides pattern analysis for live tables, with no guarantee of results. Betting involves a real risk of losing money: play responsibly and only with what you can afford to lose. Adults (18+) only. We are not affiliated with Evolution Gaming or any casino.",
+      "nav.practice": "Practice",
+      "live.table": "Live table:",
+      "live.counts": "last {n}: 🔵 {p} · 🔴 {b} · 🟡 {t}",
+      "calc.tag": "Calculator",
+      "calc.title": "How much do I risk on a signal?",
+      "calc.lead": "Enter your chip value and your bankroll: we show how much you bet at each step, how much you receive and how much you win.",
+      "calc.ficha": "Your chip value",
+      "calc.banca": "Your bankroll (everything you'll use)",
+      "calc.gales": "Gales on the signal",
+      "calc.thStep": "Step",
+      "calc.thBet": "You bet",
+      "calc.thGet": "If it hits, you get",
+      "calc.thSpent": "Total put in",
+      "calc.thWin": "Profit",
+      "calc.risk": "If every step misses you lose {x}.",
+      "calc.lasts": "With your bankroll you can survive {n} fully lost signals in a row.",
+      "calc.ok": "✅ Good ratio: your chip is {pct}% of your bankroll.",
+      "calc.high": "⚠️ Your chip is too big for your bankroll ({pct}%). We recommend lowering it to {x} or less (2%).",
+      "sim.tag": "Practice, no money",
+      "sim.title": "Play a practice signal",
+      "sim.lead": "Roll the dice and follow the signal step by step. It's pretend: it helps you understand gales before playing for real.",
+      "sim.signal": "✅ ENTRY CONFIRMED · Bet on 🔴 BANKER · Gales: 2",
+      "sim.roll": "🎲 Roll the dice",
+      "sim.new": "🔄 New signal",
+      "sim.balance": "Your practice chips",
+      "sim.step": "Now: {paso} · you bet {f} {fichas} on Banker",
+      "sim.chip1": "chip",
+      "sim.chipN": "chips",
+      "sim.start": "Tap «Roll the dice» to play the Direct bet.",
+      "sim.win": "✅ Banker won! You won on {paso}: you receive {r}. The signal leaves you +1 chip.",
+      "sim.next": "❌ Player won. Don't worry: on to {paso}, double up to {f} chips.",
+      "sim.tie": "🟡 Tie. It doesn't count as a miss: you get 90% back and repeat the same bet.",
+      "sim.lost": "❌ Player won on the last step. Signal lost: −7 chips. That's why your chip should be small.",
+      "sim.done": "Signal over. Tap «New signal» for another one.",
+      "sim.history": "Practice signals: {g} won · {p} lost",
+      "sim.note": "The dice are random, like at the real table: sometimes you lose. No signal is guaranteed.",
+      "step.0": "the Direct bet",
+      "step.1": "Gale 1",
+      "step.2": "Gale 2",
+      "stepName.0": "Direct",
+      "stepName.1": "Gale 1",
+      "stepName.2": "Gale 2"
     },
     "fr": {
       "meta.title": "Dados Dorados — Signaux de Bac Bo en direct sur Telegram",
@@ -1216,7 +1408,49 @@
       "final.title": "On essaie ?",
       "final.text": "7 jours de VIP gratuits, sans carte. Si ça ne te convainc pas, tu restes sur le canal gratuit.",
       "final.cta": "🎁 Commencer mes 7 jours gratuits",
-      "footer.disclaimer": "Dados Dorados propose une analyse de motifs pour les tables en direct, sans garantie de résultats. Parier comporte un risque réel de perte d'argent : joue de façon responsable et uniquement avec ce que tu peux te permettre de perdre. Réservé aux 18 ans et plus. Nous ne sommes affiliés ni à Evolution Gaming ni à aucun casino."
+      "footer.disclaimer": "Dados Dorados propose une analyse de motifs pour les tables en direct, sans garantie de résultats. Parier comporte un risque réel de perte d'argent : joue de façon responsable et uniquement avec ce que tu peux te permettre de perdre. Réservé aux 18 ans et plus. Nous ne sommes affiliés ni à Evolution Gaming ni à aucun casino.",
+      "nav.practice": "S'entraîner",
+      "live.table": "Table en direct :",
+      "live.counts": "{n} derniers : 🔵 {p} · 🔴 {b} · 🟡 {t}",
+      "calc.tag": "Calculatrice",
+      "calc.title": "Combien je risque sur un signal ?",
+      "calc.lead": "Indique la valeur de ton jeton et ta bankroll : on te montre combien tu mises à chaque étape, combien tu reçois et combien tu gagnes.",
+      "calc.ficha": "Valeur de ton jeton",
+      "calc.banca": "Ta bankroll (tout ce que tu vas utiliser)",
+      "calc.gales": "Gales du signal",
+      "calc.thStep": "Étape",
+      "calc.thBet": "Tu mises",
+      "calc.thGet": "Si ça passe, tu reçois",
+      "calc.thSpent": "Total misé",
+      "calc.thWin": "Gain",
+      "calc.risk": "Si toutes les étapes échouent, tu perds {x}.",
+      "calc.lasts": "Avec ta bankroll, tu tiens {n} signaux entièrement perdus d'affilée.",
+      "calc.ok": "✅ Bon rapport : ton jeton représente {pct} % de ta bankroll.",
+      "calc.high": "⚠️ Ton jeton est trop gros pour ta bankroll ({pct} %). On te conseille de le baisser à {x} ou moins (2 %).",
+      "sim.tag": "Entraînement sans argent",
+      "sim.title": "Joue un signal d'entraînement",
+      "sim.lead": "Lance les dés et suis le signal étape par étape. C'est pour de faux : ça t'aide à comprendre les gales avant de jouer pour de vrai.",
+      "sim.signal": "✅ ENTRÉE CONFIRMÉE · Mise sur 🔴 BANKER · Gales : 2",
+      "sim.roll": "🎲 Lancer les dés",
+      "sim.new": "🔄 Nouveau signal",
+      "sim.balance": "Tes jetons d'entraînement",
+      "sim.step": "Maintenant : {paso} · tu mises {f} {fichas} sur Banker",
+      "sim.chip1": "jeton",
+      "sim.chipN": "jetons",
+      "sim.start": "Touche «Lancer les dés» pour jouer la Directe.",
+      "sim.win": "✅ Banker gagne ! Tu as gagné à {paso} : tu reçois {r}. Le signal te laisse +1 jeton.",
+      "sim.next": "❌ Player gagne. Pas de panique : on passe au {paso} et tu doubles à {f} jetons.",
+      "sim.tie": "🟡 Égalité. Ça ne compte pas comme un échec : on te rend 90 % et tu répètes la même mise.",
+      "sim.lost": "❌ Player gagne à la dernière étape. Signal perdu : −7 jetons. C'est pour ça que ton jeton doit être petit.",
+      "sim.done": "Signal terminé. Touche «Nouveau signal» pour un autre.",
+      "sim.history": "Signaux d'entraînement : {g} gagnés · {p} perdus",
+      "sim.note": "Les dés sont aléatoires, comme à la vraie table : parfois on perd. Aucun signal n'est garanti.",
+      "step.0": "la Directe",
+      "step.1": "le Gale 1",
+      "step.2": "le Gale 2",
+      "stepName.0": "Directe",
+      "stepName.1": "Gale 1",
+      "stepName.2": "Gale 2"
     }
   };
   var LOCALES = { es: "es-CO", en: "en-US", fr: "fr-FR" };
@@ -1729,6 +1963,187 @@
       el.textContent = parseInt(el.dataset.countTo, 10).toLocaleString(locale()) + (el.dataset.suffix || "");
     });
   }
+
+  // ======================================================================
+  // ---- Mesa en vivo: las últimas 30 rondas reales (tabla rondas_bacbo) ----
+  var ultimaIdMesa = null, ultimasRondas = [];
+  function claseRonda(r) {
+    var x = String(r || "").charAt(0).toUpperCase();
+    return x === "P" ? "p" : x === "B" ? "b" : "t";
+  }
+  function pintarMesa(nuevasDesde) {
+    var cont = document.getElementById("beads");
+    var cuenta = document.getElementById("beadsCount");
+    if (!cont) return;
+    cont.innerHTML = "";
+    var n = { p: 0, b: 0, t: 0 };
+    ultimasRondas.forEach(function (r) {
+      var c = claseRonda(r.resultado);
+      n[c]++;
+      var s = document.createElement("span");
+      s.className = "bead " + c + (nuevasDesde !== null && r.id > nuevasDesde ? " nueva" : "");
+      s.title = r.resultado;
+      cont.appendChild(s);
+    });
+    if (cuenta) cuenta.textContent = ultimasRondas.length
+      ? t("live.counts", { n: ultimasRondas.length, p: n.p, b: n.b, t: n.t }) : "";
+  }
+  async function cargarMesa() {
+    try {
+      var res = await fetch(SUPABASE_URL + "/rest/v1/rondas_bacbo?select=id,resultado&order=id.desc&limit=30", { headers: headers });
+      if (!res.ok) return;
+      var filas = await res.json();
+      if (!Array.isArray(filas) || !filas.length) return;
+      var antes = ultimaIdMesa;
+      ultimasRondas = filas.reverse();
+      ultimaIdMesa = ultimasRondas[ultimasRondas.length - 1].id;
+      if (antes !== ultimaIdMesa) pintarMesa(antes);
+    } catch (e) {}
+  }
+  cargarMesa();
+  setInterval(cargarMesa, 15000);
+
+  // ---- Calculadora de gales ----
+  var calcGales = 2;
+  function num(v) { return Number(v).toLocaleString(locale(), { maximumFractionDigits: 2 }); }
+  function renderCalc() {
+    var tabla = document.getElementById("calcTabla");
+    if (!tabla) return;
+    var f = parseFloat(document.getElementById("calcFicha").value);
+    var b = parseFloat(document.getElementById("calcBanca").value);
+    var riesgo = document.getElementById("calcRiesgo");
+    var consejo = document.getElementById("calcConsejo");
+    if (!(f > 0)) { tabla.innerHTML = ""; riesgo.textContent = ""; consejo.textContent = ""; return; }
+    var filas = "<tr><th>" + t("calc.thStep") + "</th><th>" + t("calc.thBet") + "</th><th>" + t("calc.thGet") +
+      "</th><th>" + t("calc.thSpent") + "</th><th>" + t("calc.thWin") + "</th></tr>";
+    for (var k = 0; k <= calcGales; k++) {
+      var apuesta = f * Math.pow(2, k);
+      var puesto = f * (Math.pow(2, k + 1) - 1);
+      filas += "<tr><td><b>" + t("stepName." + k) + "</b></td><td>" + num(apuesta) + "</td><td>" + num(apuesta * 2) +
+        "</td><td>" + num(puesto) + "</td><td class=\"gana\">+" + num(apuesta * 2 - puesto) + "</td></tr>";
+    }
+    tabla.innerHTML = filas;
+    var maxRiesgo = f * (Math.pow(2, calcGales + 1) - 1);
+    riesgo.textContent = t("calc.risk", { x: num(maxRiesgo) });
+    if (b > 0) {
+      var pct = f / b * 100;
+      var aguanta = Math.floor(b / maxRiesgo);
+      consejo.textContent = t("calc.lasts", { n: aguanta }) + " " + (pct > 2
+        ? t("calc.high", { pct: num(Math.round(pct * 10) / 10), x: num(Math.floor(b * 0.02)) })
+        : t("calc.ok", { pct: num(Math.round(pct * 10) / 10) }));
+    } else {
+      consejo.textContent = "";
+    }
+  }
+  ["calcFicha", "calcBanca"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener("input", renderCalc);
+  });
+  document.querySelectorAll(".seg button[data-g]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      calcGales = parseInt(btn.getAttribute("data-g"), 10);
+      document.querySelectorAll(".seg button[data-g]").forEach(function (o) {
+        o.setAttribute("aria-pressed", o === btn ? "true" : "false");
+      });
+      renderCalc();
+    });
+  });
+  renderCalc();
+
+  // ---- Práctica: una señal de mentira con dados al azar ----
+  var CARAS = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+  var sim = { paso: 0, saldo: 100, fin: false, ganadas: 0, perdidas: 0, msg: { k: "sim.start", v: {} }, girando: false };
+  function dado() { return 1 + Math.floor(Math.random() * 6); }
+  function fichas(n) { return num(n) + " " + t(n === 1 ? "sim.chip1" : "sim.chipN"); }
+  function renderSim() {
+    var pasos = document.getElementById("simPasos");
+    if (!pasos) return;
+    pasos.innerHTML = "";
+    for (var k = 0; k <= 2; k++) {
+      var p = document.createElement("span");
+      var cls = "sim-paso";
+      if (k < sim.paso) cls += " hecho";
+      if (k === sim.paso) cls += sim.fin ? (sim.ultimo === "gana" ? " ok" : " hecho") : " actual";
+      p.className = cls;
+      p.textContent = t("stepName." + k);
+      pasos.appendChild(p);
+    }
+    document.getElementById("simEstado").textContent = sim.fin ? t("sim.done")
+      : t("sim.step", { paso: t("stepName." + sim.paso), f: num(Math.pow(2, sim.paso)), fichas: t(sim.paso === 0 ? "sim.chip1" : "sim.chipN") });
+    var v = {};
+    Object.keys(sim.msg.v).forEach(function (k) { v[k] = typeof sim.msg.v[k] === "function" ? sim.msg.v[k]() : sim.msg.v[k]; });
+    document.getElementById("simMsg").textContent = t(sim.msg.k, v);
+    document.getElementById("simSaldo").textContent = num(Math.round(sim.saldo * 10) / 10);
+    document.getElementById("simHist").textContent = t("sim.history", { g: sim.ganadas, p: sim.perdidas });
+    document.getElementById("simTirar").disabled = sim.fin || sim.girando;
+  }
+  function tirar() {
+    if (sim.fin || sim.girando) return;
+    sim.girando = true;
+    var apuesta = Math.pow(2, sim.paso);
+    sim.saldo -= apuesta;
+    var dP = document.getElementById("simDadosP"), dB = document.getElementById("simDadosB");
+    var ladoP = document.getElementById("simLadoP"), ladoB = document.getElementById("simLadoB");
+    ladoP.classList.remove("gana"); ladoB.classList.remove("gana");
+    document.getElementById("simSumaP").textContent = "…";
+    document.getElementById("simSumaB").textContent = "…";
+    renderSim();
+    var vueltas = prefersReduced ? 0 : 9;
+    dP.classList.add("rodando"); dB.classList.add("rodando");
+    var reloj = setInterval(function () {
+      dP.textContent = CARAS[dado() - 1] + " " + CARAS[dado() - 1];
+      dB.textContent = CARAS[dado() - 1] + " " + CARAS[dado() - 1];
+      if (--vueltas > 0) return;
+      clearInterval(reloj);
+      dP.classList.remove("rodando"); dB.classList.remove("rodando");
+      var p1 = dado(), p2 = dado(), b1 = dado(), b2 = dado();
+      dP.textContent = CARAS[p1 - 1] + " " + CARAS[p2 - 1];
+      dB.textContent = CARAS[b1 - 1] + " " + CARAS[b2 - 1];
+      document.getElementById("simSumaP").textContent = p1 + " + " + p2 + " = " + (p1 + p2);
+      document.getElementById("simSumaB").textContent = b1 + " + " + b2 + " = " + (b1 + b2);
+      var sp = p1 + p2, sb = b1 + b2;
+      if (sb > sp) {
+        ladoB.classList.add("gana");
+        sim.saldo += apuesta * 2;
+        sim.fin = true; sim.ultimo = "gana"; sim.ganadas++;
+        var pasoGano = sim.paso;
+        sim.msg = { k: "sim.win", v: { paso: function () { return t("step." + pasoGano); }, r: function () { return fichas(apuesta * 2); } } };
+      } else if (sp > sb) {
+        ladoP.classList.add("gana");
+        if (sim.paso < 2) {
+          sim.paso++;
+          var pasoSig = sim.paso;
+          sim.msg = { k: "sim.next", v: { paso: function () { return t("step." + pasoSig); }, f: num(Math.pow(2, pasoSig)) } };
+        } else {
+          sim.fin = true; sim.ultimo = "pierde"; sim.perdidas++;
+          sim.msg = { k: "sim.lost", v: {} };
+        }
+      } else {
+        sim.saldo += apuesta * 0.9;
+        sim.msg = { k: "sim.tie", v: {} };
+      }
+      sim.girando = false;
+      renderSim();
+    }, 90);
+  }
+  function nuevaSenal() {
+    if (sim.girando) return;
+    sim.paso = 0; sim.fin = false; sim.ultimo = null;
+    sim.msg = { k: "sim.start", v: {} };
+    document.getElementById("simLadoP").classList.remove("gana");
+    document.getElementById("simLadoB").classList.remove("gana");
+    renderSim();
+  }
+  var btnTirar = document.getElementById("simTirar");
+  if (btnTirar) btnTirar.addEventListener("click", tirar);
+  var btnNueva = document.getElementById("simNueva");
+  if (btnNueva) btnNueva.addEventListener("click", nuevaSenal);
+  renderSim();
+
+  // Al cambiar de idioma, los textos que arman estas piezas también cambian.
+  document.querySelectorAll(".lang-switch button").forEach(function (btn) {
+    btn.addEventListener("click", function () { pintarMesa(null); renderCalc(); renderSim(); });
+  });
 })();
 </script>
 
