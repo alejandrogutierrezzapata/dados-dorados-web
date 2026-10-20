@@ -276,6 +276,10 @@
   .faq summary::after{content:"+"; position:absolute; right:0; top:13px; color:var(--gold); font-size:1.45rem; font-weight:400;}
   .faq details[open] summary::after{content:"–";}
   .faq details p{color:var(--text-dim); padding:0 0 20px; line-height:1.7;}
+  /* abrir y cerrar con un deslizamiento suave (Chrome/Edge; los demás abren de golpe) */
+  .faq{interpolate-size:allow-keywords;}
+  .faq details::details-content{height:0; overflow:hidden; transition:height .3s cubic-bezier(.16,.8,.24,1), content-visibility .3s allow-discrete;}
+  .faq details[open]::details-content{height:auto;}
 
   /* ---------- final y pie ---------- */
   .final{text-align:center; background:radial-gradient(ellipse at center, rgba(212,175,55,0.1), transparent 65%);}
@@ -398,6 +402,7 @@
     .msg{animation:none !important; opacity:1;}
     .reveal{opacity:1; transform:none; transition:none;}
     .bot-dot.on{animation:none;}
+    .faq details::details-content{transition:none;}
   }
 </style>
 </head>
