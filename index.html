@@ -1734,6 +1734,17 @@
   document.querySelectorAll(".lang-switch button").forEach(function (btn) {
     btn.addEventListener("click", pintarOpiniones);
   });
+
+  // ---- Preguntas frecuentes: un mouse que manda dos clics abriría y cerraría
+  // la pregunta al instante; el segundo clic seguido se ignora ----
+  var ultimoClicFaq = 0;
+  document.querySelectorAll(".faq summary").forEach(function (s) {
+    s.addEventListener("click", function (e) {
+      var ahora = Date.now();
+      if (e.detail > 1 || ahora - ultimoClicFaq < 400) { e.preventDefault(); return; }
+      ultimoClicFaq = ahora;
+    });
+  });
 })();
 </script>
 
