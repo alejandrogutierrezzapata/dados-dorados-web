@@ -50,7 +50,10 @@
     background:var(--bg); color:var(--text);
     font-family:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; line-height:1.6;
     -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    /* sin seleccionar ni copiar texto; sin el resaltado azul al tocar en el celular */
+    -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; -webkit-tap-highlight-color:transparent;
   }
+  a, button, summary{touch-action:manipulation;}
   h1, h2, h3{font-family:'Cormorant Garamond', Georgia, serif; font-weight:700; line-height:1.1;}
   a{color:inherit;}
   .wrap{max-width:var(--max); margin:0 auto; padding:0 20px;}
