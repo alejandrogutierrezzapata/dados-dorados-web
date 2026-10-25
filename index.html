@@ -36,6 +36,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");  // las pestañas de la guía muestran una a la vez solo con JavaScript</script>
 <style>
   :root{
     --bg:#0b0a08; --bg-alt:#12100c; --card:#17140f; --card-2:#1d1913; --line:#2c2416; --line-soft:rgba(242,237,225,0.07);
@@ -377,6 +378,39 @@
   .edad-caja small{color:var(--text-faint); font-size:0.78rem;}
   .edad-caja small a{color:var(--text-dim);}
 
+  /* ---------- enlace a la guía (menú, siempre visible) ---------- */
+  .nav-guia{color:var(--gold-light); text-decoration:none; font-size:0.9rem; font-weight:700; white-space:nowrap;}
+  .nav-guia:hover{color:var(--gold);}
+  .nav-guia[aria-current="page"]{color:var(--text-faint); pointer-events:none;}
+
+  /* ---------- inicio: invitación a la guía ---------- */
+  .guia-cta{display:flex; align-items:center; gap:22px; padding:24px 26px; margin-top:22px; border-color:var(--gold-dim);}
+  .guia-cta .ico-libro{font-size:2rem; flex:none;}
+  .guia-cta h3{font-family:'Inter', sans-serif; font-size:1.05rem; font-weight:800; margin-bottom:4px;}
+  .guia-cta p{color:var(--text-dim); font-size:0.95rem;}
+  .guia-cta .btn{margin-left:auto; flex:none;}
+
+  /* ---------- guía: encabezado y pestañas ---------- */
+  .guia-top{padding:56px 0 28px; text-align:center; position:relative; overflow:hidden;}
+  .guia-top::before{
+    content:""; position:absolute; inset:-60% 20% auto; height:520px; pointer-events:none;
+    background:radial-gradient(circle, rgba(212,175,55,0.12), transparent 62%);
+  }
+  .guia-top h1{font-size:clamp(2.4rem, 5.4vw, 3.6rem); margin-bottom:12px; position:relative;}
+  .guia-top p{color:var(--text-dim); font-size:1.06rem; max-width:560px; margin:0 auto; position:relative;}
+  .pestanas{position:sticky; top:57px; z-index:40; background:rgba(11,10,8,0.9); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--line-soft);}
+  .pestanas .wrap{display:flex; gap:8px; justify-content:center; padding-top:12px; padding-bottom:12px; overflow-x:auto; scrollbar-width:none;}
+  .pestanas .wrap::-webkit-scrollbar{display:none;}
+  .pestanas button{
+    flex:none; border:1px solid var(--line); background:none; color:var(--text-dim); border-radius:999px;
+    padding:9px 16px; font:700 0.86rem 'Inter', sans-serif; cursor:pointer; white-space:nowrap;
+  }
+  .pestanas button[aria-selected="true"]{border-color:var(--gold); color:#151007; background:linear-gradient(135deg, var(--gold-light), var(--gold));}
+  .panel{padding:56px 0 64px;}
+  .js .panel:not(.activa){display:none;}
+  .siguiente{display:flex; justify-content:center; margin-top:40px;}
+  .guia-top .volver{display:inline-block; margin-top:16px; color:var(--text-faint); font-size:0.86rem; position:relative;}
+
   /* ---------- aparición al hacer scroll ---------- */
   .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s cubic-bezier(.16,.8,.24,1);}
   .reveal.is-visible{opacity:1; transform:none;}
@@ -384,23 +418,40 @@
   /* ---------- responsive ---------- */
   @media (max-width:980px){
     .nav-links{display:none;}
-    .lang-switch{margin-left:auto;}
+    .nav-guia{margin-left:auto;}
     .hero-grid, .read-grid{grid-template-columns:1fr;}
     .hero{padding-top:48px;}
     .feats{grid-template-columns:1fr 1fr;}
     .dash-grid{grid-template-columns:1fr 1fr;}
   }
   @media (max-width:720px){
-    section{padding:72px 0;}
+    section{padding:64px 0;}
+    .head{margin-bottom:36px;}
     .steps, .ladder, .tips, .rules, .pricing, .hours-grid{grid-template-columns:1fr;}
-    .dash-grid-3{grid-template-columns:1fr;}
+    .steps{gap:12px;}
+    .step{padding:20px 20px; display:grid; grid-template-columns:auto 1fr; column-gap:16px; align-items:center;}
+    .step .num{width:48px; height:48px; font-size:1.5rem; margin-bottom:0; grid-row:span 2;}
+    .step h3{font-size:1.3rem; margin-bottom:2px;}
+    /* dos columnas; los textos largos (última señal, racha, mejor patrón) a todo el ancho */
+    .dash-grid, .dash-grid-3{grid-template-columns:1fr 1fr; gap:10px; grid-auto-flow:dense;}
+    .dash-grid:not(.dash-grid-3) > :nth-child(1), .dash-grid:not(.dash-grid-3) > :nth-child(3),
+    .dash-grid-3 > :last-child{grid-column:1 / -1;}
+    .dash-card{padding:16px 12px;}
+    .dash-value{font-size:1.7rem;}
+    .rung{padding:18px 18px; display:grid; grid-template-columns:auto 1fr; column-gap:14px; text-align:left; align-items:center;}
+    .rung > :not(.fichas){grid-column:2;}
+    .rung .fichas{grid-column:1; grid-row:1 / span 3; margin:0; justify-content:flex-start;}
     .duel{grid-template-columns:1fr; gap:10px;}
     .kpis{gap:22px;}
     .nav-cta{display:none;}
     .screen{min-height:470px;}
+    .guia-cta{flex-wrap:wrap;}
+    .guia-cta .btn{margin-left:0; width:100%;}
+    .pestanas .wrap{justify-content:flex-start;}
+    .panel{padding:40px 0 52px;}
   }
   @media (max-width:420px){
-    .feats, .dash-grid{grid-template-columns:1fr;}
+    .feats{grid-template-columns:1fr;}
     .hero-ctas .btn{width:100%;}
   }
   @media (prefers-reduced-motion: reduce){
@@ -412,18 +463,17 @@
   }
 </style>
 </head>
-<body>
+<body data-titulo="meta.title" data-descripcion="meta.description">
 
 <header>
   <nav>
-    <a class="brand" href="#"><img src="favicon.svg" alt=""><span class="gold-text">Dados Dorados</span></a>
+    <a class="brand" href="./"><img src="favicon.svg" alt=""><span class="gold-text">Dados Dorados</span></a>
     <div class="nav-links">
-      <a href="#como" data-i18n="nav.how">Cómo funciona</a>
-      <a href="#gales" data-i18n="nav.gales">Gales</a>
-      <a href="#resultados" data-i18n="nav.results">Resultados</a>
-      <a href="#planes" data-i18n="nav.plans">Planes</a>
-      <a href="#preguntas" data-i18n="nav.faq">Preguntas</a>
+      <a href="./#resultados" data-i18n="nav.results">Resultados</a>
+      <a href="./#planes" data-i18n="nav.plans">Planes</a>
+      <a href="./#preguntas" data-i18n="nav.faq">Preguntas</a>
     </div>
+    <a class="nav-guia" href="guia.html" data-i18n="nav.guide">📖 Guía para jugar</a>
     <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-aria="nav.langLabel">
       <button type="button" data-lang="es" aria-pressed="true" title="Español">ES</button>
       <button type="button" data-lang="en" aria-pressed="false" title="English">EN</button>
@@ -433,16 +483,17 @@
 </header>
 
 <main>
+  <!-- Página de inicio (index.html): convencer rápido. Lo de aprender a jugar está en guia.html -->
   <!-- HERO -->
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
         <span class="eyebrow"><span class="bot-dot" id="eyebrowDot"></span><span id="eyebrowText" data-i18n="hero.eyebrow">En vivo — leyendo la mesa de Bac Bo</span></span>
         <h1><span data-i18n="hero.title1">Señales de Bac Bo,</span><span class="gold-text" data-i18n="hero.title2">en vivo y en tu Telegram</span></h1>
-        <p class="hero-sub" data-i18n="hero.sub">Leemos la mesa ronda por ronda y te avisamos en qué apostar, cuándo hacerlo y qué hacer si no sale. Sin saber nada de apuestas: te lo explicamos todo aquí.</p>
+        <p class="hero-sub" data-i18n="hero.sub">Leemos la mesa ronda por ronda y te avisamos en qué apostar, cuándo hacerlo y qué hacer si no gana. Sin saber nada de apuestas: en la guía te lo explicamos todo.</p>
         <div class="hero-ctas">
           <a class="btn btn-gold" href="https://t.me/AGZ_Dice_Bot?start=web" target="_blank" rel="noopener" data-i18n="hero.cta">🎁 Probar VIP 7 días gratis</a>
-          <a class="btn btn-ghost" href="https://t.me/DadosDorados" target="_blank" rel="noopener" data-i18n="hero.free">Canal gratis</a>
+          <a class="btn btn-ghost" href="guia.html" data-i18n="hero.guide">📖 Aprende a jugar</a>
         </div>
         <p class="hero-age" data-i18n="hero.age">🔞 Solo mayores de 18 · Ninguna señal es segura · Juega con responsabilidad</p>
         <div class="kpis">
@@ -477,165 +528,6 @@
     </div>
   </div>
 
-  <!-- BAC BO EN 30 SEGUNDOS -->
-  <section id="bacbo">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="tag" data-i18n="bb.tag">Paso 0</span>
-        <h2 data-i18n="bb.title">Bac Bo en 30 segundos</h2>
-        <p data-i18n="bb.lead">Si nunca lo has jugado, esto es todo lo que necesitas saber.</p>
-      </div>
-      <div class="duel reveal">
-        <div class="side player"><b data-i18n="bb.player">PLAYER</b><div class="dados">⚄ ⚃</div><small>5 + 4 = 9</small></div>
-        <span class="vs" data-i18n="bb.vs">contra</span>
-        <div class="side banker"><b data-i18n="bb.banker">BANKER</b><div class="dados">⚅ ⚅</div><small>6 + 6 = 12 🏆</small></div>
-      </div>
-      <div class="rules">
-        <div class="card rule reveal"><i>1</i><p data-i18n="bb.p1">Hay dos lados: Player (azul) y Banker (rojo). Cada uno tira dos dados.</p></div>
-        <div class="card rule reveal"><i>2</i><p data-i18n="bb.p2">Gana el lado que sume más. Tú apuestas a cuál va a ganar.</p></div>
-        <div class="card rule reveal"><i>3</i><p data-i18n="bb.p3">Si aciertas, te pagan el doble de lo que apostaste: apuestas 5.000 y recibes 10.000 (tus 5.000 de vuelta + 5.000 de ganancia).</p></div>
-        <div class="card rule reveal"><i>4</i><p data-i18n="bb.p4">Si los dos suman igual es empate: el casino te devuelve el 90 % de lo que pusiste en Player o Banker.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CÓMO FUNCIONA -->
-  <section id="como" class="alt">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="tag" data-i18n="how.tag">Cómo funciona</span>
-        <h2 data-i18n="how.title">Tres pasos, sin complicaciones</h2>
-      </div>
-      <div class="steps">
-        <div class="card step reveal"><span class="num"><span class="gold-text">1</span></span><h3 data-i18n="how.s1t">Entra al bot</h3><p data-i18n="how.s1">Toca «Probar VIP 7 días gratis», verifica tu número en Telegram y listo: no pedimos tarjeta.</p></div>
-        <div class="card step reveal"><span class="num"><span class="gold-text">2</span></span><h3 data-i18n="how.s2t">Abre la mesa y espera</h3><p data-i18n="how.s2">Ten abierta la mesa de Bac Bo en tu casino. En el VIP primero llega «Posible entrada»: es para que estés listo.</p></div>
-        <div class="card step reveal"><span class="num"><span class="gold-text">3</span></span><h3 data-i18n="how.s3t">Apuesta y sigue los pasos</h3><p data-i18n="how.s3">Con «Entrada confirmada» apuestas en la siguiente ronda. Si no sale, el bot te dice exactamente qué hacer.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CÓMO SE LEE UNA SEÑAL -->
-  <section id="senal">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="tag" data-i18n="read.tag">La señal, por partes</span>
-        <h2 data-i18n="read.title">Cómo se lee una señal</h2>
-        <p data-i18n="read.lead">Cada «Entrada confirmada» trae tres datos. Con esto ya sabes jugarla.</p>
-      </div>
-      <div class="read-grid">
-        <div class="signal reveal" aria-hidden="true">
-          <strong data-i18n="m2.a">✅ ENTRADA CONFIRMADA ✅</strong>
-          <div class="linea"><span class="pin">1</span><span data-i18n="m2.b">🔥 Apuesta en 🔴 BANKER</span></div>
-          <div class="linea"><span class="pin">2</span><span data-i18n="m2.c">⏱ Apostar después de: 🔵 PLAYER</span></div>
-          <div class="linea"><span class="pin">3</span><span data-i18n="m2.d">🔄 Gales: 2</span></div>
-        </div>
-        <div class="explica">
-          <div class="card reveal"><span class="pin">1</span><div><h3 data-i18n="read.1t">Apuesta en</h3><p data-i18n="read.1">El lado al que le apuestas. Aquí: Banker, el rojo.</p></div></div>
-          <div class="card reveal"><span class="pin">2</span><div><h3 data-i18n="read.2t">Apostar después de</h3><p data-i18n="read.2">Es el resultado que acaba de salir en la mesa. Si en tu pantalla el último fue ese, apuesta ya, en la ronda que viene. Si ya pasó otra ronda, llegaste tarde: no entres a mitad, espera la próxima señal.</p></div></div>
-          <div class="card reveal"><span class="pin">3</span><div><h3 data-i18n="read.3t">Gales</h3><p data-i18n="read.3">Cuántos intentos extra tiene la señal si el primero falla: 1 o 2. Abajo te explicamos cómo funcionan.</p></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALES -->
-  <section id="gales" class="alt">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="tag" data-i18n="gal.tag">Lo más importante</span>
-        <h2 data-i18n="gal.title">Los gales, explicados fácil</h2>
-        <p data-i18n="gal.lead">Un gale es volver a apostar al mismo lado, con el doble, cuando la apuesta anterior no ganó. Estas son las fichas de la mesa; abajo lo ves con ellas, empezando por la más pequeña, la de 5.000.</p>
-      </div>
-      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-        <defs><g id="ficha">
-          <circle r="48" fill="var(--c)"/>
-          <g fill="#efe9de">
-            <g id="ficha-rayas"><rect x="-7" y="-48" width="5" height="11" rx="1"/><rect x="2" y="-48" width="5" height="11" rx="1"/></g>
-            <use href="#ficha-rayas" transform="rotate(45)"/><use href="#ficha-rayas" transform="rotate(90)"/><use href="#ficha-rayas" transform="rotate(135)"/>
-            <use href="#ficha-rayas" transform="rotate(180)"/><use href="#ficha-rayas" transform="rotate(225)"/><use href="#ficha-rayas" transform="rotate(270)"/><use href="#ficha-rayas" transform="rotate(315)"/>
-          </g>
-          <circle r="33" fill="var(--c2)" stroke="#efe9de" stroke-opacity="0.6" stroke-width="2.5" stroke-dasharray="5 3.5"/>
-        </g></defs>
-      </svg>
-      <div class="mesa-fichas reveal" aria-hidden="true">
-        <svg class="ficha f5" viewBox="-50 -50 100 100"><use href="#ficha"/><text y="9" text-anchor="middle">5000</text></svg>
-        <svg class="ficha f10" viewBox="-50 -50 100 100"><use href="#ficha"/><text y="9" text-anchor="middle">10k</text></svg>
-        <svg class="ficha f25" viewBox="-50 -50 100 100"><use href="#ficha"/><text y="9" text-anchor="middle">25k</text></svg>
-        <svg class="ficha f125" viewBox="-50 -50 100 100"><use href="#ficha"/><text y="9" text-anchor="middle">125k</text></svg>
-        <svg class="ficha f500" viewBox="-50 -50 100 100"><use href="#ficha"/><text y="9" text-anchor="middle">500k</text></svg>
-        <svg class="ficha f2m" viewBox="-50 -50 100 100"><use href="#ficha"/><text y="9" text-anchor="middle">2.5M</text></svg>
-      </div>
-      <div class="ladder">
-        <div class="card rung reveal">
-          <span class="n" data-i18n="gal.s1n">Directa</span>
-          <div class="fichas"><svg class="ficha f5" viewBox="-50 -50 100 100" aria-hidden="true"><use href="#ficha"/><text y="9" text-anchor="middle">5000</text></svg></div>
-          <b data-i18n="gal.s1b">Apuestas $5.000 (1 ficha de 5.000)</b><p data-i18n="gal.s1">Si gana, te pagan $10.000: recuperas tus $5.000 y ganas $5.000. Ahí termina la señal.</p>
-        </div>
-        <div class="card rung reveal">
-          <span class="n" data-i18n="gal.s2n">Gale 1</span>
-          <div class="fichas"><svg class="ficha f10" viewBox="-50 -50 100 100" aria-hidden="true"><use href="#ficha"/><text y="9" text-anchor="middle">10k</text></svg></div>
-          <b data-i18n="gal.s2b">Apuestas $10.000 (1 ficha de 10k)</b><p data-i18n="gal.s2">Solo si perdió la Directa. Si gana, te pagan $20.000. Habías puesto $15.000 en total ($5.000 + $10.000), así que ganas $5.000.</p>
-        </div>
-        <div class="card rung reveal">
-          <span class="n" data-i18n="gal.s3n">Gale 2</span>
-          <div class="fichas"><svg class="ficha f10" viewBox="-50 -50 100 100" aria-hidden="true"><use href="#ficha"/><text y="9" text-anchor="middle">10k</text></svg><svg class="ficha f10" viewBox="-50 -50 100 100" aria-hidden="true"><use href="#ficha"/><text y="9" text-anchor="middle">10k</text></svg></div>
-          <b data-i18n="gal.s3b">Apuestas $20.000 (2 fichas de 10k)</b><p data-i18n="gal.s3">Solo si perdió el Gale 1. Si gana, te pagan $40.000. Habías puesto $35.000 en total ($5.000 + $10.000 + $20.000), así que ganas $5.000.</p>
-        </div>
-      </div>
-      <div class="banner win reveal">✅ <span data-i18n="gal.win">Gane en el paso que gane, la señal te deja lo mismo: tu apuesta inicial. Si empezaste con $5.000, ganas $5.000. El gale no sirve para ganar más, sirve para recuperar lo perdido.</span></div>
-      <div class="banner info reveal">💵 <span data-i18n="gal.ex">¿Quieres empezar con más? Funciona igual: doblas en cada gale. Con $10.000: $10.000 → $20.000 → $40.000, y si gana te quedan $10.000 de ganancia.</span></div>
-      <div class="banner loss reveal">⚠️ <span data-i18n="gal.loss">Si fallan los tres pasos, pierdes $35.000 ($5.000 + $10.000 + $20.000): 7 veces tu apuesta inicial. Por eso conviene empezar con poco.</span></div>
-      <div class="banner info reveal">ℹ️ <span data-i18n="gal.one">¿La señal dice «Gales: 1»? Entonces solo hay Directa y Gale 1: lo máximo que arriesgas son $15.000 (3 veces tu apuesta inicial).</span></div>
-      <div class="tips">
-        <div class="card reveal"><h3>🟡 <span data-i18n="gal.tieT">¿Y si sale empate en medio?</span></h3><p data-i18n="gal.tie">No cuenta como fallo. Repites la misma apuesta, sin doblar. Solo pierdes el 10 % de esa apuesta (el casino te devuelve el 90 %).</p></div>
-        <div class="card reveal"><h3>🛡️ <span data-i18n="gal.tipT">Regla de oro</span></h3><p data-i18n="gal.tip">Si empiezas con $50.000 o $100.000, apuesta siempre la ficha de 5.000 y no subas el monto para recuperar. Una señal perdida con dos gales cuesta $35.000, así que con $50.000 lo más seguro es jugar solo hasta el Gale 1 ($15.000 como máximo). Y si el bot entra en pausa, haz pausa tú también.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VENTAJAS -->
-  <section id="ventajas">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="tag" data-i18n="feat.tag">Qué te damos</span>
-        <h2 data-i18n="feat.title">Hecho para que no tengas que adivinar</h2>
-      </div>
-      <div class="feats">
-        <div class="card feat reveal"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></span><h3 data-i18n="f1.title">Lectura en vivo</h3><p data-i18n="f1.text">Conectados a la mesa: cada ronda se analiza al instante.</p></div>
-        <div class="card feat reveal"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span><h3 data-i18n="f2.title">Patrones confirmados</h3><p data-i18n="f2.text">Solo avisamos cuando un patrón se confirma, no en cada ronda.</p></div>
-        <div class="card feat reveal"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v6c0 4.4 3 7.6 7 9 4-1.4 7-4.6 7-9V6l-7-3z"/><path d="m9 12 2 2 4-4"/></svg></span><h3 data-i18n="f3.title">Pausa que te cuida</h3><p data-i18n="f3.text">Tras 2 señales perdidas seguidas, paramos y volvemos cuando la mesa se ordena.</p></div>
-        <div class="card feat reveal"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></span><h3 data-i18n="f4.title">Soporte de verdad</h3><p data-i18n="f4.text">Te responde una persona, en privado, por el mismo bot.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HORARIO -->
-  <section id="horario" class="alt">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="tag" data-i18n="hours.tag">Horario</span>
-        <h2 data-i18n="hours.title">¿A qué hora hay señales?</h2>
-        <p data-i18n="hours.lead">Elige tu país o deja que rote: la hora se ajusta sola.</p>
-      </div>
-      <div class="tz-switch reveal" id="tzSwitch" role="group" aria-label="Zona horaria" data-i18n-aria="hours.tzLabel"></div>
-      <div class="hours-grid">
-        <div class="card hours-card vip reveal">
-          <span class="hours-label" data-i18n="hours.vip">VIP Premium</span>
-          <div class="hours-range" id="hoursVip"><span class="gold-text">08:00 – 01:00</span></div>
-          <span class="hours-sub" data-i18n="hours.vipSub">Todos los días · todas las señales</span>
-          <span class="hours-state" id="stateVip"></span>
-        </div>
-        <div class="card hours-card reveal">
-          <span class="hours-label" data-i18n="hours.free">Canal gratis</span>
-          <div class="hours-range" id="hoursFree"><span class="gold-text">08:00 – 22:00</span></div>
-          <span class="hours-sub" data-i18n="hours.freeSub">Todos los días · 1 de cada 5 señales</span>
-          <span class="hours-state" id="stateFree"></span>
-        </div>
-      </div>
-      <p class="hours-now" id="hoursNow"></p>
-    </div>
-  </section>
-
   <!-- RESULTADOS -->
   <section id="resultados">
     <div class="wrap">
@@ -650,7 +542,7 @@
         <div class="card dash-card reveal"><div class="dash-label" data-i18n="month.count">Señales</div><div class="dash-value gold-text" id="dashMesTotal">—</div></div>
         <div class="card dash-card reveal"><div class="dash-label" data-i18n="month.best">Mejor patrón</div><div class="dash-value" id="dashMesPatron">—</div><div class="dash-sub" id="dashMesPatronSub"></div></div>
       </div>
-      <p class="subhead" style="margin-top:44px" data-i18n="today.tag">Hoy</p>
+      <p class="subhead" style="margin-top:36px" data-i18n="today.tag">Hoy</p>
       <div class="dash-grid">
         <div class="card dash-card reveal"><div class="dash-label" data-i18n="dash.last">Última señal</div><div class="dash-value" id="dashUltima">—</div><div class="dash-sub" id="dashUltimaSub" data-i18n="dash.loading">Cargando…</div></div>
         <div class="card dash-card reveal"><div class="dash-label" data-i18n="dash.rate">Efectividad</div><div class="dash-value gold-text" id="dashEfectividad">—</div></div>
@@ -673,8 +565,28 @@
     </div>
   </section>
 
+  <!-- CÓMO FUNCIONA + invitación a la guía -->
+  <section id="como" class="alt">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="tag" data-i18n="how.tag">Cómo funciona</span>
+        <h2 data-i18n="how.title">Tres pasos, sin complicaciones</h2>
+      </div>
+      <div class="steps">
+        <div class="card step reveal"><span class="num"><span class="gold-text">1</span></span><h3 data-i18n="how.s1t">Entra al bot</h3><p data-i18n="how.s1">Toca «Probar VIP 7 días gratis», verifica tu número en Telegram y listo: no pedimos tarjeta.</p></div>
+        <div class="card step reveal"><span class="num"><span class="gold-text">2</span></span><h3 data-i18n="how.s2t">Abre la mesa y espera</h3><p data-i18n="how.s2">Ten abierta la mesa de Bac Bo en tu casino. En el VIP primero llega «Posible entrada»: es para que estés listo.</p></div>
+        <div class="card step reveal"><span class="num"><span class="gold-text">3</span></span><h3 data-i18n="how.s3t">Apuesta y sigue los pasos</h3><p data-i18n="how.s3">Con «Entrada confirmada» apuestas en la siguiente ronda. Si no gana, el bot te dice exactamente qué hacer.</p></div>
+      </div>
+      <div class="card guia-cta reveal">
+        <span class="ico-libro" aria-hidden="true">📖</span>
+        <div><h3 data-i18n="guiacta.title">¿Primera vez en Bac Bo?</h3><p data-i18n="guiacta.text">En la guía aprendes en 2 minutos a leer una señal y a usar los gales, con las fichas reales de la mesa.</p></div>
+        <a class="btn btn-gold" href="guia.html" data-i18n="guiacta.btn">Ver la guía →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- PLANES -->
-  <section id="planes" class="alt">
+  <section id="planes">
     <div class="wrap">
       <div class="head reveal">
         <span class="tag" data-i18n="price.tag">Planes</span>
@@ -705,35 +617,21 @@
     </div>
   </section>
 
-  <!-- PREGUNTAS -->
-  <section id="preguntas">
+  <!-- PREGUNTAS (las de jugar están en la guía) -->
+  <section id="preguntas" class="alt">
     <div class="wrap">
       <div class="head reveal">
         <span class="tag" data-i18n="faq.tag">Preguntas frecuentes</span>
         <h2 data-i18n="faq.title">Dudas, resueltas en simple</h2>
       </div>
       <div class="faq">
-        <details class="card reveal"><summary data-i18n="faq.q1">¿Necesito saber de apuestas?</summary><p data-i18n="faq.a1">No. Lee arriba «Bac Bo en 30 segundos», «Cómo se lee una señal» y «Los gales». Con eso ya puedes seguir cualquier señal: el bot te dice qué apostar y qué hacer en cada paso.</p></details>
-        <details class="card reveal"><summary data-i18n="faq.q2">¿Qué es un gale, en una frase?</summary><p data-i18n="faq.a2">Volver a apostar al mismo lado con el doble cuando no ganó. Si gana, recuperas todo lo perdido y ganas lo mismo que tu apuesta inicial.</p></details>
-        <details class="card reveal"><summary data-i18n="faq.q3">¿Estoy obligado a hacer los gales?</summary><p data-i18n="faq.a3">No. Si solo juegas la Directa, en cada señal ganas o pierdes tu apuesta inicial y listo. Pero ten en cuenta que nuestra efectividad cuenta las señales ganadas en cualquier paso, con gales incluidos.</p></details>
-        <details class="card reveal"><summary data-i18n="faq.q4">¿Qué hago si sale empate?</summary><p data-i18n="faq.a4">Nada especial: el casino te devuelve el 90 % y repites la misma apuesta, sin doblar. El bot te lo recuerda con un mensaje.</p></details>
-        <details class="card reveal"><summary data-i18n="faq.q5">¿Y si veo la señal tarde?</summary><p data-i18n="faq.a5">Si ya pasó la ronda en la que tocaba apostar, no entres a mitad. Espera la siguiente señal: siempre vienen más.</p></details>
-        <details class="card reveal"><summary data-i18n="faq.q6">¿En qué casino juego?</summary><p data-i18n="faq.a6">En cualquiera que tenga la mesa en vivo Bac Bo de Evolution: es la misma mesa en todos. Juega solo en casinos legales en tu país.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q1">¿Necesito saber de apuestas?</summary><p data-i18n="faq.a1">No. En la «Guía para jugar» aprendes en 2 minutos cómo funciona Bac Bo, cómo se lee una señal y qué son los gales. Con eso ya puedes seguir cualquier señal: el bot te dice qué apostar y qué hacer en cada paso.</p></details>
         <details class="card reveal"><summary data-i18n="faq.q7">¿Cómo funciona la prueba gratis?</summary><p data-i18n="faq.a7">Son 7 días de VIP completo. Solo verificas tu número en el bot de Telegram (para que sea una prueba por persona). Vale para números de Colombia, Estados Unidos, Brasil y España.</p></details>
         <details class="card reveal"><summary data-i18n="faq.q8">¿Cómo pago y cuándo se activa?</summary><p data-i18n="faq.a8">En Colombia, con Bre-B: 100.000 pesos al mes. Desde cualquier país, con 27 USDT por la red Polygon. Le mandas al bot la captura del comprobante y, apenas lo confirmamos, te llega el acceso.</p></details>
         <details class="card reveal"><summary data-i18n="faq.q9">¿Se cobra solo cada mes?</summary><p data-i18n="faq.a9">No. Nada se cobra automático: pagas mes a mes, solo si quieres seguir. Si no renuevas, sales del VIP y sigues en el canal gratis.</p></details>
         <details class="card reveal"><summary data-i18n="faq.q10">¿Las señales ganan siempre?</summary><p data-i18n="faq.a10">No, y nadie te lo puede prometer: Bac Bo es azar. Hay días buenos y días malos. Por eso el bot hace pausa tras 2 pérdidas seguidas. Apuesta solo lo que estés dispuesto a perder.</p></details>
+        <details class="card reveal"><summary data-i18n="faq.q6">¿En qué casino juego?</summary><p data-i18n="faq.a6">En cualquiera que tenga la mesa en vivo Bac Bo de Evolution: es la misma mesa en todos. Juega solo en casinos legales en tu país.</p></details>
       </div>
-    </div>
-  </section>
-
-  <!-- FINAL -->
-  <section class="final">
-    <div class="wrap">
-      <img class="final-logo" src="logo-512.png" alt="" width="132" height="132">
-      <h2 class="gold-text" data-i18n="final.title">¿Lo probamos?</h2>
-      <p data-i18n="final.text">7 días de VIP gratis, sin tarjeta. Si no te convence, te quedas en el canal gratis.</p>
-      <a class="btn btn-gold" href="https://t.me/AGZ_Dice_Bot?start=web" target="_blank" rel="noopener" data-i18n="final.cta">🎁 Empezar mis 7 días gratis</a>
     </div>
   </section>
 </main>
@@ -741,13 +639,12 @@
 <footer>
   <div class="wrap">
     <div class="foot">
-      <a class="brand" href="#"><img src="favicon.svg" alt=""><span class="gold-text">Dados Dorados</span></a>
+      <a class="brand" href="./"><img src="favicon.svg" alt=""><span class="gold-text">Dados Dorados</span></a>
       <div class="links">
-        <a href="#como" data-i18n="nav.how">Cómo funciona</a>
-        <a href="#gales" data-i18n="nav.gales">Gales</a>
-        <a href="#resultados" data-i18n="nav.results">Resultados</a>
-        <a href="#planes" data-i18n="nav.plans">Planes</a>
-        <a href="#preguntas" data-i18n="nav.faq">Preguntas</a>
+        <a href="guia.html" data-i18n="nav.guide">📖 Guía para jugar</a>
+        <a href="./#resultados" data-i18n="nav.results">Resultados</a>
+        <a href="./#planes" data-i18n="nav.plans">Planes</a>
+        <a href="./#preguntas" data-i18n="nav.faq">Preguntas</a>
         <a href="https://t.me/AGZ_Dice_Bot?start=web" target="_blank" rel="noopener">Telegram</a>
       </div>
     </div>
@@ -784,9 +681,10 @@
     "es": {
       "meta.title": "Dados Dorados — Señales de Bac Bo en vivo por Telegram",
       "meta.description": "Señales de Bac Bo en tiempo real por Telegram: en qué apostar, cuándo y con cuántos gales, explicado fácil. 7 días de VIP gratis.",
+      "meta.guideTitle": "Guía para jugar Bac Bo con señales — Dados Dorados",
+      "meta.guideDesc": "Aprende en 2 minutos: cómo funciona Bac Bo, cómo se lee una señal, cómo funcionan los gales y a qué hora hay señales.",
       "nav.langLabel": "Idioma",
-      "nav.how": "Cómo funciona",
-      "nav.gales": "Gales",
+      "nav.guide": "📖 Guía para jugar",
       "nav.results": "Resultados",
       "nav.plans": "Planes",
       "nav.faq": "Preguntas",
@@ -795,9 +693,9 @@
       "hero.eyebrowOff": "Mesa de Bac Bo — fuera de línea ahora",
       "hero.title1": "Señales de Bac Bo,",
       "hero.title2": "en vivo y en tu Telegram",
-      "hero.sub": "Leemos la mesa ronda por ronda y te avisamos en qué apostar, cuándo hacerlo y qué hacer si no sale. Sin saber nada de apuestas: te lo explicamos todo aquí.",
+      "hero.sub": "Leemos la mesa ronda por ronda y te avisamos en qué apostar, cuándo hacerlo y qué hacer si no gana. Sin saber nada de apuestas: en la guía te lo explicamos todo.",
       "hero.cta": "🎁 Probar VIP 7 días gratis",
-      "hero.free": "Canal gratis",
+      "hero.guide": "📖 Aprende a jugar",
       "hero.age": "🔞 Solo mayores de 18 · Ninguna señal es segura · Juega con responsabilidad",
       "hero.k1": "17 h",
       "hero.k1t": "de señales al día",
@@ -830,7 +728,6 @@
       "ticker.agoD1": "hace 1 día",
       "result.win": "Ganada ✅",
       "result.loss": "Perdida ❌",
-      "bb.tag": "Paso 0",
       "bb.title": "Bac Bo en 30 segundos",
       "bb.lead": "Si nunca lo has jugado, esto es todo lo que necesitas saber.",
       "bb.player": "PLAYER",
@@ -847,8 +744,7 @@
       "how.s2t": "Abre la mesa y espera",
       "how.s2": "Ten abierta la mesa de Bac Bo en tu casino. En el VIP primero llega «Posible entrada»: es para que estés listo.",
       "how.s3t": "Apuesta y sigue los pasos",
-      "how.s3": "Con «Entrada confirmada» apuestas en la siguiente ronda. Si no sale, el bot te dice exactamente qué hacer.",
-      "read.tag": "La señal, por partes",
+      "how.s3": "Con «Entrada confirmada» apuestas en la siguiente ronda. Si no gana, el bot te dice exactamente qué hacer.",
       "read.title": "Cómo se lee una señal",
       "read.lead": "Cada «Entrada confirmada» trae tres datos. Con esto ya sabes jugarla.",
       "read.1t": "Apuesta en",
@@ -856,8 +752,7 @@
       "read.2t": "Apostar después de",
       "read.2": "Es el resultado que acaba de salir en la mesa. Si en tu pantalla el último fue ese, apuesta ya, en la ronda que viene. Si ya pasó otra ronda, llegaste tarde: no entres a mitad, espera la próxima señal.",
       "read.3t": "Gales",
-      "read.3": "Cuántos intentos extra tiene la señal si el primero falla: 1 o 2. Abajo te explicamos cómo funcionan.",
-      "gal.tag": "Lo más importante",
+      "read.3": "Cuántos intentos extra tiene la señal si el primero falla: 1 o 2. En la pestaña «Gales» te explicamos cómo funcionan.",
       "gal.title": "Los gales, explicados fácil",
       "gal.lead": "Un gale es volver a apostar al mismo lado, con el doble, cuando la apuesta anterior no ganó. Estas son las fichas de la mesa; abajo lo ves con ellas, empezando por la más pequeña, la de 5.000.",
       "gal.s1n": "Directa",
@@ -877,17 +772,6 @@
       "gal.tie": "No cuenta como fallo. Repites la misma apuesta, sin doblar. Solo pierdes el 10 % de esa apuesta (el casino te devuelve el 90 %).",
       "gal.tipT": "Regla de oro",
       "gal.tip": "Si empiezas con $50.000 o $100.000, apuesta siempre la ficha de 5.000 y no subas el monto para recuperar. Una señal perdida con dos gales cuesta $35.000, así que con $50.000 lo más seguro es jugar solo hasta el Gale 1 ($15.000 como máximo). Y si el bot entra en pausa, haz pausa tú también.",
-      "feat.tag": "Qué te damos",
-      "feat.title": "Hecho para que no tengas que adivinar",
-      "f1.title": "Lectura en vivo",
-      "f1.text": "Conectados a la mesa: cada ronda se analiza al instante.",
-      "f2.title": "Patrones confirmados",
-      "f2.text": "Solo avisamos cuando un patrón se confirma, no en cada ronda.",
-      "f3.title": "Pausa que te cuida",
-      "f3.text": "Tras 2 señales perdidas seguidas, paramos y volvemos cuando la mesa se ordena.",
-      "f4.title": "Soporte de verdad",
-      "f4.text": "Te responde una persona, en privado, por el mismo bot.",
-      "hours.tag": "Horario",
       "hours.title": "¿A qué hora hay señales?",
       "hours.lead": "Elige tu país o deja que rote: la hora se ajusta sola.",
       "hours.tzLabel": "Zona horaria",
@@ -953,7 +837,7 @@
       "faq.tag": "Preguntas frecuentes",
       "faq.title": "Dudas, resueltas en simple",
       "faq.q1": "¿Necesito saber de apuestas?",
-      "faq.a1": "No. Lee arriba «Bac Bo en 30 segundos», «Cómo se lee una señal» y «Los gales». Con eso ya puedes seguir cualquier señal: el bot te dice qué apostar y qué hacer en cada paso.",
+      "faq.a1": "No. En la «Guía para jugar» aprendes en 2 minutos cómo funciona Bac Bo, cómo se lee una señal y qué son los gales. Con eso ya puedes seguir cualquier señal: el bot te dice qué apostar y qué hacer en cada paso.",
       "faq.q2": "¿Qué es un gale, en una frase?",
       "faq.a2": "Volver a apostar al mismo lado con el doble cuando no ganó. Si gana, recuperas todo lo perdido y ganas lo mismo que tu apuesta inicial.",
       "faq.q3": "¿Estoy obligado a hacer los gales?",
@@ -984,6 +868,24 @@
       "foot.terms": "Términos y condiciones",
       "foot.privacy": "Política de privacidad",
       "foot.responsible": "Juego responsable",
+      "guiacta.title": "¿Primera vez en Bac Bo?",
+      "guiacta.text": "En la guía aprendes en 2 minutos a leer una señal y a usar los gales, con las fichas reales de la mesa.",
+      "guiacta.btn": "Ver la guía →",
+      "guia.tag": "Guía para jugar",
+      "guia.title1": "Aprende a jugar",
+      "guia.title2": "en 2 minutos",
+      "guia.lead": "Elige un tema. Si es tu primera vez, ve en orden: uno lleva al siguiente.",
+      "guia.back": "← Volver al inicio",
+      "tab.bacbo": "1 · Bac Bo",
+      "tab.senal": "2 · La señal",
+      "tab.gales": "3 · Gales",
+      "tab.horario": "4 · Horario",
+      "tab.dudas": "Dudas",
+      "next.senal": "Siguiente: cómo se lee una señal →",
+      "next.gales": "Siguiente: los gales →",
+      "next.horario": "Siguiente: el horario →",
+      "next.dudas": "Siguiente: dudas al jugar →",
+      "dudas.title": "Dudas al jugar",
       "op.tag": "Opiniones",
       "op.title": "Lo que dicen en el VIP",
       "op.anon": "Usuario del VIP",
@@ -992,9 +894,10 @@
     "en": {
       "meta.title": "Dados Dorados — Live Bac Bo signals on Telegram",
       "meta.description": "Real-time Bac Bo signals on Telegram: what to bet on, when, and how many gales, explained simply. 7 days of VIP free.",
+      "meta.guideTitle": "How to play Bac Bo with signals — Dados Dorados",
+      "meta.guideDesc": "Learn in 2 minutes: how Bac Bo works, how to read a signal, how gales work and when there are signals.",
       "nav.langLabel": "Language",
-      "nav.how": "How it works",
-      "nav.gales": "Gales",
+      "nav.guide": "📖 How to play",
       "nav.results": "Results",
       "nav.plans": "Plans",
       "nav.faq": "FAQ",
@@ -1003,9 +906,9 @@
       "hero.eyebrowOff": "Bac Bo table — offline right now",
       "hero.title1": "Bac Bo signals,",
       "hero.title2": "live on your Telegram",
-      "hero.sub": "We read the table round by round and tell you what to bet on, when to do it and what to do if it misses. No betting experience needed: we explain everything here.",
+      "hero.sub": "We read the table round by round and tell you what to bet on, when to do it and what to do if it loses. No betting experience needed: our guide explains everything.",
       "hero.cta": "🎁 Try VIP free for 7 days",
-      "hero.free": "Free channel",
+      "hero.guide": "📖 Learn to play",
       "hero.age": "🔞 Adults only (18+) · No signal is guaranteed · Play responsibly",
       "hero.k1": "17 h",
       "hero.k1t": "of signals a day",
@@ -1038,7 +941,6 @@
       "ticker.agoD1": "1 day ago",
       "result.win": "Won ✅",
       "result.loss": "Lost ❌",
-      "bb.tag": "Step 0",
       "bb.title": "Bac Bo in 30 seconds",
       "bb.lead": "If you've never played it, this is all you need to know.",
       "bb.player": "PLAYER",
@@ -1055,8 +957,7 @@
       "how.s2t": "Open the table and wait",
       "how.s2": "Keep the Bac Bo table open at your casino. In the VIP you first get «Possible entry»: it's so you're ready.",
       "how.s3t": "Bet and follow the steps",
-      "how.s3": "With «Entry confirmed» you bet on the next round. If it misses, the bot tells you exactly what to do.",
-      "read.tag": "The signal, piece by piece",
+      "how.s3": "With «Entry confirmed» you bet on the next round. If it loses, the bot tells you exactly what to do.",
       "read.title": "How to read a signal",
       "read.lead": "Every «Entry confirmed» has three pieces of information. With this, you can play it.",
       "read.1t": "Bet on",
@@ -1064,8 +965,7 @@
       "read.2t": "Bet after",
       "read.2": "It's the result that just came out on the table. If the last one on your screen matches, bet now, on the coming round. If another round already went by, you're late: don't jump in halfway, wait for the next signal.",
       "read.3t": "Gales",
-      "read.3": "How many extra tries the signal has if the first one misses: 1 or 2. We explain how they work below.",
-      "gal.tag": "The most important part",
+      "read.3": "How many extra tries the signal has if the first one misses: 1 or 2. The «Gales» tab explains how they work.",
       "gal.title": "Gales, explained simply",
       "gal.lead": "A gale means betting on the same side again, with double the amount, when the previous bet lost. These are the table chips; below you see it with them, starting with the smallest one, the 5,000 chip.",
       "gal.s1n": "Direct",
@@ -1085,17 +985,6 @@
       "gal.tie": "It doesn't count as a miss. Repeat the same bet, without doubling. You only lose 10% of that bet (the casino returns 90%).",
       "gal.tipT": "Golden rule",
       "gal.tip": "If you start with $50,000 or $100,000, always bet the 5,000 chip and don't raise the amount to win it back. A signal lost with two gales costs $35,000, so with $50,000 the safest is to play only up to Gale 1 ($15,000 at most). And if the bot pauses, take a break too.",
-      "feat.tag": "What you get",
-      "feat.title": "Built so you don't have to guess",
-      "f1.title": "Live reading",
-      "f1.text": "Connected to the table: every round is analysed instantly.",
-      "f2.title": "Confirmed patterns",
-      "f2.text": "We only alert you when a pattern is confirmed, not every round.",
-      "f3.title": "A pause that protects you",
-      "f3.text": "After 2 lost signals in a row, we stop and come back when the table settles.",
-      "f4.title": "Real support",
-      "f4.text": "A real person answers you, privately, through the same bot.",
-      "hours.tag": "Schedule",
       "hours.title": "When are there signals?",
       "hours.lead": "Pick your country or let it rotate: the time adjusts automatically.",
       "hours.tzLabel": "Time zone",
@@ -1161,7 +1050,7 @@
       "faq.tag": "FAQ",
       "faq.title": "Questions, answered simply",
       "faq.q1": "Do I need to know about betting?",
-      "faq.a1": "No. Read «Bac Bo in 30 seconds», «How to read a signal» and «Gales» above. That's enough to follow any signal: the bot tells you what to bet and what to do at each step.",
+      "faq.a1": "No. In «How to play» you learn in 2 minutes how Bac Bo works, how to read a signal and what gales are. That's enough to follow any signal: the bot tells you what to bet and what to do at each step.",
       "faq.q2": "What's a gale, in one sentence?",
       "faq.a2": "Betting on the same side again with double the amount when it lost. If it wins, you get back everything you lost and win the same as your starting bet.",
       "faq.q3": "Do I have to play the gales?",
@@ -1192,6 +1081,24 @@
       "foot.terms": "Terms and conditions",
       "foot.privacy": "Privacy policy",
       "foot.responsible": "Responsible gaming",
+      "guiacta.title": "First time playing Bac Bo?",
+      "guiacta.text": "Our guide teaches you in 2 minutes how to read a signal and use gales, with the real table chips.",
+      "guiacta.btn": "Open the guide →",
+      "guia.tag": "How to play",
+      "guia.title1": "Learn to play",
+      "guia.title2": "in 2 minutes",
+      "guia.lead": "Pick a topic. If it's your first time, go in order: each one leads to the next.",
+      "guia.back": "← Back to home",
+      "tab.bacbo": "1 · Bac Bo",
+      "tab.senal": "2 · The signal",
+      "tab.gales": "3 · Gales",
+      "tab.horario": "4 · Schedule",
+      "tab.dudas": "Questions",
+      "next.senal": "Next: how to read a signal →",
+      "next.gales": "Next: gales →",
+      "next.horario": "Next: the schedule →",
+      "next.dudas": "Next: questions while playing →",
+      "dudas.title": "Questions while playing",
       "op.tag": "Reviews",
       "op.title": "What VIP members say",
       "op.anon": "VIP member",
@@ -1217,9 +1124,9 @@
 
   function aplicarIdioma() {
     document.documentElement.lang = idioma;
-    document.title = t("meta.title");
+    document.title = t(document.body.dataset.titulo || "meta.title");
     var meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute("content", t("meta.description"));
+    if (meta) meta.setAttribute("content", t(document.body.dataset.descripcion || "meta.description"));
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       el.textContent = t(el.getAttribute("data-i18n"));
     });
@@ -1251,6 +1158,39 @@
     btn.addEventListener("click", function () { cambiarIdioma(btn.getAttribute("data-lang")); });
   });
   aplicarIdioma();
+
+  // ---- Guía: un tema por pestaña (guia.html#gales abre esa) ----
+  // Los enlaces viejos a temas que se fueron a la guía (dadosdorados.vip/#gales) llevan allá.
+  var TEMAS_GUIA = ["bacbo", "senal", "gales", "horario", "dudas"];
+  var hashInicial = location.hash.slice(1);
+  if (document.getElementById("resultados") && TEMAS_GUIA.indexOf(hashInicial) >= 0) {
+    location.replace("guia.html#" + hashInicial);
+  }
+  var pestanas = document.querySelectorAll("[data-tab]");
+  function abrirPestana(id, desplazar) {
+    if (TEMAS_GUIA.indexOf(id) < 0 || !document.getElementById(id)) return;
+    pestanas.forEach(function (b) { b.setAttribute("aria-selected", b.dataset.tab === id ? "true" : "false"); });
+    TEMAS_GUIA.forEach(function (tema) {
+      var panel = document.getElementById(tema);
+      if (panel) panel.classList.toggle("activa", tema === id);
+    });
+    var boton = document.querySelector('[data-tab="' + id + '"]');
+    if (boton && boton.scrollIntoView) boton.scrollIntoView({ block: "nearest", inline: "center" });
+    if (history.replaceState) history.replaceState(null, "", "#" + id);
+    if (desplazar) {
+      var barra = document.querySelector(".pestanas");
+      window.scrollTo({ top: Math.max(0, barra.offsetTop - 57), behavior: prefiereQuieto() ? "auto" : "smooth" });
+    }
+  }
+  function prefiereQuieto() { return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches; }
+  if (pestanas.length) {
+    pestanas.forEach(function (b) { b.addEventListener("click", function () { abrirPestana(b.dataset.tab, true); }); });
+    document.querySelectorAll("[data-ir]").forEach(function (b) {
+      b.addEventListener("click", function () { abrirPestana(b.dataset.ir, true); });
+    });
+    if (hashInicial) abrirPestana(hashInicial, false);
+    window.addEventListener("hashchange", function () { abrirPestana(location.hash.slice(1), true); });
+  }
 
   // ---- Aviso de mayoría de edad (una sola vez por navegador) ----
   var CLAVE_EDAD = "dadosDorados.mayorDeEdad";
@@ -1457,6 +1397,7 @@
   }
 
   function actualizarPanelEnVivo() {
+    if (!document.getElementById("dashUpdated")) return;   // la guía no tiene el panel de resultados
     cargarDashboard();
     cargarDashboardMes();
     cargarTicker();
